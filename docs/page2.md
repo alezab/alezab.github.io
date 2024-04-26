@@ -1,619 +1,1067 @@
-# C++ School
+# JAVA
 
-## Lesson 1: Creating directiories, scripting in Bash/C, infinite loops, cronjobs.
+## Temat 1. Klasa i obiekt
 
-Exercises:
+Zadanie 1.
+Zdefiniuj klasę Point posiadającą dwa publiczne, ostateczne pola x, y. Napisz konstruktor ustawiający te wartości.
+Zdefiniuj klasę Segment reprezentującą odcinek, posiadającą dwa prywatne punkty klasy Point. Wygeneruj akcesory i mutatory klasy Segment. Napisz publiczną metodę, która zwraca długość odcinka. W kolejnym kroku usuń mutatory i utwórz konstruktor ustawiający te pola na wartości swoich dwóch parametrów.
 
-1. Create the directory structure: `kat1/`, `kat2/`, `kat3/`.
-```
-mkdir kat{1,2,3}
-```
+https://github.com/kdmitruk/java_lab_2024/commit/6dae17f7c1b4fa68676c39cde6697ce2c263a62d
 
-2. In `kat1`, create subdirectories: `subkat1_1/`, `subkat1_2/`.
-```
-mkdir ./kat1/subkat1_{1,2}
-```
+main
 
-3. In `kat2`, create subdirectories: `subkat2_1/`, `subkat2_2/`.
-```
-mkdir ./kat2/subkat2_{1,2}
-```
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+         Point point;
+         point=new Point(2.4, 5.5);
+         System.out.println(point);
 
-4. In `kat1/subkat1_1`, create a script that displays a message to standard output.
-``` bash
-#!/bin/bash
-echo "Message to stdout"
-```
-```
-echo -e '#!/bin/bash\necho "Message to stdout"' > ./kat1/subkat1_1/script.sh &&
-chmod +x ./kat1/subkat1_1/script.sh &&
-./kat1/subkat1_1/script.sh
-```
+         Segment seg= new Segment(point, new Point(6.7, 8.5));
 
-5. Copy the script to `kat1/subkat1_2`.
-```
-cp ./kat1/subkat1_1/script.sh ./kat1/subkat1_2/
-```
-
-6. Modify the script so that it creates subdirectories: `subkat3_1/`, `subkat3_2/` in `kat3/`.
-```
-echo -e 'mkdir ./kat3/subkat3_{1,2}' >> kat1/subkat1_2/script.sh &&
-chmod +x ./kat1/subkat1_2/script.sh &&
-./kat1/subkat1_2/script.sh
-```
-
-7. In `kat3/subkat3_1/`, create a file containing the number of words and characters from the previous script.
-```
-wc ./kat1/subkat1_2/script.sh > kat3/subkat3_1/wc.txt &&
-cat ./kat3/subkat3_1/wc.txt
-```
-
-8. Find the previous file using some search function, use a display function and save the contents of the file to a new one in `kat3/subkat3_2` - all in a single command line.
-Using `find`:
-```
-find kat3/ -name wc.txt | xargs cat > ./kat3/subkat3_2/wc.txt &&
-cat ./kat3/subkat3_2/wc.txt
-```
-Using `grep`:
-
-9. Create a script that will enter an infinite loop (both a bash script and a C script). In a new terminal window, use a single line to find the process running this program and terminate it.  
-Bash script: `infinite_loop.sh`:
-``` bash
-#!/bin/bash
-while true; do
-  echo -e "Infinite loop\n"
-done
-```
-C script: `infinite_loop.c`:
-``` c
-int main() {
-    while(1) {
-        printf("Infinite loop\n");
+        System.out.println(seg.length());
     }
-    return 0;
-}
-```
-```
-ps aux | grep "infinite_loop.sh"
-```
-```
-pkill -9 -f infinite_loop
-```
-
-10. Using cron, create a task that will run the script in `kat1/subkat1_2` at a specific time interval, for example, every minute.
-Using `crontab -e` command. Adding this line will run `script.sh` at every minute. See [crontab.guru](https://crontab.guru) for other schedule expressions.
-```
-* * * * * ~/kat1/subkat1_2/script.sh
-```
-
-11. Create a process (using bash -c) that will run in the background.
-```
-bash -c './infinite_loop.sh' &
-```
-
-## Lesson 2: Environmental variables
-
-Environments:  
-DEVELOPMENT/DEV -> TESTING/QA/STAGE -> PRODUCTION/PROD
-
-ORDERS.URL = "HTTPS://ORDERS.DEV.COM"  
-ORDERS.URL = "HTTPS://ORDERS.STAGE.COM"  
-
-Global variable handling:  
-```export ORDERS.URL = "HTTPS://ORDERS.DEV.COM"```
-
-Same can be achieved by editing `~/.bashrc` or `~/.bash_profile`:
-
-```
-nano ~/.bashrc
-source .bashrc
-```
-
-
-Command to list all the environment variables defined for a current session:
-
-* `env`
-
-Printing variable:
-
-* `printenv VARIABLE_NAME`
-* `echo $varname`
-
-Source: [freecodecamp.org/news/how-to-set-an-environment-variable-in-linux](https://www.freecodecamp.org/news/how-to-set-an-environment-variable-in-linux/)
-
-**1\. Write a script that takes three parameters:**
-
-1. Filename
-2. Action name - delete, create, copy
-3. (Optional) filename
-
-    Additionally, the script must be dependent on an environmental variable. For example, let this variable be the path to a file which will differ depending on the environment.  
-
-    Script operations:  
-
-    1. Delete - deletes the file specified in the first parameter
-    2. Create - creates a new file and adds the content from the file specified by the environmental variable
-    3. Copy - copies the content from the third parameter to the file specified in the first parameter
-
-``` bash
-#!/bin/bash
-
-if [ "$#" -lt 2 ]; then
-  echo "Incorrect number of args."
-  echo "Use: $0 filename1 action (optional)filename2."
-  echo "Available actions: delete, create, copy."
-  exit 1
-fi
-
-FILE_NAME_1=$1 # Arg1: Filename 1
-ACTION=$2 # Arg2: Action name
-FILE_NAME_2=$3 # Arg3 (Optional) Filename 2
-
-case "$ACTION" in
-  "delete") 
-    rm -f "$FILE_NAME_1"
-    echo "Deleted file: $FILE_NAME_1"
-    ;;
-  "create")
-    if [ -z "$ENV_FILE_PATH" ]; then
-      echo "ENV_FILE_PATH was not set."
-      exit 1
-    fi 
-    cp -f "$ENV_FILE_PATH" "$FILE_NAME_1"
-    echo "Created file $FILE_NAME_1 the contents of the file from $ENV_FILE_PATH"
-    ;;
-  "copy")
-    if [ -z "$3" ]; then
-      echo "3rd arg was not set."
-      exit 1
-    fi
-    cp -f "$FILE_NAME_2" "$FILE_NAME_1"
-    echo "Copied the contents of the file $FILE_NAME_2 to file  $FILE_NAME_1"
-    ;;  
-  *)
-    echo "Incorrect $ACTION. Available actions: delete, create, copy."
-    exit 1
-    ;;
-esac
-```
-
-**2\. As an extension to the previous exercise:**  
-Place the path to the script under the environmental variable (the script can do anything, it's important that it shows the result of its actions).  
-The first argument is the name of the new file (script), and the second option is "run-copy".  
-The task involves running the script whose name is passed as the first argument. Copying involves copying the script from the variable and adding additional content.  
-At the end, execute the script from the variable to demonstrate its correct operation.  
-
-``` bash
-#!/bin/bash
-
-if [ "$#" -lt 2 ]; then
-  echo "Incorrect number of args."
-  echo "Use: $0 filename1 action (optional)filename2."
-  echo "Available actions: delete, create, copy, run-copy."
-  exit 1
-fi
-
-FILE_NAME_1=$1 # Arg1: Filename 1
-ACTION=$2 # Arg2: Action name
-FILE_NAME_2=$3 # Arg3 (Optional) Filename 2
-
-case "$ACTION" in
-  "delete") 
-    rm -f "$FILE_NAME_1"
-    echo "Deleted file: $FILE_NAME_1"
-    ;;
-  "create")
-    if [ -z "$ENV_FILE_PATH" ]; then
-      echo "ENV_FILE_PATH was not set."
-      exit 1
-    fi 
-    cp -f "$ENV_FILE_PATH" "$FILE_NAME_1"
-    echo "Created file $FILE_NAME_1 the contents of the file from $ENV_FILE_PATH"
-    ;;
-  "copy")
-    if [ -z "$3" ]; then
-      echo "3rd arg was not set."
-      exit 1
-    fi
-    cp -f "$FILE_NAME_2" "$FILE_NAME_1"
-    echo "Copied the contents of the file $FILE_NAME_2 to file  $FILE_NAME_1"
-    ;;
-  "run-copy")
-    if [ -z "$ENV_FILE_PATH" ]; then
-      echo "ENV_FILE_PATH variable was not set."
-      exit 1
-    fi
-    cp -f "$ENV_FILE_PATH" "$FILE_NAME_1"
-    echo "echo 'Script DLC content.'" >> "$FILE_NAME_1"
-    echo "The script was copied to $FILE_NAME_1 and DLC content was added."
-
-    echo ""
-
-    echo "Running script with DLC:"
-    chmod +x "$FILE_NAME_1"
-    bash "$FILE_NAME_1"
-
-    echo ""
-
-    echo "Running script without DLC:"
-    chmod +x "$ENV_FILE_PATH"
-    bash "$ENV_FILE_PATH"
-    ;;    
-  *)
-    echo "Incorrect $ACTION. Available actions: delete, create, copy, run-copy."
-    exit 1
-    ;;
-esac
-```
-
-## Lesson 3: File Handling in C
-
-1. Create a file, and in a C program, add some string of characters to this file.
-``` c
-#include <stdio.h>
-#include <stdlib.h>
-
-int main()
-{
-    const char *filename = "file.txt";
-    const char *text = "Example text.";
-
-    // Open file for writing
-    // If the file does not exist, it will be created.
-    FILE *fp = fopen(filename, "w");
-    if (fp == NULL)
-    {
-        perror("Error opening the file");
-        return -1;
-    }
-
-    // Write text to file.
-    fprintf(fp, "%s", text);
-    // Close the file.
-    fclose(fp);
-
-    return 0;
 }
 ```
 
-2. As an extension of the previous task, the program should accept the filename. The program should check if the file exists (if not, throw an appropriate error) and write some content to it. If the file exists, the content should be appended, not overwritten.
-Usage:  
-`./2 ./file.txt`  
-`cat file.txt`  
-``` c
-#include <stdio.h>
-#include <stdlib.h>
+point
 
-int main(int argc, char *argv[])
-{
-    FILE *fp;
-    const char *text = "Example text.";
+```java
+public class Point {
+    public final double x,y;
 
-    if (argc < 2)
-    {
-        printf("Usage: %s filename\n", argv[0]);
-        return -1;
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 
-    const char *filename = argv[1];
-
-    // Check if the file exists. If not, the program returns an error.
-    if ((fp = fopen(filename, "r")) != NULL)
-    {
-        fclose(fp); // File exists, close it and reopen in append mode.
-        fp = fopen(filename, "a");
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
-    else
-    {
-        // File does not exist, open in "w" mode which will create the file.
-        fp = fopen(filename, "w");
-    }
-
-    if (fp == NULL)
-    {
-        perror("Error opening the file");
-        return -1;
-    }
-
-    fprintf(fp, "%s", text); // Append text to the file.
-    fclose(fp);              // Close the file.
-
-    return 0;
 }
-
 ```
 
-3. Another extension is to check the length of the file's content. If it exceeds 10 characters, new content is appended; if not, it is skipped.  
-Usage:  
-`./3 ./file.txt`  
-`cat file.txt`  
-``` c
-#include <stdio.h>
-#include <stdlib.h>
+segment
 
-int main(int argc, char *argv[])
-{
-    FILE *fp = NULL;
-    const char *text = "New text.";
-    long fileSize;
+```java
+public class Segment {
+    private Point start;
+    private Point end;
 
-    if (argc < 2)
-    {
-        printf("Usage: %s filename\n", argv[0]);
-        return -1;
+    public Segment(Point start, Point end) {
+        this.start = start;
+        this.end = end;
     }
 
-    const char *filename = argv[1];
+    public Point getStart() {
+        return start;
+    }
 
-    // Open file in read and write mode "r+".
-    fp = fopen(filename, "r+");
+    public Point getEnd() {
+        return end;
+    }
+    public double length(){
+        return Math.hypot(end.x -start.x, end.y- start.y);
+    }
 
-    // Check if the file exists.
-    if (fp == NULL)
-    {
-        // If file does not exist then open in "w" mode to create and write.
-        fp = fopen(filename, "w");
-        // Check if the file was created.
-        if (fp != NULL)
+}
+```
+
+Zadanie 2.
+Zdefiniuj w klasie Segment publiczną metodę toSvg(), która zwróci napis zawierający kod języka znacznikowego SVG pozwalający wyświetlić tę linię.
+
+https://github.com/kdmitruk/java_lab_2024/commit/5bf2e2ddbb2003ef6025a06c8a88f8a385fdb706
+
+main
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+         Point point;
+         point=new Point(2.4, 5.5);
+         System.out.println(point);
+
+         Segment seg= new Segment(point, new Point(6.7, 8.5));
+
+//        System.out.println(seg.length());
+        System.out.println(seg.toSvg());
+
+    }
+}
+```
+
+segment
+
+```java
+import java.util.Locale;
+
+public class Segment {
+    private Point start;
+    private Point end;
+
+    public Segment(Point start, Point end) {
+        this.start = start;
+        this.end = end;
+    }
+    public String toSvg(){
+        return String.format(Locale.ENGLISH,"<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:red;stroke-width:2\" />", start.x,start.y, end.x,end.y);
+    }
+    //<line x1="0" y1="0" x2="300" y2="200" style="stroke:red;stroke-width:2" />
+
+
+    public Point getStart() {
+        return start;
+    }
+
+    public Point getEnd() {
+        return end;
+    }
+    public double length(){
+        return Math.hypot(end.x -start.x, end.y- start.y);
+    }
+
+}
+```
+
+Zadanie 3.
+Napisz funkcję (metodę klasy głównej), która przyjmie: obiekt segment klasy Segment oraz obiekt point klasy Point. Funkcja powinna zwrócić odcinek prostopadły do segment, rozpoczynający się w punkcie point o długości równej odcinkowi segment. Następnie zmodyfikuj tę metodę tak, aby zwracała tablicę dwóch możliwych do konstrukcji linii oraz przenieś tę metodę jako statyczną do klasy Segment. Szczególne przypadki należy zignorować.
+
+https://github.com/kdmitruk/java_lab_2024/commit/c250508eb3c56baad95d5f6bab9771ffcadc7849
+
+main
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+         Point point;
+         point=new Point(20, 50);
+//         System.out.println(point);
+
+         Segment seg= new Segment(point, new Point(60, 40));
+
+//        System.out.println(seg.length());
+        System.out.println(seg.toSvg());
+
+        Segment[] p_seg = Segment.perpendicularTo(seg, point);
+        System.out.println(p_seg[0].toSvg());
+        System.out.println(p_seg[1].toSvg());
+
+    }
+}
+```
+
+segment
+
+```java
+import java.util.Locale;
+
+public class Segment {
+    private Point start;
+    private Point end;
+
+    public Segment(Point start, Point end) {
+        this.start = start;
+        this.end = end;
+    }
+    public String toSvg(){
+        return String.format(Locale.ENGLISH,"<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:red;stroke-width:2\" />", start.x,start.y, end.x,end.y);
+    }
+    //<line x1="0" y1="0" x2="300" y2="200" style="stroke:red;stroke-width:2" />
+
+
+    public Point getStart() {
+        return start;
+    }
+
+    public Point getEnd() {
+        return end;
+    }
+    public double length(){
+        return Math.hypot(end.x -start.x, end.y- start.y);
+    }
+
+    public static Segment[] perpendicularTo(Segment s, Point p) {
+        double dx = s.end.x - s.start.x;
+        double dy = s.end.y - s.start.y;
+
+        return new Segment[] {
+                new Segment(p, new Point(
+                        p.x - dy, p.y + dx
+                )),
+                new Segment(p, new Point(
+                        p.x + dy, p.y - dx
+                )),
+        };
+    }
+
+}
+```
+
+Zadanie 4.
+Zdefiniuj klasę Polygon posiadającą prywatną tablicę punktów. Konstruktor tej klasy powinien przyjmować tablicę punktów. Napisz publiczną metodę toSvg() działającą analogicznie jak w poprzednim zadaniu.
+
+https://github.com/kdmitruk/java_lab_2024/commit/f9f0a321e563c134e6693664ef4cd923a5fcf3de
+
+main
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+      /*   Point point;
+         point=new Point(20, 50);
+//         System.out.println(point);
+
+         Segment seg= new Segment(point, new Point(60, 40));
+
+//        System.out.println(seg.length());
+        System.out.println(seg.toSvg());
+
+        Segment[] p_seg = Segment.perpendicularTo(seg, point);
+        System.out.println(p_seg[0].toSvg());
+        System.out.println(p_seg[1].toSvg()); */
+        Polygon poly = new Polygon(new Point[]{
+                new Point (30, 70),
+                new Point (60, 80),
+                new Point (50, 40)
+        });
+        System.out.println(poly.toSvg());
+
+    }
+}
+```
+
+polygon
+
+```java
+import java.util.Locale;
+
+public class Polygon {
+    private Point[] points;
+
+    public Polygon(Point[] points) {
+        this.points = points;
+    }
+    public String toSvg (){
+        String result = "";
+        for(int i=0; i<this.points.length; i++)
         {
-            // Write new text and close the file without checking length.
-            fprintf(fp, "%s", text);
-            fclose(fp);
-            return 0;
+            result += String.format(Locale.ENGLISH, "%f,%f " , points[i].x, points[i].y );
         }
-        else
+        return String.format(Locale.ENGLISH,"<polygon points=\"%s\" style=\"fill:lime;stroke:purple;stroke-width:3\" />", result);
+    }
+}
+//<polygon points="200,10 250,190 150,190" style="fill:lime;stroke:purple;stroke-width:3" />
+```
+
+Zadanie 5.
+
+W klasie Polygon napisz konstruktor kopiujący, wykonujący głęboką kopię obiektu.
+
+## Temat 2. Paradygmaty programowania obiektowego
+
+Zadanie 1.
+Zdefiniuj klasę Style o finalnych, publicznych polach klasy String: fillColor, strokeColor oraz Double: strokeWidth. Napisz trójargumentowy konstruktor ustawiający te wartości. Napisz publiczną metodę toSvg() zwracającą napis, będący opcją style, którą można umieścić np. w tagu \<polygon\>.
+
+https://github.com/kdmitruk/java_lab_2024/commit/f2982dcede6a55fb1ec3db95f036117e934048d3
+
+main
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+      /*   Point point;
+         point=new Point(20, 50);
+//         System.out.println(point);
+
+         Segment seg= new Segment(point, new Point(60, 40));
+
+//        System.out.println(seg.length());
+        System.out.println(seg.toSvg());
+
+        Segment[] p_seg = Segment.perpendicularTo(seg, point);
+        System.out.println(p_seg[0].toSvg());
+        System.out.println(p_seg[1].toSvg()); */
+        Polygon poly = new Polygon(new Point[]{
+                new Point (30, 70),
+                new Point (60, 80),
+                new Point (50, 40)
+        });
+        Style style= new Style("pink","black",6.0);
+        Polygon polygon= new Polygon(new Point[]{
+                new Point (500, 100),
+                new Point (220, 20),
+                new Point (400, 25),
+                new Point (70, 33),
+        },style);
+        System.out.println(polygon.toSvg());
+        System.out.println(poly.toSvg());
+
+    }
+}
+```
+
+polygon
+
+```java
+import java.util.Locale;
+
+public class Polygon {
+    private Point[] points;
+    private Style style;
+
+    public Polygon(Point[] points) {
+        this.points = points;
+        this.style = new Style();
+ }
+    public Polygon(Point[] points, Style style) {
+        this.points = points;
+        this.style = style;
+    }
+
+    public String toSvg (){
+        String result = "";
+        for(int i=0; i<this.points.length; i++)
         {
-            perror("Error opening the file");
-            return -1;
+            result += String.format(Locale.ENGLISH, "%f,%f " , points[i].x, points[i].y );
         }
-    }
-
-    // File exists. Move to the end of the file to check its size.
-    fseek(fp, 0, SEEK_END);
-
-    // Calculate the size of the file.
-    fileSize = ftell(fp);
-
-    if (fileSize > 10)
-    {
-        fseek(fp, 0, SEEK_END); // Move to the end of the file before appending.
-        fprintf(fp, "%s", text);
-    }
-    else
-    {
-        printf("File length: %ld, below 10.", fileSize);
-    }
-
-    fileSize = ftell(fp);
-    printf("\nCurrent file length:\n%ld\n", fileSize);
-
-    fclose(fp); // Close the file in one place.
-
-    return 0;
-}
-```
-
-## Lesson 4: C Pointers
-
-1. Write a function `int max1(int *a, int *b)` that returns the value of the larger of the two values pointed to by the parameters.
-``` c
-int max1(int *a, int *b) {
-    return *a > *b ? *a : *b;
-}
-```
-
-2. Write a function `int * max2(int *a, int *b)` that returns the address of the larger value pointed to by the parameters.
-``` c
-int *max2(int *a, int *b) {
-    return *a > *b ? a : b;
-}
-```
-
-3. Write a function `int * max3(int *a, int *b)` that returns the larger address passed via the parameters.
-``` c
-int *max3(int *a, int *b) {
-    return a > b ? a : b;
-}
-```
-
-4. Write a function that receives pointers to two int values as parameters, and swaps the values pointed to only if the value pointed to by the first parameter is greater than the second.
-``` c
-#include <stdio.h>
-#include <stdlib.h>
-
-int max1(int *a, int *b) {
-    return *a > *b ? *a : *b;
-}
-
-int *max2(int *a, int *b) {
-    return *a > *b ? a : b;
-}
-
-int *max3(int *a, int *b) {
-    return a > b ? a : b;
-}
-
-void swap(int *a, int *b) {
-    int tmp = 0;
-    if (*a > *b) {
-        tmp = *b;
-        *b = *a;
-        *a = tmp;
+        return String.format(Locale.ENGLISH,"<polygon points=\"%s\" style=\"%s />", result,style.toSvg());
     }
 }
+```
 
-int main(int argc, char *argv[]) {
-    int a, b;
+style
 
-    printf("Enter a and b: ");
-    scanf("%d %d", &a, &b);
-    int *ptr_a = &a;
-    int *ptr_b = &b;
+```java
+import java.util.Locale;
 
-    printf("max1: %d\n", max1(ptr_a, ptr_b));
-    printf("max2: %p\n", (void *)max2(ptr_a, ptr_b));
-    printf("max3: %p\n", (void *)max3(ptr_a, ptr_b));
-    printf("Values before swap: a = %d, b = %d\n", a, b);
-    swap(ptr_a, ptr_b);
-    printf("Values after swap: a = %d, b = %d\n", a, b);
+public class Style {
+    public final String fillColor;
+    public final String strokeColor;
+    public final double strokeWidth;
 
-    return 0;
+    public Style(String fillColor, String strokeColor, double strokeWidth) {
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
+        this.strokeWidth = strokeWidth;
+    }
+
+    public Style() {
+        this("transparent","black",1.0);
+    }
+
+    public String toSvg(){
+        return String.format(Locale.ENGLISH,
+                "fill:%s;stroke:%s;stroke-width:%f\" />",
+                fillColor,strokeColor,strokeWidth);
+    }
+
 }
 ```
 
-## Lesson 5: Linux System Calls in C: fork(), wait(), getpid(), getenv()
+Zmodyfikuj klasę Polygon dodając do jej konstruktora argument Style i modyfikując jej metodę toSvg(), aby uwzględniała styl. Dopuść możliwość pominięcia stylu przy konstrukcji. Wówczas należy narysować przezroczysty (fillColor) wielokąt, z czarnym obrysem (strokeColor) o grubości jednego piksela (strokeWidth).
 
-1. Write a program that creates two processes. Each of the created processes should spawn a child process. Display the identifiers of the parent and child processes after each call to the fork function.
-``` c
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+Zadanie 2.
+Napisz klasę SvgScene posiadającą prywatną listę obiektów Polygon. Napisz metodę, która przyjmuje obiekt klasy Polygon oraz dodaje go do listy w obiekcie SvgScene. Napisz funkcję save(String), która utworzy plik HTML w ścieżce danej argumentem i zapisze do niego reprezentacje wszystkich wielokątów znajdujących się na kanwie.
 
-int main()
-{
-    pid_t pid1, pid2, childpid;
+https://github.com/kdmitruk/java_lab_2024/commit/37e5e50ebe010f0d42ca9dc33bb481a840225a3d
 
-    pid1 = fork();
-    if (pid1 == 0)
-    {
-        printf("Parent process (PID: %d) created a child process (PID: %d)\n", getppid(), getpid());
-        childpid = fork();
-        if (childpid == 0)
+svg/src/Main.java
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+      /*   Point point;
+         point=new Point(20, 50);
+//         System.out.println(point);
+
+         Segment seg= new Segment(point, new Point(60, 40));
+
+//        System.out.println(seg.length());
+        System.out.println(seg.toSvg());
+
+        Segment[] p_seg = Segment.perpendicularTo(seg, point);
+        System.out.println(p_seg[0].toSvg());
+        System.out.println(p_seg[1].toSvg()); */
+        Polygon poly = new Polygon(new Point[]{
+                new Point(30, 70),
+                new Point(60, 80),
+                new Point(50, 40)
+        });
+        Style style = new Style("pink", "black", 6.0);
+        Polygon polygon = new Polygon(new Point[]{
+                new Point(500, 100),
+                new Point(220, 20),
+                new Point(400, 25),
+                new Point(70, 33),
+        }, style);
+        System.out.println(polygon.toSvg());
+        System.out.println(poly.toSvg());
+        Scene scene = new Scene();
+        scene.add(polygon);
+        scene.add(poly);
+        scene.save("/tmp/out.html");
+    }
+}
+```
+
+```java
+import java.util.Locale;
+
+public class Polygon {
+    private Point[] points;
+    private Style style;
+
+    public Polygon(Point[] points) {
+        this.points = points;
+        this.style = new Style();
+ }
+    public Polygon(Point[] points, Style style) {
+        this.points = points;
+        this.style = style;
+    }
+
+    public Point getBound() {
+        double x = 0, y = 0;
+        for (int i = 0; i < points.length; i++) {
+            x = Math.max(x, points[i].x);
+            y = Math.max(y, points[i].y);
+        }
+        return new Point(x, y);
+    }
+
+    public String toSvg (){
+        String result = "";
+        for(int i=0; i<this.points.length; i++)
         {
-            printf("Child process (PID: %d) created a child process (PID: %d)\n", getppid(), getpid());
-            return 0; // Note: The wait(NULL) after this return is unreachable and has no effect.
+            result += String.format(Locale.ENGLISH, "%f,%f " , points[i].x, points[i].y );
         }
-        else
+        return String.format(Locale.ENGLISH,
+                "<polygon points=\"%s\" style=\"%s />", result,style.toSvg());
+    }
+}
+```
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+public class Scene {
+    private ArrayList<Polygon> shapes = new ArrayList<>();
+    public void add(Polygon polygon)
+    {
+        shapes.add(polygon);
+    }
+    public Point getBounds() {
+        double x = 0, y = 0;
+        for (Point p : shapes
+                .stream()
+                .map(Polygon::getBound)
+                .toList()) {
+            x = Math.max(x, p.x);
+            y = Math.max(y, p.y);
+        }
+        return new Point(x, y);
+    }
+    public void save(String path)
+    {
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            Point bounds = getBounds();
+            fileWriter.write("<HTML>");
+            fileWriter.write("<body>");
+            fileWriter.write(
+                    String.format(
+                            "<svg width=\"%f\" height=\"%f\">\n",
+                            bounds.x,
+                            bounds.y
+                    )
+            );
+            for(Polygon polygon : shapes)
+                fileWriter.write("\t" + polygon.toSvg() + "\n");
+            fileWriter.write("</svg>");
+            fileWriter.write("</body>");
+            fileWriter.write("</HTML>");
+            fileWriter.close();
+        } catch (IOException e) {
+            System.err.println("can't write to "+ path);
+        }
+    }
+
+}
+```
+
+Zadanie 3.
+Napisz publiczną, statyczną metodę wytwórczą klasy Polygon o nazwie square. Funkcja powinna przyjąć jako argumenty: obiekt Line, obiekt Style i zwrócić wielokąt będący kwadratem, którego przekątną jest dany odcinek.
+
+Przeciąż metodę klasy Line zwracającą prostopadły odcinek tak, aby przyjmowała jako dodatkowy argument długość zwracanego odcinka.
+
+Zadanie 4a.
+Utwórz klasę abstrakcyjną Shape, która otrzyma jako pole, obiekt klasy Style. Uczyń pole tego obiektu chronionym. Utwórz publiczny konstruktor, który ustawia to pole. Napisz abstrakcyjną metodę toSvg(). Zmodyfikuj klasę Polygon, aby dziedziczyła po klasie Shape.
+
+https://github.com/kdmitruk/java_lab_2024/commit/a17838afae845b521b0c4e007316e6cd05347365
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+      /*   Point point;
+         point=new Point(20, 50);
+//         System.out.println(point);
+
+         Segment seg= new Segment(point, new Point(60, 40));
+
+//        System.out.println(seg.length());
+        System.out.println(seg.toSvg());
+
+        Segment[] p_seg = Segment.perpendicularTo(seg, point);
+        System.out.println(p_seg[0].toSvg());
+        System.out.println(p_seg[1].toSvg()); */
+        Polygon poly = new Polygon(new Point[]{
+                new Point(30, 70),
+                new Point(60, 80),
+                new Point(50, 40)
+        });
+        Style style = new Style("pink", "black", 6.0);
+        Polygon polygon = new Polygon(new Point[]{
+                new Point(500, 100),
+                new Point(220, 20),
+                new Point(400, 25),
+                new Point(70, 33),
+        }, style);
+        System.out.println(polygon.toSvg());
+        System.out.println(poly.toSvg());
+        Scene scene = new Scene();
+        Ellipse ellipse = new Ellipse(style, new Point(100, 200), 50.5, 75.7);
+        scene.add(polygon);
+        scene.add(poly);
+        scene.add(ellipse);
+        scene.save("/tmp/out.html");
+    }
+}
+```
+
+```java
+import java.util.Locale;
+
+public class Polygon extends Shape{
+    private Point[] points;
+
+
+    public Polygon(Point[] points) {
+        this.points = points;
+
+ }
+    public Polygon(Point[] points, Style style) {
+        super(style);
+        this.points = points;
+
+    }
+    @Override
+    public Point getBound() {
+        double x = 0, y = 0;
+        for (int i = 0; i < points.length; i++) {
+            x = Math.max(x, points[i].x);
+            y = Math.max(y, points[i].y);
+        }
+        return new Point(x, y);
+    }
+    @Override
+    public String toSvg (){
+        String result = "";
+        for(int i=0; i<this.points.length; i++)
         {
-            pid2 = fork();
-            if (pid2 == 0)
-            {
-                printf("Parent process (PID: %d) created a child process (PID: %d)\n", getppid(), getpid());
-                childpid = fork();
-                if (childpid == 0)
-                {
-                    printf("Child process (PID: %d) created a child process (PID: %d)\n", getppid(), getpid());
-                    return 0;
-                }
-                wait(NULL);
-                return 0;
-            }
-            wait(NULL);
-            wait(NULL);
+            result += String.format(Locale.ENGLISH, "%f,%f " , points[i].x, points[i].y );
         }
-        return 0;
+        return String.format(Locale.ENGLISH,
+                "<polygon points=\"%s\" style=\"%s />", result,style.toSvg());
     }
 }
 ```
 
-2. Write a program that will print the contents of the current directory preceded by the phrase "Beginning" and concluded with the phrase "End."
-``` c
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-int main()
-{
-    pid_t pid;
-
-    printf("Beginning\n");
-    pid = fork();
-
-    if (pid == 0)
+public class Scene {
+    private ArrayList<Shape> shapes = new ArrayList<>();
+    public void add(Shape polygon)
     {
-        execlp("ls", "ls", "-la", NULL); // Execute 'ls -la' in the child process.
+        shapes.add(polygon);
     }
-    else if (pid > 0)
-    {
-        wait(NULL); // Wait for the child process to finish.
-        printf("End\n");
-    }
-    else
-    {
-        perror("fork"); // Error handling if fork fails.
-        return 1;
-    }
-
-    return 0;
-}
-```
-
-3. Write a program that will create any file with any name (if such a file already exists, the program should open it in "append" mode). The program should append randomly generated strings of characters - the number of words should depend on an environmental variable, as well as the maximum number of characters. In the program, two separate processes should also be created that will do exactly the same as the main process.
-``` c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <time.h>
-
-#define DEFAULT_WORD_COUNT 5
-#define DEFAULT_MAX_LENGTH 10
-
-void generate_and_append(FILE *fp, int num_words, int max_length) {
-    const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    int charset_size = sizeof(charset) - 1; // -1 to exclude null terminator
-
-    for (int i = 0; i < num_words; i++) {
-        int word_length = rand() % max_length + 1; // +1 to ensure minimum length of 1
-        char word[word_length + 1];
-        for (int j = 0; j < word_length; j++) {
-            word[j] = charset[rand() % charset_size];
+    public Point getBounds() {
+        double x = 0, y = 0;
+        for (Point p : shapes
+                .stream()
+                .map(Shape::getBound)
+                .toList()) {
+            x = Math.max(x, p.x);
+            y = Math.max(y, p.y);
         }
-        word[word_length] = '\0'; // null-terminate the string
-        fprintf(fp, "%s ", word);
+        return new Point(x, y);
     }
-    fprintf(fp, "\n");
-}
-
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        printf("Usage: %s <filename>\n", argv[0]);
-        return 1;
-    }
-
-    const char *filename = argv[1];
-    FILE *fp = fopen(filename, "a"); // Open in append mode
-    if (!fp) {
-        perror("Failed to open file");
-        return 1;
-    }
-
-    // Set up random seed
-    srand(time(NULL) + getpid());
-
-    // Read environment variables
-    char *env_words = getenv("NUM_WORDS");
-    char *env_max_length = getenv("MAX_LENGTH");
-
-    int num_words = env_words ? atoi(env_words) : DEFAULT_WORD_COUNT;
-    int max_length = env_max_length ? atoi(env_max_length) : DEFAULT_MAX_LENGTH;
-
-    // Generate and append random words
-    generate_and_append(fp, num_words, max_length);
-
-    // Fork two child processes
-    for (int i = 0; i < 2; i++) {
-        pid_t pid = fork();
-        if (pid == 0) { // Child process
-            // Re-seed for each child to ensure different random sequences
-            srand(time(NULL) + getpid());
-            generate_and_append(fp, num_words, max_length);
-            fclose(fp);
-            return 0;
-        } else if (pid < 0) {
-            perror("Failed to fork");
-            fclose(fp);
-            return 1;
+    public void save(String path)
+    {
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            Point bounds = getBounds();
+            fileWriter.write("<HTML>");
+            fileWriter.write("<body>");
+            fileWriter.write(
+                    String.format(
+                            "<svg width=\"%f\" height=\"%f\">\n",
+                            bounds.x,
+                            bounds.y
+                    )
+            );
+            for(Shape polygon : shapes)
+                fileWriter.write("\t" + polygon.toSvg() + "\n");
+            fileWriter.write("</svg>");
+            fileWriter.write("</body>");
+            fileWriter.write("</HTML>");
+            fileWriter.close();
+        } catch (IOException e) {
+            System.err.println("can't write to "+ path);
         }
     }
 
-    // Wait for child processes to finish
-    while (wait(NULL) > 0);
-
-    fclose(fp);
-    return 0;
 }
 ```
+
+Zadanie 4b.
+Napisz klasę Ellipse dziedziczącą po Shape, posiadającą prywatne pola: środek elipsy (Point), długości promieni i styl. W jej implementacji metody toSvg() powinno znaleźć się rysowanie z użyciem tagu \<ellipse\>.
+
+https://github.com/kdmitruk/java_lab_2024/commit/07c3c5907859ff781ebdce04fcde267f8e1cc23d
+
+```java
+import java.util.Locale;
+
+public class Ellipse extends Shape{
+    private Point center;
+    private double rx, ry;
+    @Override
+    public Point getBound() {
+        return new Point(center.x + rx + style.strokeWidth, center.y + ry + style.strokeWidth);
+    }
+
+    @Override
+    public String toSvg() {
+        return String.format(Locale.ENGLISH,"<ellipse rx=\"%f\" ry=\"%f\" cx=\"%f\" cy=\"%f\"\n" +
+                "  style=\"%s\" />",rx,ry,center.x,center.y, style.toSvg());
+    }
+
+    public Ellipse(Style style, Point center, double rx, double ry) {
+        super(style);
+        this.center = center;
+        this.rx = rx;
+        this.ry = ry;
+    }
+}
+```
+
+Zmodyfikuj klasę SvgScene, aby posiadała tablicę obiektów klasy Shape i korzystając z polimorfizmu zapisz w niej obiekty typu Polygon i Ellipse.
+
+## Temat 3. Polimorfizm. Elementy inżynierii oprogramowania
+
+Zadanie 0.
+
+Z klasy Shape usuń wszystkie pola i uczyń ją interfejsem. Przemianuj klasę Point na Vec2.
+
+Zadanie 1.
+
+Napisz klasę SolidFilledPolygon dziedziczącą po Polygon. Klasa powinna posiadać prywatne pole String color ustawiane, obok tablicy punktów, w konstruktorze. Przemodeluj funkcję toSvg w interfejsie Shape tak, aby możliwe było przekazanie jej parametru typu String, który zostanie umieszczony w tagu rysowanego obiektu. Wykorzystaj poniższy kod:
+"<polygon points=\"%s\" %s />"
+W klasie SolidFilledPolygon zdefiniuj metodę toSvg, która nadpisze metodę klasy nadrzędnej. Wewnątrz tej metody wywołaj metodę toSvg klasy nadrzędnej, przekazując jej jako parametr napis powstały ze sformatowania:
+"fill=\"%s\" %s "
+kolejno kolorem i parametrem napisowym.
+
+Zastanów się, jakie konsekwencje dla struktury programu miałoby stworzenie analogicznej klasy dziedziczącej po klasie Ellipse oraz próba dodawania innych parametrów do tagu.
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+        SolidFilledPolygon poly = new SolidFilledPolygon(new Vec2[]{
+                new Vec2(30, 70),
+                new Vec2(60, 80),
+                new Vec2(50, 40)
+        },"green");
+//        Polygon polygon = new Polygon(new Vec2[]{
+//                new Vec2(500, 100),
+//                new Vec2(220, 20),
+//                new Vec2(400, 25),
+//                new Vec2(70, 33),
+//        });
+//        System.out.println(polygon.toSvg());
+//        System.out.println(poly.toSvg());
+        Scene scene = new Scene();
+//        Ellipse ellipse = new Ellipse(new Vec2(100, 200), 50.5, 75.7);
+        scene.add(poly);
+//        scene.add(poly);
+//        scene.add(ellipse);
+        scene.save("/tmp/out.html");
+    }
+}
+```
+
+```java
+import java.util.Locale;
+
+public class Polygon extends Shape{
+    private Vec2[] points;
+
+
+    public Polygon(Vec2[] points) {
+        this.points = points;
+    }
+
+
+    @Override
+    public Vec2 getBound() {
+        double x = 0, y = 0;
+        for (int i = 0; i < points.length; i++) {
+            x = Math.max(x, points[i].x);
+            y = Math.max(y, points[i].y);
+        }
+        return new Vec2(x, y);
+    }
+
+    @Override
+    public String toSvg() {
+        return this.toSvg("");
+    }
+
+
+    public String toSvg (String parameters){
+        String result = "";
+        for(int i=0; i<this.points.length; i++)
+        {
+            result += String.format(Locale.ENGLISH, "%f,%f " , points[i].x, points[i].y );
+        }
+        return String.format(Locale.ENGLISH,
+                "<polygon points=\"%s\" %s/>", result,parameters);
+    }
+}
+```
+
+```java
+public class SolidFilledPolygon extends Polygon {
+    private String fillColour;
+
+    @Override
+    public String toSvg(String parameters) {
+        String f=String.format("fill=\"%s\" %s ",fillColour,parameters);
+        return super.toSvg(f);
+    }
+
+    public SolidFilledPolygon(Vec2[] points, String colour){
+        super(points);
+        fillColour=colour;
+    }
+}
+```
+
+Zadanie 2.
+
+Zdefiniuj klasę ShapeDecorator implementującą interfejs Shape, która posiadać będzie chronione pole Shape decoratedShape. Pole to powinno być ustawiane w konstruktorze. Nadpisz metodę toSvg w taki sposób, by zawierała wywołanie tej samej metody na rzecz obiektu decoratedShape.
+
+Po klasie ShapeDecorator podziedzicz nową klasę SolidFillShapeDecorator. Klasa ta powinna posiadać prywatne pole String color. W konstruktorze ma przyjmować obiekt klasy Shape oraz kolor wypełnienia typu String. W jej metodzie toSvg wywołaj metodę toSvg na rzecz decoratedShape, z parametrami jak w zadaniu 1.
+
+Utwórz dwa obiekty klasy SolidFillShapeDecorator tak, aby parametrem jednego był obiekt wielokąta, a drugiego elipsy.
+
+```java
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+        /*SolidFilledPolygon poly = new SolidFilledPolygon(new Vec2[]{
+                new Vec2(30, 70),
+                new Vec2(60, 80),
+                new Vec2(50, 40)
+        },"green");
+//        Polygon polygon = new Polygon(new Vec2[]{
+//                new Vec2(500, 100),
+//                new Vec2(220, 20),
+//                new Vec2(400, 25),
+//                new Vec2(70, 33),
+//        });
+//        System.out.println(polygon.toSvg());
+//        System.out.println(poly.toSvg());
+        Scene scene = new Scene();
+//        Ellipse ellipse = new Ellipse(new Vec2(100, 200), 50.5, 75.7);
+        scene.add(poly);
+//        scene.add(poly);
+//        scene.add(ellipse);
+
+        scene.save("/tmp/out.html");
+
+         */
+        Shape polygon = new Polygon(new Vec2[]{
+                new Vec2(500, 100),
+                new Vec2(220, 20),
+                new Vec2(400, 25),
+                new Vec2(70, 33),
+        });
+        polygon = new SolidFillShapeDecorator(polygon, "red");
+
+        Shape ellipse = new Ellipse(new Vec2(100, 200), 50.5, 75.7);
+        ellipse = new SolidFillShapeDecorator(ellipse,"blue");
+
+        Scene scene = new Scene();
+        scene.add(polygon);
+        scene.add(ellipse);
+
+        scene.save("/tmp/out.html");
+
+
+
+    }
+}
+```
+
+```java
+import java.util.Locale;
+
+public class Ellipse implements Shape{
+    private Vec2 center;
+    private double rx, ry;
+    @Override
+    public Vec2 getBound() {
+        return new Vec2(center.x + rx, center.y + ry);
+    }
+
+    @Override
+    public String toSvg(String param) {
+        return String.format(Locale.ENGLISH,"<ellipse rx=\"%f\" ry=\"%f\" cx=\"%f\" cy=\"%f\" %s/>",
+                rx,ry,center.x,center.y,param);
+    }
+    /*public String toSvg(String param){
+        //TODO :potem
+
+    }*/
+    public Ellipse(Vec2 center, double rx, double ry) {
+        this.center = center;
+        this.rx = rx;
+        this.ry = ry;
+    }
+}
+```
+
+```java
+public interface Shape {
+      Vec2 getBound();
+      String toSvg(String param);
+
+}
+```
+
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Scene {
+    private ArrayList<Shape> shapes = new ArrayList<>();
+    public void add(Shape polygon)
+    {
+        shapes.add(polygon);
+    }
+    public Vec2 getBounds() {
+        double x = 0, y = 0;
+        for (Vec2 p : shapes
+                .stream()
+                .map(Shape::getBound)
+                .toList()) {
+            x = Math.max(x, p.x);
+            y = Math.max(y, p.y);
+        }
+        return new Vec2(x, y);
+    }
+    public void save(String path)
+    {
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            Vec2 bounds = getBounds();
+            fileWriter.write("<HTML>");
+            fileWriter.write("<body>");
+            fileWriter.write(
+                    String.format(
+                            "<svg width=\"%f\" height=\"%f\">\n",
+                            bounds.x,
+                            bounds.y
+                    )
+            );
+            for(Shape polygon : shapes)
+                fileWriter.write("\t" + polygon.toSvg("") + "\n");
+            fileWriter.write("</svg>");
+            fileWriter.write("</body>");
+            fileWriter.write("</HTML>");
+            fileWriter.close();
+        } catch (IOException e) {
+            System.err.println("can't write to "+ path);
+        }
+    }
+
+}
+```
+
+```java
+import java.util.Locale;
+
+public class Polygon implements Shape{
+    private Vec2[] points;
+
+
+    public Polygon(Vec2[] points) {
+        this.points = points;
+    }
+
+
+    @Override
+    public Vec2 getBound() {
+        double x = 0, y = 0;
+        for (int i = 0; i < points.length; i++) {
+            x = Math.max(x, points[i].x);
+            y = Math.max(y, points[i].y);
+        }
+        return new Vec2(x, y);
+    }
+
+
+
+    public String toSvg (String parameters){
+        String result = "";
+        for(int i=0; i<this.points.length; i++)
+        {
+            result += String.format(Locale.ENGLISH, "%f,%f " , points[i].x, points[i].y );
+        }
+        return String.format(Locale.ENGLISH,
+                "<polygon points=\"%s\" %s/>", result,parameters);
+    }
+}
+```
+
+```java
+public class ShapeDecorator implements Shape{
+    protected Shape decoratedShape;
+
+    public ShapeDecorator(Shape decoratedShape) {
+        this.decoratedShape = decoratedShape;
+    }
+
+    @Override
+    public Vec2 getBound() {
+        return decoratedShape.getBound();
+    }
+
+    @Override
+    public String toSvg(String param) {
+        return decoratedShape.toSvg(param);
+    }
+}
+```
+
+```java
+public class SolidFillShapeDecorator extends ShapeDecorator{
+    private String color;
+    public SolidFillShapeDecorator(Shape decoratedShape, String color) {
+        super(decoratedShape);
+        this.color = color;
+    }
+
+    @Override
+    public String toSvg(String paramet) {
+        String f=String.format("fill=\"%s\" %s ",color, paramet);
+        return decoratedShape.toSvg(f);
+    }
+}
+```
+
+Zadanie 3.
+
+Utwórz klasę StrokeShapeDecorator posiadającą prywatne pola String color i double width, które powinny być ustawione w konstruktorze. Wywołaj metodę toSvg podobnie jak w zadaniu 2. formatując napis
+"stroke=\"%s\" stroke-width=\"%f\" "
+kolorem i grubością obrysu. Przetestuj udekorowanie tą klasą obiektów będących wynikiem poprzedniego zadania.
+
+Zadanie 4.
+
+Utwórz klasę TransformationDecorator odpowiadającą za wpisanie w wyświetlany tab informacji o przekształceniach afinicznych: translacji, rotacji i skalowaniu. Na potrzeby każdego z tych działań stwórz prywatne pola:
+
+    boolean translate, Vec2 translateVector,
+    boolean rotate, double rotateAngle, Vec2 rotateCenter,
+    boolean scale, Vec2 scaleVector.
+
+Wewnątrz klasy TransformationDecorator zdefiniuj publiczną klasę Builder. Zdefiniuj w niej prywatne pola, jednakowe z polami w klasie zewnętrznej oraz pole Shape shape. Wartości logiczne powinny być fałszywe. Napisz po jednej metodzie ustawiającej parametry transformacji i zmieniającej wartość logiczną na prawdziwą na znak, że transformacja ma się wykonać. Funkcje powinny zwracać obiekt klasy Builder z wprowadzonymi zmianami. Napisz w klasie Builder metodę build, która utworzy obiekt TransformationDecorator, przekazując mu jako parametr obiekt shape, a następnie ustawi wszystkim polom w tym obiekcie wartości zapisane w obiekcie Buildera i zwróci tak stworzony obiekt.
+
+W klasie TransformationDecorator nadpisz metodę toSvg tak, aby poskładać w niej napis definiujący transformację z elementów:
+"translate(%f %f) ", translateVector.x, translateVector.y
+"rotate(%f %f %f) ", rotateAngle, rotateCenter.x, rotateCenter.y
+"scale(%f %f) ", scaleVector.x, scaleVector.y
+
+Umieść je w we własności “transform”:
+"transform=\"%s\" %s", result, parameters.
+
+Przetestuj tworzenie klasy TransformationDecorator za pomocą całości lub części dostępnych transformacji.
+
+Uzyskanie możliwości zastosowania filtra oraz wypełnienia obiektu gradientem wymaga zapisania stosownego kodu w tagu <defs>, którego zawartość nie będzie wprost renderowana. Lokalne obiekty w SVG mogą być identyfikowane za pomocą unikalnych nazw (id), a odwoływać można się do nich za pomocą składni “url(#id)”.
+
+Zadanie 5a.
+
+W klasie SvgScene utwórz prywatne, statyczne pole SvgScene instance, początkowo równe null. Napisz akcesor do tego pola. Jeżeli znajduje się tam null, należy je zainicjalizować.
+
+Zadanie 5b.
+
+Dodaj do klasy SvgScene tablicę String defs[] oraz metodę dodającą elementy do tej tablicy, wzorując się na tablicy shapes i metodzie addShape. W metodzie saveHtml uwzględnij dopisanie tagów <defs> do wynikowego pliku.
+
+Zdefiniuj klasę DropShadowDecorator dziedziczącą po ShapeDecorator. Jej zadaniem jest udekorowanie obiektu Shape rzucanym cieniem. Jest to realizowane przez umieszczenie w tagu <defs> sformatowanego kodu:
+
+\t<filter id=\"f%d\" x=\"-100%%\" y=\"-100%%\" width=\"300%%\" height=\"300%%\">\n" +
+"\t\t<feOffset result=\"offOut\" in=\"SourceAlpha\" dx=\"5\" dy=\"5\" />\n" +
+"\t\t<feGaussianBlur result=\"blurOut\" in=\"offOut\" stdDeviation=\"5\" />\n" +
+"\t\t<feBlend in=\"SourceGraphic\" in2=\"blurOut\" mode=\"normal\" />\n" +
+"\t</filter>", index
+
+oraz w metodzie toSvg:
+
+"filter=\"url(#f%d)\" ", index
+
+gdzie w obu przypadkach index jest liczbą całkowitą, unikalną dla tego filtra. Unikalność indeksu zagwarantuj przy użyciu prywatnego, statycznego pola klasy.
+
+Zadanie 6.
+
+Łącząc wiedzę wyniesioną z zadania 4 i 5 zdefiniuj klasę GradientFillShapeDecorator dziedziczącą po ShapeDecorator, której celem jest wypełnienie kształtu poziomym, barwnym gradientem.
+
+Gradient wymaga umieszczenia w tagu <defs> napisu rozpoczynającego się od:
+"\t<linearGradient id=\"g%d\" >\n", index
+a następnie dla każdego koloru i jego położenia:
+\t\t<stop offset=\"%f\" style=\"stop-color:%s\" />\n", stop.offset, stop.color,
+gdzie stop.offset jest liczbą zmiennoprzecinkową z przedziału 0-1, a stop.color napisem. Definicję gradientu zamyka:
+"\t</linearGradient>"
+
+Wewnątrz klasy zdefiniuj klasę Builder. W klasie Builder stwórz metodę, która przyjmuje offset i kolor, a której wielokrotne wywołania pozwalają stworzyć tablicę tych wartości definiującą przebieg gradientu.
+
+W metodzie toSvg klasy zewnętrznej wykorzystaj sformatowany napis:
+"fill=\"url(#g%d)\" ", index
+
+Rozważ, jakie modyfikacje należałoby poczynić w programie wynikowym, aby możliwa była rezygnacja z singletonowej postaci klasy SvgScene.
