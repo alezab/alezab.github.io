@@ -245,8 +245,6 @@ gcc thread.c -o thread -lpthread
 
 3. Skorzystać z mutexów (pthread_mutex_t) w celu zablokowania i zmiany asynchronicznej wartości globalnej zmiennej (pthread_mutex_lock(), pthread_mutex_unlock())
 
-### Lesson 7
-
 #### Zadanie 1:
 Program, który tworzy wątek (pthread_create) i przekazuje do niego funkcję wyświetlającą zawartość 10-elementowej tablicy. Następnie zamykamy wątek (pthread_join, pthread_cancel).
 
@@ -395,13 +393,11 @@ int main() {
 
 ## Lesson 8
 
-https://www.geeksforgeeks.org/ipc-using-message-queues/
+https://www.geeksforgeeks.org/ipc-using-message-queues/  
 
-1. W jednym programie napisać prostą kolejkę komunikatów za pomocą funkcji - msgget, msgsnd,msgrcv.
+1. W jednym programie napisać prostą kolejkę komunikatów za pomocą funkcji - msgget, msgsnd,msgrcv.  
 
-2. W poprzednim programie rozbić komunikację na procesy - jeden proces coś wysyła, drugi to odbiera.
-
-### Lesson 8
+2. W poprzednim programie rozbić komunikację na procesy - jeden proces coś wysyła, drugi to odbiera.  
 
 #### Zadanie 1:
 Program tworzy prostą kolejkę komunikatów za pomocą funkcji `msgget`, `msgsnd`, `msgrcv`.
@@ -564,8 +560,6 @@ Napisać dwa programy komunikujące się przez pamięć współdzieloną:
 - Pierwszy w nieskończonej pętli, naprzemiennie wysyła napisy „CIEPLO”, „ZIMNO” do pamięci współdzielonej.
 - Drugi odczytuje z pamięci wartości (proszę pamiętać o walidacji czy dany napis jest poprawny - czy „CIEPLO, czy „ZIMNO” - jeśli niepoprawny, powinien zostać wyświetlony błąd).
 
-### Lesson 9
-
 #### Zadanie:
 Napisać dwa programy komunikujące się przez pamięć współdzieloną. Pierwszy program w nieskończonej pętli naprzemiennie wysyła napisy „CIEPLO”, „ZIMNO” do pamięci współdzielonej. Drugi program odczytuje z pamięci wartości i waliduje, czy dany napis jest poprawny - jeśli niepoprawny, powinien wyświetlić błąd.
 
@@ -691,11 +685,9 @@ int main() {
 
 Dodać funkcjonalność "zamykania" i "otwierania" semafora w obydwu programach z poprzednich zajęć. Powinny one otwierać dostęp do zmiennej która jest przekazywana w pamięci współdzielonej - zalecam przekształcenie jej na strukturę której atrybut będzie stanowił ciąg znaków.
  
-http://www.vishalchovatiya.com/semaphore-between-processes-example-in-c/
-https://eric-lo.gitbook.io/synchronization/semaphore-in-c
-https://riptutorial.com/c/example/31715/semaphores - metoda IPC ("od zera")
-
-### Lesson 10
+http://www.vishalchovatiya.com/semaphore-between-processes-example-in-c/  
+https://eric-lo.gitbook.io/synchronization/semaphore-in-c  
+https://riptutorial.com/c/example/31715/semaphores - metoda IPC ("od zera")  
 
 Dodanie funkcjonalności semaforów do programów komunikujących się przez pamięć współdzieloną. Semafory będą używane do synchronizacji dostępu do zmiennej w pamięci współdzielonej.
 
@@ -892,7 +884,7 @@ int main() {
 
 1. Docker
 
-https://docs.docker.com/get-started/02_our_app/
+https://docs.docker.com/get-started/02_our_app/  
 
 ```
 # syntax=docker/dockerfile:1
@@ -910,7 +902,7 @@ CMD ["python", "-m", "http.server"]
 ```
 
 2. Docker Compose
-https://docs.docker.com/compose/gettingstarted/
+https://docs.docker.com/compose/gettingstarted/  
 
 ```
 services:
@@ -923,9 +915,8 @@ services:
 ```
 
 3. Docker Networking:
-https://docs.docker.com/compose/networking/
-https://forums.docker.com/t/static-ip-on-docker-containers/110412/5
-
+https://docs.docker.com/compose/networking/  
+https://forums.docker.com/t/static-ip-on-docker-containers/110412/5  
 
 ### Lesson 11: Docker
 
