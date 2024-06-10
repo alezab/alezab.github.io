@@ -69,11 +69,11 @@ int main() {
 ```
 
 **Wyjaśnienie:**
-- `pipe(fd)` tworzy potok.
-- `fork()` tworzy nowy proces. Dwa razy tworzymy nowe procesy, by uzyskać dwa procesy potomne.
-- Pierwszy proces potomny zapisuje wiadomość "HALLO!" do potoku.
-- Drugi proces potomny odczytuje wiadomość z potoku i wypisuje ją na konsolę.
-- Proces macierzysty czeka na zakończenie procesów potomnych za pomocą `wait(NULL)`.
+- `pipe(fd)` tworzy potok.  
+- `fork()` tworzy nowy proces. Dwa razy tworzymy nowe procesy, by uzyskać dwa procesy potomne.  
+- Pierwszy proces potomny zapisuje wiadomość "HALLO!" do potoku.  
+- Drugi proces potomny odczytuje wiadomość z potoku i wypisuje ją na konsolę.  
+- Proces macierzysty czeka na zakończenie procesów potomnych za pomocą `wait(NULL)`.  
 
 #### Zadanie 2:
 Program tworzy trzy procesy: dwa z nich zapisują do potoku, a trzeci odczytuje z niego i drukuje otrzymane komunikaty.
@@ -152,9 +152,9 @@ int main() {
 ```
 
 **Wyjaśnienie:**
-- Dwa procesy potomne zapisują różne wiadomości do potoku.
-- Trzeci proces potomny odczytuje wszystkie wiadomości z potoku i wypisuje je na konsolę.
-- Proces macierzysty czeka na zakończenie wszystkich procesów potomnych.
+- Dwa procesy potomne zapisują różne wiadomości do potoku.  
+- Trzeci proces potomny odczytuje wszystkie wiadomości z potoku i wypisuje je na konsolę.  
+- Proces macierzysty czeka na zakończenie wszystkich procesów potomnych.  
 
 #### Zadanie 3:
 Program podobny do Zadania 1, ale zamiast zwykłego potoku używamy potoku nazwanego (FIFO).
@@ -229,10 +229,10 @@ int main() {
 ```
 
 **Wyjaśnienie:**
-- `mkfifo(FIFO_NAME, 0666)` tworzy potok nazwany o nazwie `myfifo`.
-- Procesy potomne używają `open()` do otwierania potoku nazwanego do zapisu (`O_WRONLY`) i odczytu (`O_RDONLY`).
-- Wiadomość jest zapisywana do potoku przez pierwszy proces potomny i odczytywana przez drugi proces potomny.
-- Proces macierzysty czeka na zakończenie procesów potomnych, a następnie usuwa potok nazwany za pomocą `unlink(FIFO_NAME)`.
+- `mkfifo(FIFO_NAME, 0666)` tworzy potok nazwany o nazwie `myfifo`.  
+- Procesy potomne używają `open()` do otwierania potoku nazwanego do zapisu (`O_WRONLY`) i odczytu (`O_RDONLY`).  
+- Wiadomość jest zapisywana do potoku przez pierwszy proces potomny i odczytywana przez drugi proces potomny.  
+- Proces macierzysty czeka na zakończenie procesów potomnych, a następnie usuwa potok nazwany za pomocą `unlink(FIFO_NAME)`.  
 
 ## Lesson 7
 
@@ -331,9 +331,9 @@ int main() {
 ```
 
 **Wyjaśnienie:**
-- `global_variable` jest zmienną globalną, która jest inkrementowana zarówno przez wątek, jak i przez proces główny.
-- Wątek inkrementuje zmienną globalną 10 razy, wyświetlając jej wartość.
-- Proces główny również inkrementuje zmienną globalną 10 razy, wyświetlając jej wartość.
+- `global_variable` jest zmienną globalną, która jest inkrementowana zarówno przez wątek, jak i przez proces główny.  
+- Wątek inkrementuje zmienną globalną 10 razy, wyświetlając jej wartość.  
+- Proces główny również inkrementuje zmienną globalną 10 razy, wyświetlając jej wartość.  
 
 #### Zadanie 3:
 Korzystamy z mutexów, aby zablokować i zmieniać asynchronicznie wartość globalnej zmiennej.
@@ -387,9 +387,9 @@ int main() {
 ```
 
 **Wyjaśnienie:**
-- Dodaliśmy mutex `pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER`.
-- Przed inkrementacją zmiennej globalnej blokujemy mutex `pthread_mutex_lock(&mutex)`, a po inkrementacji odblokowujemy mutex `pthread_mutex_unlock(&mutex)`.
-- Mutexy zapewniają, że tylko jeden wątek naraz może modyfikować zmienną globalną, co zapobiega warunkom wyścigu (race conditions).
+- Dodaliśmy mutex `pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER`.  
+- Przed inkrementacją zmiennej globalnej blokujemy mutex `pthread_mutex_lock(&mutex)`, a po inkrementacji odblokowujemy mutex `pthread_mutex_unlock(&mutex)`.  
+- Mutexy zapewniają, że tylko jeden wątek naraz może modyfikować zmienną globalną, co zapobiega warunkom wyścigu (race conditions).  
 
 ## Lesson 8
 
@@ -449,11 +449,11 @@ int main() {
 ```
 
 **Wyjaśnienie:**
-- `ftok("progfile", 65)` generuje unikalny klucz.
-- `msgget(key, 0666 | IPC_CREAT)` tworzy kolejkę komunikatów z prawami dostępu 0666.
-- `msgsnd(msgid, &message, sizeof(message), 0)` wysyła wiadomość do kolejki.
-- `msgrcv(msgid, &message, sizeof(message), 1, 0)` odbiera wiadomość z kolejki.
-- `msgctl(msgid, IPC_RMID, NULL)` usuwa kolejkę komunikatów.
+- `ftok("progfile", 65)` generuje unikalny klucz.  
+- `msgget(key, 0666 | IPC_CREAT)` tworzy kolejkę komunikatów z prawami dostępu 0666.  
+- `msgsnd(msgid, &message, sizeof(message), 0)` wysyła wiadomość do kolejki.  
+- `msgrcv(msgid, &message, sizeof(message), 1, 0)` odbiera wiadomość z kolejki.  
+- `msgctl(msgid, IPC_RMID, NULL)` usuwa kolejkę komunikatów.  
 
 #### Zadanie 2:
 Rozbijamy komunikację na dwa procesy - jeden proces wysyła wiadomość, a drugi ją odbiera.
@@ -554,14 +554,14 @@ int main() {
 
 ## Lesson 9
 
-Obsługa za pomocą metod: shmget, shmctl, shmat.
+Obsługa za pomocą metod: shmget, shmctl, shmat.  
  
-Napisać dwa programy komunikujące się przez pamięć współdzieloną:
-- Pierwszy w nieskończonej pętli, naprzemiennie wysyła napisy „CIEPLO”, „ZIMNO” do pamięci współdzielonej.
-- Drugi odczytuje z pamięci wartości (proszę pamiętać o walidacji czy dany napis jest poprawny - czy „CIEPLO, czy „ZIMNO” - jeśli niepoprawny, powinien zostać wyświetlony błąd).
+Napisać dwa programy komunikujące się przez pamięć współdzieloną:  
+- Pierwszy w nieskończonej pętli, naprzemiennie wysyła napisy „CIEPLO”, „ZIMNO” do pamięci współdzielonej.  
+- Drugi odczytuje z pamięci wartości (proszę pamiętać o walidacji czy dany napis jest poprawny - czy „CIEPLO, czy „ZIMNO” - jeśli niepoprawny, powinien zostać wyświetlony błąd).  
 
 #### Zadanie:
-Napisać dwa programy komunikujące się przez pamięć współdzieloną. Pierwszy program w nieskończonej pętli naprzemiennie wysyła napisy „CIEPLO”, „ZIMNO” do pamięci współdzielonej. Drugi program odczytuje z pamięci wartości i waliduje, czy dany napis jest poprawny - jeśli niepoprawny, powinien wyświetlić błąd.
+Napisać dwa programy komunikujące się przez pamięć współdzieloną. Pierwszy program w nieskończonej pętli naprzemiennie wysyła napisy „CIEPLO”, „ZIMNO” do pamięci współdzielonej. Drugi program odczytuje z pamięci wartości i waliduje, czy dany napis jest poprawny - jeśli niepoprawny, powinien wyświetlić błąd.  
 
 **Program wysyłający (sender.c):**
 ```c
@@ -874,11 +874,11 @@ int main() {
    ```
 
 **Wyjaśnienie:**
-- `struct shared_memory` definiuje strukturę danych, którą przechowujemy w pamięci współdzielonej.
+- `struct shared_memory` definiuje strukturę danych, którą przechowujemy w pamięci współdzielonej.  
 - `sem_lock` i `sem_unlock` to funkcje używane do blokowania i odblokowywania dostępu do pamięci współdzielonej za pomocą semafora.
-- W obu programach tworzymy i uzyskujemy dostęp do segmentu pamięci współdzielonej oraz semafora.
-- `sender.c` naprzemiennie zapisuje "CIEPLO" i "ZIMNO" do pamięci współdzielonej, korzystając z semafora, aby zapewnić synchronizację.
-- `receiver.c` odczytuje wartości z pamięci współdzielonej, sprawdza ich poprawność i wyświetla komunikaty, również korzystając z semafora dla synchronizacji.
+- W obu programach tworzymy i uzyskujemy dostęp do segmentu pamięci współdzielonej oraz semafora.  
+- `sender.c` naprzemiennie zapisuje "CIEPLO" i "ZIMNO" do pamięci współdzielonej, korzystając z semafora, aby zapewnić synchronizację.  
+- `receiver.c` odczytuje wartości z pamięci współdzielonej, sprawdza ich poprawność i wyświetla komunikaty, również korzystając z semafora dla synchronizacji.  
 
 ## Lesson 11: Docker
 
@@ -980,21 +980,21 @@ services:
 ```
 
 **Explanation:**
-- `version: '3'`: Specifies the version of Docker Compose.
-- `services`: Defines the services in the application.
-  - `web`: The web service
-    - `build: .`: Builds the Docker image using the Dockerfile in the current directory.
-    - `ports`: Maps port 8000 of the host to port 8000 of the container.
-    - `depends_on`: Ensures that the `db` service is started before the `web` service.
-  - `db`: The database service
-    - `image: postgres`: Uses the official PostgreSQL image from Docker Hub.
-    - `environment`: Sets environment variables for the PostgreSQL database (database name, user, password).
+- `version: '3'`: Specifies the version of Docker Compose.  
+- `services`: Defines the services in the application.  
+  - `web`: The web service  
+    - `build: .`: Builds the Docker image using the Dockerfile in the current directory.  
+    - `ports`: Maps port 8000 of the host to port 8000 of the container.  
+    - `depends_on`: Ensures that the `db` service is started before the `web` service.  
+  - `db`: The database service  
+    - `image: postgres`: Uses the official PostgreSQL image from Docker Hub.  
+    - `environment`: Sets environment variables for the PostgreSQL database (database name, user, password).  
 
 3. **Docker Networking**
 
-Docker Compose sets up a default network for your application. Containers can communicate with each other using their service names as hostnames.
+Docker Compose sets up a default network for your application. Containers can communicate with each other using their service names as hostnames.  
 
-To set up static IPs for Docker containers, you need to create a custom network in your `docker-compose.yml`:
+To set up static IPs for Docker containers, you need to create a custom network in your `docker-compose.yml`:  
 
 **docker-compose.yml with custom network:**
 ```yaml
@@ -1029,16 +1029,16 @@ networks:
 ```
 
 **Explanation:**
-- `networks`: Defines a custom network.
-  - `custom_network`: The name of the custom network.
-    - `driver: bridge`: Uses the bridge driver for the network.
-    - `ipam`: IP address management settings.
-      - `config`: Configuration for IP allocation.
-        - `subnet: 172.20.0.0/16`: Specifies the subnet for the network.
-- `services.web.networks.custom_network`: Assigns the web service to the custom network with a static IP.
-- `services.db.networks.custom_network`: Assigns the db service to the custom network with a static IP.
+- `networks`: Defines a custom network.  
+  - `custom_network`: The name of the custom network.  
+    - `driver: bridge`: Uses the bridge driver for the network.  
+    - `ipam`: IP address management settings.  
+      - `config`: Configuration for IP allocation.  
+        - `subnet: 172.20.0.0/16`: Specifies the subnet for the network.  
+- `services.web.networks.custom_network`: Assigns the web service to the custom network with a static IP.  
+- `services.db.networks.custom_network`: Assigns the db service to the custom network with a static IP.  
 
-This setup ensures that the `web` and `db` services are on the same custom network and can communicate with each other using their static IP addresses.
+This setup ensures that the `web` and `db` services are on the same custom network and can communicate with each other using their static IP addresses.  
 
 ---
 
