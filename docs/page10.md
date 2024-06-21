@@ -118,6 +118,59 @@ public class Scratch {
 }
 ```
 
+```java
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+
+public class Scratch {
+    public static void main(String[] args) {
+        // Example array
+        byte[] originalArray = "Hello, World!".getBytes();
+
+        // Encrypt (encode) the array to Base64
+        String base64Encoded = Base64.getEncoder().encodeToString(originalArray);
+        System.out.println("Base64 Encoded: " + base64Encoded);
+
+        // Decrypt (decode) the Base64 string back to the original array
+        byte[] decodedArray = Base64.getDecoder().decode(base64Encoded);
+        System.out.println("Decoded Array: " + new String(decodedArray));
+
+        // Example with image
+        String imagePath = "path/to/your/image.jpg";
+        String base64Image = encodeImageToBase64(imagePath);
+        System.out.println("Base64 Encoded Image: " + base64Image);
+
+        // Decode Base64 image string back to byte array and save as a new image file
+        String outputImagePath = "path/to/your/output_image.jpg";
+        decodeBase64ToImage(base64Image, outputImagePath);
+    }
+
+    // Method to encode image to Base64 string
+    public static String encodeImageToBase64(String imagePath) {
+        try {
+            byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
+            return Base64.getEncoder().encodeToString(imageBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Method to decode Base64 string back to image
+    public static void decodeBase64ToImage(String base64Image, String outputPath) {
+        try {
+            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            Files.write(Paths.get(outputPath), imageBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
 Aby zrealizować Twoje wymagania, podzielmy projekt na kroki, zgodnie z podanymi punktami. Poniżej znajdziesz szczegółowy opis implementacji każdego kroku:
 
 ### 1. Utworzenie projektu z paczkami server, client, databasecreator
