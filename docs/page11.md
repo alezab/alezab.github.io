@@ -391,3 +391,207 @@ Powyższy kod wykonuje następujące kroki:
 
 Pamiętaj, aby dostosować `"path/to/your/image.jpg"` i `"path/to/save/blurred_image.jpg"` do odpowiednich ścieżek do pliku wejściowego i wyjściowego oraz dostosować wartość `radius` według potrzeb.
 
+
+Aby zaimplementować klienta i serwer w Javie, które wysyłają obrazek z tekstem "wysłano" od klienta do serwera, a serwer odbiera ten obrazek i zapisuje go na dysku, możemy skorzystać z biblioteki `Socket`. Poniżej znajduje się przykładowa implementacja.
+
+Najpierw zaimplementujemy serwer, który będzie nasłuchiwał na określonym porcie i odbierał obrazki.
+
+### Server.java
+
+```java
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Server {
+    public static void main(String[] args) {
+        int port = 12345; // Wybierz odpowiedni port
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server is listening on port " + port);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                System.out.println("Client connected");
+
+                InputStream inputStream = socket.getInputStream();
+                FileOutputStream fileOutputStream = new FileOutputStream("received_image.jpg");
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    fileOutputStream.write(buffer, 0, bytesRead);
+                }
+
+                fileOutputStream.close();
+                socket.close();
+                System.out.println("Image received and saved as 'received_image.jpg'");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+```
+
+### Client.java
+
+```java
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.Socket;
+import javax.imageio.ImageIO;
+
+public class Client {
+    public static void main(String[] args) {
+        String serverAddress = "localhost"; // Adres serwera
+        int port = 12345; // Port serwera
+
+        try (Socket socket = new Socket(serverAddress, port)) {
+            System.out.println("Connected to the server");
+
+            // Tworzenie obrazka z tekstem "wysłano"
+            BufferedImage image = new BufferedImage(200, 100, BufferedImage.TYPE_INT_RGB);
+            Graphics g = image.getGraphics();
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, image.getWidth(), image.getHeight());
+            g.setColor(Color.BLACK);
+            g.drawString("wysłano", 50, 50);
+            g.dispose();
+
+            // Zapisywanie obrazka do pliku (opcjonalne)
+            ImageIO.write(image, "jpg", new File("sent_image.jpg"));
+
+            // Wysyłanie obrazka do serwera
+            OutputStream outputStream = socket.getOutputStream();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", byteArrayOutputStream);
+            byteArrayOutputStream.writeTo(outputStream);
+
+            socket.close();
+            System.out.println("Image sent to the server");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+```
+
+### Instrukcje:
+
+1. **Uruchom serwer:**
+   - Skompiluj `Server.java` i uruchom go.
+   - Serwer będzie nasłuchiwał na porcie 12345.
+
+2. **Uruchom klienta:**
+   - Skompiluj `Client.java` i uruchom go.
+   - Klient połączy się z serwerem, utworzy obrazek z tekstem "wysłano" i wyśle go do serwera.
+
+3. **Serwer odbierze obrazek:**
+   - Po otrzymaniu obrazka, serwer zapisze go jako `received_image.jpg`.
+
+Powyższy kod demonstruje podstawową komunikację między klientem a serwerem, gdzie klient wysyła obrazek, a serwer go odbiera i zapisuje. Możesz dostosować port i adres serwera według własnych potrzeb.
+
+Oczywiście, możemy zrealizować przesyłanie obrazka linia po linii zamiast bajt po bajcie. Aby to zrobić, musimy przekonwertować obraz na odpowiedni format (np. zakodowany jako base64) i przesyłać te dane linia po linii. Poniżej znajdują się zmodyfikowane wersje `Server.java` i `Client.java`.
+
+### Server.java
+
+```java
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Base64;
+
+public class Server {
+    public static void main(String[] args) {
+        int port = 12345; // Wybierz odpowiedni port
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server is listening on port " + port);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                System.out.println("Client connected");
+
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                StringBuilder imageData = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    imageData.append(line);
+                }
+
+                byte[] imageBytes = Base64.getDecoder().decode(imageData.toString());
+                FileOutputStream fos = new FileOutputStream("received_image.jpg");
+                fos.write(imageBytes);
+                fos.close();
+
+                socket.close();
+                System.out.println("Image received and saved as 'received_image.jpg'");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+```
+
+### Client.java
+
+```java
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.Socket;
+import java.util.Base64;
+import javax.imageio.ImageIO;
+
+public class Client {
+    public static void main(String[] args) {
+        String serverAddress = "localhost"; // Adres serwera
+        int port = 12345; // Port serwera
+
+        try (Socket socket = new Socket(serverAddress, port)) {
+            System.out.println("Connected to the server");
+
+            // Tworzenie obrazka z tekstem "wysłano"
+            BufferedImage image = new BufferedImage(200, 100, BufferedImage.TYPE_INT_RGB);
+            Graphics g = image.getGraphics();
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, image.getWidth(), image.getHeight());
+            g.setColor(Color.BLACK);
+            g.drawString("wysłano", 50, 50);
+            g.dispose();
+
+            // Zapisywanie obrazka do pliku (opcjonalne)
+            ImageIO.write(image, "jpg", new File("sent_image.jpg"));
+
+            // Konwertowanie obrazka na Base64
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", byteArrayOutputStream);
+            String encodedImage = Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
+
+            // Wysyłanie obrazka linia po linii do serwera
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            out.println(encodedImage);
+
+            socket.close();
+            System.out.println("Image sent to the server");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+```
+
+### Instrukcje:
+
+1. **Uruchom serwer:**
+   - Skompiluj `Server.java` i uruchom go.
+   - Serwer będzie nasłuchiwał na porcie 12345.
+
+2. **Uruchom klienta:**
+   - Skompiluj `Client.java` i uruchom go.
+   - Klient połączy się z serwerem, utworzy obrazek z tekstem "wysłano", zakoduje go w base64 i wyśle do serwera linia po linii.
+
+3. **Serwer odbierze obrazek:**
+   - Po otrzymaniu obrazka, serwer zdekoduje dane base64 i zapisze obrazek jako `received_image.jpg`.
+
+Ta wersja kodu przesyła obrazek jako ciąg znaków zakodowany w base64 linia po linii, co może być bardziej czytelne dla niektórych zastosowań, chociaż w praktyce zazwyczaj nie jest to optymalne rozwiązanie dla dużych plików.
+
