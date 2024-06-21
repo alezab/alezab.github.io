@@ -48,6 +48,21 @@ public class CsvTimeReader {
 
 ```
 
+```java
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+public class Scratch {
+    public static void main(String[] args) {
+        String timeStr = "12:34:56";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime time = LocalTime.parse(timeStr, formatter);
+        System.out.println("Parsed time: " + time);
+    }
+}
+
+```
+
 Aby zrealizować Twoje wymagania, podzielmy projekt na kroki, zgodnie z podanymi punktami. Poniżej znajdziesz szczegółowy opis implementacji każdego kroku:
 
 ### 1. Utworzenie projektu z paczkami server, client, databasecreator
