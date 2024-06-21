@@ -234,3 +234,87 @@ class FileWriterRunnable implements Runnable {
 ### Usage
 - Replace `"path/to/your/input/file.txt"` and `"path/to/your/output/file.txt"` with the actual file paths.
 - This example demonstrates how to use both `extends Thread` and `implements Runnable` to perform synchronized file reading and writing in Java.
+
+- 
+Implementacja algorytmu wykrywania brzegów w Javie może być zrealizowana na kilka sposobów, jednym z popularniejszych jest wykorzystanie filtra Sobela, który jest podstawą do bardziej złożonych metod wykrywania krawędzi. Poniżej znajduje się przykład kodu w Javie implementującego algorytm Sobela do wykrywania krawędzi w obrazie.
+
+```java
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+
+public class SobelEdgeDetection {
+
+    public static void main(String[] args) throws Exception {
+        BufferedImage image = ImageIO.read(new File("path/to/your/image.jpg"));
+        BufferedImage result = applySobel(image);
+        ImageIO.write(result, "jpg", new File("path/to/save/edge_detected_image.jpg"));
+    }
+
+    public static BufferedImage applySobel(BufferedImage image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        
+        BufferedImage gray = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int rgb = image.getRGB(x, y);
+                int r = (rgb >> 16) & 0xff;
+                int g = (rgb >> 8) & 0xff;
+                int b = rgb & 0xff;
+                int grayLevel = (r + g + b) / 3;
+                int grayRgb = (grayLevel << 16) + (grayLevel << 8) + grayLevel;
+                gray.setRGB(x, y, grayRgb);
+            }
+        }
+
+        int[][] sobelX = {
+            {-1, 0, 1},
+            {-2, 0, 2},
+            {-1, 0, 1}
+        };
+
+        int[][] sobelY = {
+            {-1, -2, -1},
+            {0, 0, 0},
+            {1, 2, 1}
+        };
+
+        BufferedImage edgeImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                int gx = 0;
+                int gy = 0;
+                
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        int grayLevel = (gray.getRGB(x + j, y + i) & 0xff);
+                        gx += sobelX[i + 1][j + 1] * grayLevel;
+                        gy += sobelY[i + 1][j + 1] * grayLevel;
+                    }
+                }
+                
+                int g = (int) Math.sqrt(gx * gx + gy * gy);
+                g = g > 255 ? 255 : g;
+                int edgeRgb = (g << 16) + (g << 8) + g;
+                edgeImage.setRGB(x, y, edgeRgb);
+            }
+        }
+        
+        return edgeImage;
+    }
+}
+```
+
+Powyższy kod wykonuje następujące kroki:
+1. Wczytuje obraz z pliku.
+2. Konwertuje obraz na skalę szarości.
+3. Stosuje filtr Sobela w kierunkach X i Y.
+4. Kombinuje wyniki z filtrów X i Y, aby uzyskać ostateczny wynik krawędziowy.
+5. Zapisuje wynikowy obraz do pliku.
+
+Pamiętaj, aby podmienić `"path/to/your/image.jpg"` i `"path/to/save/edge_detected_image.jpg"` na odpowiednie ścieżki do pliku wejściowego i wyjściowego.
+
+
+
