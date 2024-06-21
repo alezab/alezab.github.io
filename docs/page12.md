@@ -222,4 +222,393 @@ class HelloController {
 - `@RestController` tworzy kontroler REST.
 - `@GetMapping` mapuje żądanie GET do metody.
 
-Każdy z powyższych przykładów ilustruje kluczowe funkcje Javy i popularnych bibliotek/frameworków, które mogą być użyteczne na sprawdzianach lub w codziennej pracy programistycznej.
+Każdy z powyższych przykładów ilustruje kluczowe funkcje Javy i popularnych bibliotek/frameworków, które mogą być użyteczne na sprawdzianach lub w 
+codziennej pracy programistycznej.
+
+Oczywiście, oto bardziej rozbudowany przykład wykorzystania biblioteki `org.sqlite.JDBC` do wykonywania różnych operacji SQL, takich jak zapis, odczyt, aktualizacja i usuwanie danych z gotowej bazy danych SQLite.
+
+### Przykład operacji SQL w SQLite
+
+Najpierw dodajemy zależność do `org.xerial:sqlite-jdbc` w pliku `pom.xml` (jeśli używamy Maven):
+
+```xml
+<dependency>
+    <groupId>org.xerial</groupId>
+    <artifactId>sqlite-jdbc</artifactId>
+    <version>3.36.0.3</version>
+</dependency>
+```
+
+Następnie tworzymy klasę `SQLiteExample`, która zawiera wszystkie operacje na bazie danych.
+
+### SQLiteExample.java
+
+```java
+import java.sql.*;
+
+public class SQLiteExample {
+
+    private static final String URL = "jdbc:sqlite:sample.db";
+
+    public static void main(String[] args) {
+        createTable();
+        insertData(1, "John Doe", 30);
+        insertData(2, "Jane Smith", 25);
+        readData();
+        updateData(1, "John Doe Updated", 31);
+        deleteData(2);
+        readData();
+    }
+
+    // Tworzenie tabeli
+    private static void createTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS users (" +
+                     "id INTEGER PRIMARY KEY," +
+                     "name TEXT NOT NULL," +
+                     "age INTEGER NOT NULL)";
+        try (Connection conn = DriverManager.getConnection(URL);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("Table created or already exists.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Wstawianie danych
+    private static void insertData(int id, String name, int age) {
+        String sql = "INSERT INTO users(id, name, age) VALUES(?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.setString(2, name);
+            pstmt.setInt(3, age);
+            pstmt.executeUpdate();
+            System.out.println("Data inserted.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Odczyt danych
+    private static void readData() {
+        String sql = "SELECT id, name, age FROM users";
+        try (Connection conn = DriverManager.getConnection(URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id") +
+                                   ", Name: " + rs.getString("name") +
+                                   ", Age: " + rs.getInt("age"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Aktualizacja danych
+    private static void updateData(int id, String name, int age) {
+        String sql = "UPDATE users SET name = ?, age = ? WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setInt(2, age);
+            pstmt.setInt(3, id);
+            pstmt.executeUpdate();
+            System.out.println("Data updated.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // Usuwanie danych
+    private static void deleteData(int id) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            System.out.println("Data deleted.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+```
+
+### Wyjaśnienie:
+
+1. **`createTable`**: Tworzy tabelę `users`, jeśli jeszcze nie istnieje.
+   - `id`: Klucz główny, liczba całkowita.
+   - `name`: Nazwa użytkownika, tekst.
+   - `age`: Wiek użytkownika, liczba całkowita.
+
+2. **`insertData`**: Wstawia dane do tabeli `users`.
+   - `PreparedStatement` służy do zabezpieczenia przed SQL injection.
+
+3. **`readData`**: Odczytuje wszystkie wiersze z tabeli `users` i wyświetla je na konsoli.
+   - `ResultSet` jest używany do iteracji przez wyniki zapytania SQL.
+
+4. **`updateData`**: Aktualizuje dane użytkownika na podstawie `id`.
+   - `PreparedStatement` służy do wykonywania aktualizacji danych.
+
+5. **`deleteData`**: Usuwa użytkownika na podstawie `id`.
+   - `PreparedStatement` służy do wykonywania usuwania danych.
+
+### Jak używać:
+
+1. Upewnij się, że masz bibliotekę `sqlite-jdbc` w swoim projekcie (np. dodając ją do `pom.xml` w Maven).
+2. Skompiluj i uruchom powyższą klasę `SQLiteExample`.
+3. Program stworzy bazę danych `sample.db`, utworzy tabelę, wstawi dane, odczyta je, zaktualizuje i usunie wybrane wiersze, a następnie ponownie odczyta dane, aby pokazać wyniki operacji.
+
+Ten kod pokazuje, jak wykonywać podstawowe operacje CRUD (Create, Read, Update, Delete) w bazie danych SQLite przy użyciu JDBC. Jest to przydatne w wielu aplikacjach, które wymagają lokalnego przechowywania danych.
+
+Oczywiście, oto pełna aplikacja chatu typu klient-serwer wykorzystująca gniazda (sockets) w Javie. Serwer umożliwia użytkownikom logowanie się za pomocą nazwy użytkownika i hasła, które są przechowywane w bazie danych SQLite. Dodatkowo, aplikacja obsługuje komendy `/broadcast` do wysyłania wiadomości do wszystkich użytkowników oraz `/whisper` do wysyłania prywatnych wiadomości do konkretnego użytkownika.
+
+### 1. Konfiguracja bazy danych SQLite
+
+Najpierw utwórz bazę danych SQLite i tabelę użytkowników.
+
+```sql
+-- create_users_table.sql
+CREATE TABLE IF NOT EXISTS users (
+    username TEXT PRIMARY KEY,
+    password TEXT NOT NULL
+);
+
+-- Insert example users
+INSERT INTO users (username, password) VALUES ('user1', 'pass1');
+INSERT INTO users (username, password) VALUES ('user2', 'pass2');
+```
+
+### 2. Serwer (Server.java)
+
+```java
+import java.io.*;
+import java.net.*;
+import java.sql.*;
+import java.util.*;
+import java.util.concurrent.*;
+
+public class Server {
+    private static final int PORT = 12345;
+    private static Map<String, ClientHandler> clients = new ConcurrentHashMap<>();
+    private static final String DB_URL = "jdbc:sqlite:chat.db";
+
+    public static void main(String[] args) {
+        createTableIfNotExists();
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Server is listening on port " + PORT);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                new ClientHandler(socket).start();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void createTableIfNotExists() {
+        String sql = "CREATE TABLE IF NOT EXISTS users (" +
+                     "username TEXT PRIMARY KEY," +
+                     "password TEXT NOT NULL)";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static boolean authenticate(String username, String password) {
+        String sql = "SELECT password FROM users WHERE username = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return password.equals(rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    static void broadcast(String message, String sender) {
+        for (ClientHandler client : clients.values()) {
+            if (!client.getUsername().equals(sender)) {
+                client.sendMessage(message);
+            }
+        }
+    }
+
+    static void whisper(String message, String recipient, String sender) {
+        ClientHandler client = clients.get(recipient);
+        if (client != null) {
+            client.sendMessage("[Whisper from " + sender + "]: " + message);
+        }
+    }
+
+    static void addClient(String username, ClientHandler client) {
+        clients.put(username, client);
+    }
+
+    static void removeClient(String username) {
+        clients.remove(username);
+    }
+
+    static boolean isUsernameTaken(String username) {
+        return clients.containsKey(username);
+    }
+}
+
+class ClientHandler extends Thread {
+    private Socket socket;
+    private PrintWriter out;
+    private BufferedReader in;
+    private String username;
+
+    public ClientHandler(Socket socket) {
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        try {
+            out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            out.println("Enter username:");
+            username = in.readLine();
+            out.println("Enter password:");
+            String password = in.readLine();
+
+            if (!Server.authenticate(username, password)) {
+                out.println("Authentication failed. Closing connection.");
+                socket.close();
+                return;
+            }
+
+            if (Server.isUsernameTaken(username)) {
+                out.println("Username already taken. Closing connection.");
+                socket.close();
+                return;
+            }
+
+            Server.addClient(username, this);
+            out.println("Welcome to the chat, " + username + "!");
+
+            String clientMessage;
+            while ((clientMessage = in.readLine()) != null) {
+                if (clientMessage.startsWith("/broadcast")) {
+                    String message = clientMessage.substring(11);
+                    Server.broadcast("[Broadcast from " + username + "]: " + message, username);
+                } else if (clientMessage.startsWith("/whisper")) {
+                    String[] parts = clientMessage.split(" ", 3);
+                    if (parts.length == 3) {
+                        String recipient = parts[1];
+                        String message = parts[2];
+                        Server.whisper(message, recipient, username);
+                    } else {
+                        out.println("Invalid whisper command format.");
+                    }
+                } else {
+                    out.println("Unknown command.");
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            Server.removeClient(username);
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void sendMessage(String message) {
+        out.println(message);
+    }
+}
+```
+
+### 3. Klient (Client.java)
+
+```java
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+public class Client {
+    private static final String SERVER_ADDRESS = "localhost";
+    private static final int SERVER_PORT = 12345;
+
+    public static void main(String[] args) {
+        try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             Scanner scanner = new Scanner(System.in)) {
+
+            // Odbieranie wiadomości od serwera w osobnym wątku
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String serverMessage;
+                        while ((serverMessage = in.readLine()) != null) {
+                            System.out.println(serverMessage);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            // Wysyłanie wiadomości do serwera
+            while (scanner.hasNextLine()) {
+                String clientMessage = scanner.nextLine();
+                out.println(clientMessage);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Jak uruchomić:
+
+1. **Baza danych SQLite:**
+   - Utwórz plik bazy danych `chat.db` i uruchom skrypt `create_users_table.sql`, aby utworzyć tabelę użytkowników i dodać przykładowe dane.
+
+2. **Serwer:**
+   - Skompiluj i uruchom `Server.java`. Serwer będzie nasłuchiwał na porcie 12345.
+
+3. **Klient:**
+   - Skompiluj i uruchom `Client.java`. Po uruchomieniu klienta, wprowadź nazwę użytkownika i hasło.
+
+### Komendy:
+- **`/broadcast <message>`**: Wysyła wiadomość do wszystkich użytkowników.
+- **`/whisper <username> <message>`**: Wysyła prywatną wiadomość do konkretnego użytkownika.
+
+### Wyjaśnienie:
+
+- **Serwer:**
+  - Przechowuje aktualnie zalogowanych użytkowników w `ConcurrentHashMap`.
+  - Obsługuje logowanie użytkowników, sprawdzając dane w bazie danych SQLite.
+  - Umożliwia wysyłanie wiadomości publicznych i prywatnych.
+
+- **Klient:**
+  - Łączy się z serwerem, wysyła dane logowania i odbiera wiadomości od serwera w osobnym wątku.
+  - Wysyła komendy do serwera na podstawie wpisów użytkownika.
+
+Ta aplikacja zapewnia podstawową funkcjonalność czatu z logowaniem, autoryzacją i obsługą prostych komend. Można ją rozszerzyć o dodatkowe funkcje, takie jak rejestracja nowych użytkowników, lepsze zarządzanie sesjami czy bardziej zaawansowane komendy.
