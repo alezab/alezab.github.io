@@ -63,6 +63,61 @@ public class Scratch {
 
 ```
 
+```java
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Scratch {
+    public static void main(String[] args) {
+        // Path to your CSV file
+        String csvFilePath = "path/to/your/file.csv";
+        
+        // List to store the parsed data
+        List<List<Object>> data = new ArrayList<>();
+
+        try {
+            // Read all lines from the CSV file
+            List<String> lines = Files.readAllLines(Paths.get(csvFilePath));
+
+            for (String line : lines) {
+                // Print the raw line
+                System.out.println("Raw line: " + line);
+                
+                // Split each line by comma
+                String[] values = line.split(",");
+
+                // List to hold the converted values of a line
+                List<Object> row = new ArrayList<>();
+
+                // Example conversion: Assume the first column is String, the second is Integer, and the third is Float
+                String stringValue = values[0].trim();
+                Integer intValue = Integer.parseInt(values[1].trim());
+                Float floatValue = Float.parseFloat(values[2].trim());
+
+                // Add the converted values to the row
+                row.add(stringValue);
+                row.add(intValue);
+                row.add(floatValue);
+
+                // Add the row to the data list
+                data.add(row);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Print the parsed data to verify
+        for (List<Object> row : data) {
+            System.out.println(row);
+        }
+    }
+}
+```
+
 Aby zrealizować Twoje wymagania, podzielmy projekt na kroki, zgodnie z podanymi punktami. Poniżej znajdziesz szczegółowy opis implementacji każdego kroku:
 
 ### 1. Utworzenie projektu z paczkami server, client, databasecreator
