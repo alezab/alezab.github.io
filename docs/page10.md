@@ -2,6 +2,52 @@ curl -X GET "http://localhost:8080/user/alezab/electrode/1"
 
 grep -rHn "comment" *.java  
 
+```java
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CsvTimeReader {
+
+    public static void main(String[] args) {
+        String csvFilePath = "path/to/your/file.csv";
+        List<LocalTime> times = readTimesFromCsv(csvFilePath);
+
+        // Convert List to array
+        LocalTime[] timeArray = times.toArray(new LocalTime[0]);
+
+        // Print the times
+        for (LocalTime time : timeArray) {
+            System.out.println(time);
+        }
+    }
+
+    public static List<LocalTime> readTimesFromCsv(String filePath) {
+        List<LocalTime> times = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+
+            for (String line : lines) {
+                // Assuming each line contains a single time value
+                LocalTime time = LocalTime.parse(line.trim(), formatter);
+                times.add(time);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return times;
+    }
+}
+
+```
+
 Aby zrealizować Twoje wymagania, podzielmy projekt na kroki, zgodnie z podanymi punktami. Poniżej znajdziesz szczegółowy opis implementacji każdego kroku:
 
 ### 1. Utworzenie projektu z paczkami server, client, databasecreator
