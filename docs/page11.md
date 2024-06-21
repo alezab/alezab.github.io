@@ -92,3 +92,145 @@ public class Scratch {
    - The connection is closed in a `finally` block to ensure it is properly released.
 
 Replace `"your_table"` with the actual name of your table and adjust the column names and types (`id`, `name`, `value`) to match your database schema. This snippet provides a basic template for performing SQL operations with SQLite using JDBC in a Java scratch file.
+
+Sure, here’s an example that demonstrates one thread using the `extends Thread` approach and another thread using the `implements Runnable` approach for reading from a file and writing to a file byte by byte.
+
+### Java Code Snippet
+
+```java
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class Scratch {
+    public static void main(String[] args) {
+        String inputFilePath = "path/to/your/input/file.txt";
+        String outputFilePath = "path/to/your/output/file.txt";
+
+        SharedBuffer sharedBuffer = new SharedBuffer();
+
+        FileReaderThread readerThread = new FileReaderThread(inputFilePath, sharedBuffer);
+        FileWriterRunnable writerRunnable = new FileWriterRunnable(outputFilePath, sharedBuffer);
+        Thread writerThread = new Thread(writerRunnable);
+
+        readerThread.start();
+        writerThread.start();
+
+        try {
+            readerThread.join();
+            writerThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class SharedBuffer {
+    private byte[] buffer = new byte[1];
+    private boolean isReadComplete = false;
+    private final Object lock = new Object();
+
+    public byte[] getBuffer() {
+        return buffer;
+    }
+
+    public void setBuffer(byte[] buffer) {
+        this.buffer = buffer;
+    }
+
+    public boolean isReadComplete() {
+        return isReadComplete;
+    }
+
+    public void setReadComplete(boolean readComplete) {
+        isReadComplete = readComplete;
+    }
+
+    public Object getLock() {
+        return lock;
+    }
+}
+
+class FileReaderThread extends Thread {
+    private final String inputFilePath;
+    private final SharedBuffer sharedBuffer;
+
+    public FileReaderThread(String inputFilePath, SharedBuffer sharedBuffer) {
+        this.inputFilePath = inputFilePath;
+        this.sharedBuffer = sharedBuffer;
+    }
+
+    @Override
+    public void run() {
+        try (FileInputStream fis = new FileInputStream(inputFilePath)) {
+            int bytesRead;
+            while ((bytesRead = fis.read(sharedBuffer.getBuffer())) != -1) {
+                synchronized (sharedBuffer.getLock()) {
+                    sharedBuffer.getLock().notify();
+                    sharedBuffer.getLock().wait();
+                }
+            }
+            synchronized (sharedBuffer.getLock()) {
+                sharedBuffer.setReadComplete(true);
+                sharedBuffer.getLock().notify();
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class FileWriterRunnable implements Runnable {
+    private final String outputFilePath;
+    private final SharedBuffer sharedBuffer;
+
+    public FileWriterRunnable(String outputFilePath, SharedBuffer sharedBuffer) {
+        this.outputFilePath = outputFilePath;
+        this.sharedBuffer = sharedBuffer;
+    }
+
+    @Override
+    public void run() {
+        try (FileOutputStream fos = new FileOutputStream(outputFilePath)) {
+            while (true) {
+                synchronized (sharedBuffer.getLock()) {
+                    sharedBuffer.getLock().notify();
+                    if (sharedBuffer.isReadComplete() && sharedBuffer.getBuffer()[0] == 0) {
+                        break;
+                    }
+                    fos.write(sharedBuffer.getBuffer());
+                    sharedBuffer.getLock().wait();
+                }
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Explanation
+
+1. **SharedBuffer Class**:
+   - This class contains a buffer to hold the byte being read and written, a flag `isReadComplete` to indicate when reading is complete, and a lock object for synchronization.
+
+2. **FileReaderThread Class (extends Thread)**:
+   - This thread reads bytes from the input file using a `FileInputStream`.
+   - It reads each byte and notifies the writer thread, then waits for the writer to process the byte.
+   - When the end of the file is reached, it sets the `isReadComplete` flag and notifies the writer thread.
+
+3. **FileWriterRunnable Class (implements Runnable)**:
+   - This runnable writes bytes to the output file using a `FileOutputStream`.
+   - It waits for the reader thread to provide each byte, writes it to the file, and then notifies the reader thread.
+   - The loop exits when reading is complete and the buffer is empty.
+
+4. **Main Method**:
+   - Creates instances of `SharedBuffer`, `FileReaderThread`, and `FileWriterRunnable`.
+   - Starts the reader and writer threads and waits for them to finish using `join()`.
+
+5. **Thread Synchronization**:
+   - The reader and writer threads synchronize on the `lock` object in `SharedBuffer` to coordinate reading and writing.
+
+### Usage
+- Replace `"path/to/your/input/file.txt"` and `"path/to/your/output/file.txt"` with the actual file paths.
+- This example demonstrates how to use both `extends Thread` and `implements Runnable` to perform synchronized file reading and writing in Java.
