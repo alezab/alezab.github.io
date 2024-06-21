@@ -612,3 +612,92 @@ public class Client {
   - Wysyła komendy do serwera na podstawie wpisów użytkownika.
 
 Ta aplikacja zapewnia podstawową funkcjonalność czatu z logowaniem, autoryzacją i obsługą prostych komend. Można ją rozszerzyć o dodatkowe funkcje, takie jak rejestracja nowych użytkowników, lepsze zarządzanie sesjami czy bardziej zaawansowane komendy.
+
+
+Aby uruchomić plik SQL na istniejącej bazie danych SQLite za pomocą JDBC, możesz użyć Java do odczytu pliku SQL i wykonania zawartych w nim poleceń. Oto przykład, jak to zrobić:
+
+### 1. Tworzenie pliku SQL
+
+Upewnij się, że masz plik SQL, który zawiera polecenia SQL do wykonania. Przykładowy plik `script.sql`:
+
+```sql
+-- script.sql
+CREATE TABLE IF NOT EXISTS users (
+    username TEXT PRIMARY KEY,
+    password TEXT NOT NULL
+);
+
+INSERT INTO users (username, password) VALUES ('user1', 'pass1');
+INSERT INTO users (username, password) VALUES ('user2', 'pass2');
+```
+
+### 2. Kod Javy do uruchomienia pliku SQL
+
+Oto przykład kodu Javy, który odczytuje plik SQL i wykonuje zawarte w nim polecenia na istniejącej bazie danych SQLite:
+
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ExecuteSQLScript {
+    private static final String DB_URL = "jdbc:sqlite:chat.db";
+
+    public static void main(String[] args) {
+        try (Connection conn = DriverManager.getConnection(DB_URL)) {
+            executeScript(conn, "path/to/script.sql");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void executeScript(Connection conn, String filePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath));
+             Statement stmt = conn.createStatement()) {
+
+            StringBuilder sql = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sql.append(line);
+                // If the line ends with a semicolon, it means the end of a SQL command
+                if (line.trim().endsWith(";")) {
+                    stmt.execute(sql.toString());
+                    sql.setLength(0);  // Clear the StringBuilder for the next command
+                }
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Wyjaśnienie:
+
+1. **Łączenie z bazą danych:**
+   - `DriverManager.getConnection(DB_URL)`: Otwiera połączenie z bazą danych SQLite znajdującą się w pliku `chat.db`.
+
+2. **Odczyt i wykonanie pliku SQL:**
+   - `BufferedReader` odczytuje plik SQL linia po linii.
+   - `Statement` wykonuje każdą komendę SQL, gdy zostanie wykryty koniec komendy (oznaczony przez średnik `;`).
+
+3. **Główna funkcja:**
+   - `executeScript(conn, "path/to/script.sql")`: Wywołuje metodę do wykonania skryptu SQL, podając połączenie do bazy danych oraz ścieżkę do pliku SQL.
+
+### Jak uruchomić:
+
+1. Upewnij się, że plik bazy danych `chat.db` istnieje w odpowiedniej lokalizacji.
+2. Utwórz plik `script.sql` z odpowiednimi komendami SQL.
+3. Zaktualizuj ścieżkę do pliku SQL w metodzie `executeScript`.
+4. Skompiluj i uruchom program `ExecuteSQLScript`.
+
+```bash
+javac ExecuteSQLScript.java
+java ExecuteSQLScript
+```
+
+Powyższy kod odczyta i wykona wszystkie komendy zawarte w pliku SQL na wskazanej bazie danych SQLite. Możesz go dostosować do własnych potrzeb, np. dodać obsługę bardziej złożonych skryptów SQL czy logowanie błędów.
