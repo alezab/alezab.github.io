@@ -316,5 +316,78 @@ Powyższy kod wykonuje następujące kroki:
 
 Pamiętaj, aby podmienić `"path/to/your/image.jpg"` i `"path/to/save/edge_detected_image.jpg"` na odpowiednie ścieżki do pliku wejściowego i wyjściowego.
 
+Box blur to jeden z najprostszych filtrów rozmywających, który średnia wartości pikseli w określonym sąsiedztwie każdego piksela. Implementacja takiego filtra w Javie może wyglądać następująco:
 
+```java
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+
+public class BoxBlur {
+
+    public static void main(String[] args) throws Exception {
+        BufferedImage image = ImageIO.read(new File("path/to/your/image.jpg"));
+        int radius = 3; // Adjust the radius as needed
+        BufferedImage result = applyBoxBlur(image, radius);
+        ImageIO.write(result, "jpg", new File("path/to/save/blurred_image.jpg"));
+    }
+
+    public static BufferedImage applyBoxBlur(BufferedImage image, int radius) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        BufferedImage blurred = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        int[] pixels = new int[width * height];
+        image.getRGB(0, 0, width, height, pixels, 0, width);
+        int[] newPixels = new int[width * height];
+
+        int kernelSize = (2 * radius + 1) * (2 * radius + 1);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int rSum = 0, gSum = 0, bSum = 0;
+                int count = 0;
+
+                for (int dy = -radius; dy <= radius; dy++) {
+                    for (int dx = -radius; dx <= radius; dx++) {
+                        int newX = x + dx;
+                        int newY = y + dy;
+
+                        if (newX >= 0 && newX < width && newY >= 0 && newY < height) {
+                            int rgb = pixels[newX + newY * width];
+                            int r = (rgb >> 16) & 0xff;
+                            int g = (rgb >> 8) & 0xff;
+                            int b = rgb & 0xff;
+
+                            rSum += r;
+                            gSum += g;
+                            bSum += b;
+                            count++;
+                        }
+                    }
+                }
+
+                int newR = rSum / count;
+                int newG = gSum / count;
+                int newB = bSum / count;
+
+                newPixels[x + y * width] = (newR << 16) | (newG << 8) | newB;
+            }
+        }
+
+        blurred.setRGB(0, 0, width, height, newPixels, 0, width);
+        return blurred;
+    }
+}
+```
+
+Powyższy kod wykonuje następujące kroki:
+1. Wczytuje obraz z pliku.
+2. Inicjalizuje nowy obraz do przechowywania rozmytego wyniku.
+3. Iteruje przez każdy piksel obrazu wejściowego.
+4. Dla każdego piksela oblicza średnią wartość kolorów (R, G, B) w zadanym promieniu (`radius`).
+5. Przypisuje obliczoną średnią wartość do odpowiedniego piksela w nowym obrazie.
+6. Zapisuje wynikowy obraz do pliku.
+
+Pamiętaj, aby dostosować `"path/to/your/image.jpg"` i `"path/to/save/blurred_image.jpg"` do odpowiednich ścieżek do pliku wejściowego i wyjściowego oraz dostosować wartość `radius` według potrzeb.
 
