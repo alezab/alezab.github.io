@@ -1,3 +1,7 @@
+curl -X GET "http://localhost:8080/user/alezab/electrode/1"  
+
+grep -rHn "comment" *.java  
+
 Aby zrealizować Twoje wymagania, podzielmy projekt na kroki, zgodnie z podanymi punktami. Poniżej znajdziesz szczegółowy opis implementacji każdego kroku:
 
 ### 1. Utworzenie projektu z paczkami server, client, databasecreator
