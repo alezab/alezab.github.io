@@ -241,9 +241,9 @@ Output: ""
 ```
 
 Założenia:  
-- 1 <= strs.length <= 200
-- 0 <= strs[i].length <= 200
-- strs[i] składa się tylko z małych angielskich liter.
+- 1 <= strs.length <= 200  
+- 0 <= strs[i].length <= 200  
+- strs[i] składa się tylko z małych angielskich liter.  
 
 Rozwiązanie:  
 ```js
@@ -442,9 +442,9 @@ Output: 4
 ```
 
 Założenia  
-- 1 <= s.length <= 104
-- s zawiera tylko znaki angielskiego alfabetu i spacje ' '.
-- W s znajduje się co najmniej jedno słowo.
+- 1 <= s.length <= 104  
+- s zawiera tylko znaki angielskiego alfabetu i spacje ' '.  
+- W s znajduje się co najmniej jedno słowo.  
 
 Rozwiązanie:  
 ```js
@@ -479,12 +479,12 @@ Output: 3
 ```
 
 Wyjaśnienie:  
-- 1 stopień + 1 stopień + 1 stopień
-- 1 stopień + 2 stopnie
-- 2 stopnie + 1 stopień
+- 1 stopień + 1 stopień + 1 stopień  
+- 1 stopień + 2 stopnie  
+- 2 stopnie + 1 stopień  
 
 Założenia:  
-- 1 <= n <= 45
+- 1 <= n <= 45  
 
 Rozwiązanie:  
 ```js
