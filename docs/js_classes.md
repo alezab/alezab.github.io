@@ -66,3 +66,34 @@ class Dog extends Animal {
 const dog = new Dog('Reksio');
 dog.speak(); // Reksio szczeka.
 ```
+
+## Słowo kluczowe `super`
+
+`super` pozwala odwołać się do metod lub konstruktora klasy nadrzędnej. Najczęściej używane jest w konstruktorze klasy pochodnej, aby wywołać konstruktor klasy bazowej, lub do wywołania metody z klasy nadrzędnej.
+
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(`${this.name} wydaje dźwięk.`);
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name); // wywołuje konstruktor klasy Animal
+    this.breed = breed;
+  }
+  speak() {
+    super.speak(); // wywołuje metodę speak z klasy Animal
+    console.log(`${this.name} szczeka.`);
+  }
+}
+
+const dog = new Dog('Reksio', 'owczarek');
+dog.speak();
+// Reksio wydaje dźwięk.
+// Reksio szczeka.
+```
