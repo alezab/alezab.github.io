@@ -148,3 +148,36 @@ date1.isBefore(date2), date1.isAfter(date2)
 ```
 Shift+F6  
 Ctrl Alt Shift L  
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+class Hello {
+    public static void main(String a[]) {
+
+        Comparator<String> com = new Comparator<String>() {
+            public int compare(String i, String j)
+            {
+                if(i.length() < j.length()) 
+                    return 1;
+                else 
+                    return -1;
+            }
+        };
+        List<String> names = new ArrayList<>();
+        names.add("Navin");
+        names.add("Navin Reddy");
+        names.add("Telusko");
+        names.add("Navin Telusko");
+
+        Collections.sort(names, com);
+
+        System.out.println(names);
+
+    }
+}
+```
+
