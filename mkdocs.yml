@@ -2,7 +2,7 @@ site_name: Linux Geeks
 theme: 
   name: material
   features:
-    - navigation.tabs
+    # - navigation.tabs  # Removed to enable left sidebar with all pages
     - navigation.sections
     - toc.integrate
     - navigation.top
