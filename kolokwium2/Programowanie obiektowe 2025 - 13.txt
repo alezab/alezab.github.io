@@ -1,0 +1,518 @@
+Agenda
+
+•
+Serwer
+
+•
+Klient
+
+•
+Pliki
+
+
+
+
+Serwer
+
+gniazdo elektryczne w scianie, z dwoma otworami i niczym wiecej, bez uziemienia, fotorealistyczne
+
+Gniazdo serwerowe
+
+public class Server { private ServerSocket serverSocket; public Server() throws IOException { serverSocket = new ServerSocket(3000); } public void listen() throws IOException { System.out.println("Server started"); serverSocket.accept(); System.out.println("Client connected"); }}
+public static void main(String[] args) throws IOException { Server server = new Server(); server.listen();}
+
+
+Oczekiwanie na polaczenie
+
+public void listen() throws IOException {  System.out.println("Server started");  serverSocket.accept(); System.out.println("Client connected");}
+
+Server started
+
+$ telnet localhost 3000
+
+
+Nawiazanie polaczenia
+
+public void listen() throws IOException {  System.out.println("Server started");  serverSocket.accept(); System.out.println("Client connected");}
+
+Server started
+Client connected
+
+$ telnet localhost 3000
+Trying ::1...
+Connected to localhost.
+Escape character is '^]'.
+Connection closed by foreign host.
+
+
+Odebranie wiadomosci
+
+public void listen() throws IOException {  System.out.println("Server started"); Socketsocket =serverSocket.accept(); System.out.println("Client connected");
+ InputStream input= socket.getInputStream(); BufferedReaderreader = new BufferedReader(   new InputStreamReader(input) ); Stringmessage; while(true) { message = reader.readLine();   System.out.println(message); }}
+
+Server started
+Client connected
+
+$ telnet localhost 3000
+message
+
+
+Odebranie wiadomosci
+
+public void listen() throws IOException {  System.out.println("Server started");  Socket socket =serverSocket.accept(); System.out.println("Client connected");
+ InputStream input= socket.getInputStream(); BufferedReaderreader = new BufferedReader(   new InputStreamReader(input) ); Stringmessage; while(true) { message = reader.readLine();   System.out.println(message); }}
+
+Server started
+Client connected
+message
+
+$ telnet localhost 3000
+message
+
+ENTER
+
+
+Odebranie wiadomosci
+
+public void listen() throws IOException {  System.out.println("Server started");  Socket socket =serverSocket.accept(); System.out.println("Client connected");
+ InputStream input= socket.getInputStream(); BufferedReaderreader = new BufferedReader(   new InputStreamReader(input) ); Stringmessage; while(true) { message = reader.readLine();   System.out.println(message); }}
+
+Server started
+Client connected
+message
+message 2
+
+$ telnet localhost 3000
+message
+message 2
+
+ENTER
+
+
+$ telnet localhost 3000
+Trying ::1...
+Connected to localhost.
+Escape character is '^]'.
+message
+telnet>
+Connection closed by foreign host.
+
+Server started
+Client connected
+message
+Server closed
+
+Zakonczenie polaczenia
+
+public void listen() throws IOException {  /* ... */
+ Stringmessage;while((message= reader.readLine()) !=null)) {   System.out.println(message); }
+ socket.close(); serverSocket.close();
+ System.out.println("Server closed");}
+
+CTRL+]
+
+CTRL+D
+
+
+Wyslanie wiadomosci
+
+public void listen() throws IOException {  /* ... */
+ OutputStream output =socket.getOutputStream(); PrintWriterwriter =new PrintWriter(output, true); Stringmessage; writer.println("Hello!"); while ((message = reader.readLine()) != null)  writer.println(message);
+ /* ... */}
+
+Server started
+Client connected
+
+$ telnet localhost 3000
+Hello!
+message
+
+
+Wyslanie wiadomosci
+
+public void listen() throws IOException {  /* ... */
+ OutputStream output =socket.getOutputStream(); PrintWriterwriter =new PrintWriter(output, true); Stringmessage; writer.println("Hello!"); while ((message = reader.readLine()) != null)   writer.println(message); 
+ /* ... */}
+
+Server started
+Client connected
+
+$ telnet localhost 3000
+Hello!
+message
+message
+Connection closed by foreign host.
+
+ENTER
+
+CTRL+]
+
+CTRL+D
+
+
+Wyodrebnienie obslugi klienta do metody
+
+public voidserveClient() throws IOException { Socket socket = serverSocket.accept(); InputStream input = socket.getInputStream(); BufferedReader reader = new BufferedReader(new InputStreamReader(input)); OutputStream output = socket.getOutputStream(); PrintWriter writer = new PrintWriter(output, true); String message; writer.println("Hello!"); while((message = reader.readLine()) != null) { writer.println(message); } socket.close();}
+
+
+Sekwencyjna obsluga klientów
+
+public void listen() throws IOException { System.out.println("Server started"); while(true) { System.out.println("Client connected"); serveClient(); System.out.println("Client disconnected"); }
+}
+
+Server started
+Client connected
+
+
+(Prostokat)
+$ telnet localhost 3000
+Hello!
+message
+message
+
+
+Próba polaczenia drugiego klienta
+
+public void listen() throws IOException { System.out.println("Server started"); while(true) { System.out.println("Client connected"); serveClient(); System.out.println("Client disconnected"); }
+}
+
+Server started
+Client connected
+
+$ telnet localhost 3000
+
+$ telnet localhost 3000
+Hello!
+message
+message
+
+
+Odblokowanie serwera
+
+public void listen() throws IOException { System.out.println("Server started"); while(true) { System.out.println("Client connected"); serveClient(); System.out.println("Client disconnected"); }
+}
+
+Server started
+Client connected
+Client disconnected
+Client connected
+
+$ telnet localhost 3000
+Hello!
+
+$ telnet localhost 3000
+Hello!
+message
+message
+Connection closed by foreign host.
+
+CTRL+]
+
+CTRL+D
+
+
+Oczekiwanie na kolejne polaczenie
+
+public void listen() throws IOException { System.out.println("Server started"); while(true) { System.out.println("Client connected"); serveClient(); System.out.println("Client disconnected"); }
+}
+
+Server started
+Client connected
+Client disconnected
+Client connected
+Client disconnected
+Client connected
+
+$ telnet localhost 3000
+Hello!
+Connection closed by foreign host.
+
+$ telnet localhost 3000
+Hello!
+message
+message
+Connection closed by foreign host.
+
+CTRL+]
+
+CTRL+D
+
+
+Równolegla obsluga klientów
+
+Obraz zawierajacy zrzut ekranu, design
+
+Opis wygenerowany automatycznie
+
+Watek obslugujacy klienta
+
+public classClientHandler implementsRunnable { private final Socket socket; private final BufferedReader reader; private final PrintWriter writer; public ClientHandler(Socket socket) throws IOException { this.socket = socket; InputStream input = socket.getInputStream(); OutputStream output = socket.getOutputStream(); reader = new BufferedReader(new InputStreamReader(input)); writer = new PrintWriter(output, true); } @Override public void run() { /* ... */ }}
+
+
+Metoda run()
+
+public classClientHandler implements Runnable { /* ... */ @Override public void run() { System.out.println("Client connected"); String message; try { while ((message = reader.readLine()) != null) writer.println(message); socket.close(); } catch (IOException e) { throw new RuntimeException(e); } System.out.println("Client disconnected"); }}
+
+
+Uruchomienie watku
+
+public class Server { private ServerSocket serverSocket; private ArrayList<ClientHandler> handlers = new ArrayList<>();
+ /* ... */
+ public void listen() throws IOException { System.out.println("Server started"); while(true) { Socket socket = serverSocket.accept();ClientHandlerhandler = newClientHandler(socket); Thread thread = new Thread(handler); thread.start(); handlers.add(handler); } }}
+
+
+Równolegla obsluga klientów
+
+Server started
+Client connected
+Client connected
+Client disconnected
+Client disconnected
+
+$ telnet localhost 3000
+Hello!
+message
+message
+
+$ telnet localhost 3000
+Hello!
+message
+message
+
+CTRL+]
+
+CTRL+D
+
+CTRL+]
+
+CTRL+D
+
+
+Komunikacja miedzy klientami
+
+public class ClientHandler implements Runnable {
+ private final Server server;
+/* ... */
+ public ClientHandler(Socket socket, Server server) throws IOException {/* ... */}
+ public voidsend(String message) { writer.println(message); }
+ @Override public void run() { String message; try { while ((message = reader.readLine()) != null)server.broadcast(message); socket.close(); } catch (IOException e) { throw new RuntimeException(e); } }}
+
+
+Rozsylanie wiadomosci wszystkim klientom
+
+public class Server {
+/* ... */ public voidbroadcast(String message) { handlers.forEach(handler -> handler.send(message)); } public void listen() throws IOException { System.out.println("Server started"); while(true) { Socket socket = serverSocket.accept(); ClientHandler handler = new ClientHandler(socket, this); Thread thread = new Thread(handler); thread.start(); handlers.add(handler); } }}
+
+
+Komunikacja miedzy klientami
+
+Server started
+Client connected
+Client connected
+
+$ telnet localhost 3000
+Hello!
+message 1
+message 1
+message 2
+
+$ telnet localhost 3000
+Hello!
+message 1
+message 2
+message 2
+
+
+Usuniecie zakonczonego watku
+
+public class ClientHandler implements Runnable {/* ... */ private voidclose() throws IOException { socket.close(); server.removeHandler(this); } @Override public void run() { System.out.println("Client connected"); String message; try { while ((message = reader.readLine()) != null) writer.println(message);close(); } catch (IOException e) { throw new RuntimeException(e); } System.out.println("Client disconnected"); }}
+
+
+Usuniecie zakonczonego watku
+
+public class Server { private ServerSocket serverSocket; private ArrayList<ClientHandler> handlers = new ArrayList<>();
+ /* ... */
+ public voidremoveHandler(ClientHandler handler) { handlers.remove(handler); }
+ public void listen() throws IOException { System.out.println("Server started"); while(true) { Socket socket = serverSocket.accept(); ClientHandler handler = new ClientHandler(socket,this); /* ... */ } }}
+
+
+Zerwanie polaczenia z serwerem
+
+Server started
+Client connected
+Client connected
+
+$ telnet localhost 3000
+Hello!
+Connection closed by foreign host.
+
+$ telnet localhost 3000
+Hello!
+Connection closed by foreign host.
+
+CTRL+C
+
+
+Zamkniecie polaczen
+
+public class Server {
+ /* ... */ public voiddisconnectHandlers() { handlers.forEach(handler-> handler.send("Bye!")); handlers.clear(); }
+}
+public static void main(String[] args) throws IOException { Server server = new Server();
+ Runtime.getRuntime().addShutdownHook(new Thread(() -> { server.disconnectHandlers(); }));  server.listen();}
+
+
+Zerwanie polaczenia z serwerem
+
+Server started
+Client connected
+Client connected
+
+$ telnet localhost 3000
+Hello!
+Bye!
+Connection closed by foreign host.
+
+$ telnet localhost 3000
+Hello!
+Bye!
+Connection closed by foreign host.
+
+CTRL+C
+
+
+Klient
+
+bardzo prosta wtyczka elektryczna, z dwoma bolcami, bez uziemienia, fotorealistyczne
+
+Minimalny klient
+
+public classMain { public static void main(String[] args) throws IOException { Socket socket = new Socket("localhost", 3000); InputStream input = socket.getInputStream(); OutputStream output = socket.getOutputStream(); BufferedReader reader = new BufferedReader(new InputStreamReader(input)); PrintWriter writer = new PrintWriter(output, true); writer.println("message"); String result = reader.readLine(); System.out
+ .println(result); }}
+
+message
+
+Server started
+Client connected
+Client disconnected
+
+
+Klient jako watek
+
+public class Client implements Runnable{ private final Socket socket; private final BufferedReader reader; private final PrintWriter writer; public Client(String address, int port) throws IOException { socket = new Socket(address, port); InputStream input = socket.getInputStream(); OutputStream output = socket.getOutputStream(); reader = new BufferedReader(new InputStreamReader(input)); writer = new PrintWriter(output, true); } @Override public void run() { /* ... */ } /* ... */}
+
+
+Metoda run()
+
+public class Client implements Runnable { /* ... */ @Override public void run() { try { String message;   while ((message = reader.readLine()) != null)    System.out.println(message);   } catch (IOException e) { e.printStackTrace(); } } public voidsend(String message) {   writer.println(message); }}
+
+
+Uruchomienie klienta
+
+public class Main { public static void main(String[] args) throws IOException { Client client = new Client("localhost", 3000); new Thread(client).start(); BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); while(true) { String message = reader.readLine(); client.send(message); } }}
+
+message
+message
+
+Server started
+Client connected
+Client disconnected
+
+
+Wywolanie konsumenta
+
+public class Client implements Runnable {privateConsumer<String> display; public voidsetDisplay(Consumer<String> display) { this.display = display; } @Override public void run() { try { String message; while ((message = reader.readLine()) != null)display.accept(message); } catch (IOException e) { e.printStackTrace(); } }}
+
+
+Definicja konsumenta
+
+public class Main { public static void main(String[] args) throws IOException { Client client = new Client("localhost", 3000); new Thread(client).start(); BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); client.setDisplay(message -> { JOptionPane .showMessageDialog(null, message, "message", JOptionPane.INFORMATION_MESSAGE); }); while(true) { String message = reader.readLine(); client.send(message); } }}
+
+
+Dzialanie klienta z konsumentem
+
+Server started
+Client connected
+Client connected
+
+message1
+
+
+(Prostokat)
+Obraz zawierajacy tekst, zrzut ekranu, multimedia, oprogramowanie
+
+Opis wygenerowany automatycznie
+Obraz zawierajacy tekst, zrzut ekranu, multimedia, oprogramowanie
+
+Opis wygenerowany automatycznie
+
+Pliki
+
+dokumenty wypadajace z rury, przymocowanej do sufitu, ukladajace sie na podlodze w idealny stos, realistyczne
+
+Droga przesylania
+
+Obraz zawierajacy tekst, zrzut ekranu, Czcionka, bialy
+
+Opis wygenerowany automatycznie
+
+Wysylanie pliku z klienta
+
+public void sendFile(String path) throws IOException {
+ File file = new File(filePath); FileInputStream fileIn = new FileInputStream(file); DataOutputStream fileOut = new DataOutputStream(socket.getOutputStream());
+ byte[] buffer = new byte[64]; int count; while ((count = fileIn.read(buffer)) > 0)    fileOut.write(buffer,0,count); fileIn.close();}
+
+
+Przesylanie pliku przez serwer
+
+public void transferFile(ClientHandler sender, ClientHandler recipient) throws IOException { DataInputStream fileIn = new DataInputStream(sender.getSocket().getInputStream()); DataOutputStream fileOut = new DataOutputStream(recipient.getSocket().getOutputStream()); byte[] buffer = new byte[64]; int count; while((count = fileIn.read(buffer)) > 0)  fileOut.write(buffer, 0, count);
+}
+
+
+Odbiór pliku przez klienta
+
+public void receiveFile() throws IOException {
+ File file = new File(String.valueOf( Path.of(System.getProperty("java.io.tmpdir")).resolve("result.bin") ));
+ DataInputStream fileIn = new DataInputStream(socket.getInputStream()); FileOutputStreamfileOut = new FileOutputStream(file); byte[]buffer = new byte[64]; intcount;
+ while ((count = fileIn.read(buffer)) > 0) {    System.out.print(count); fileOut.write(buffer, 0, count);
+ } fileOut.close();}
+
+64
+64
+64
+58
+
+
+Informacja o rozmiarze (nadawca)
+
+public void sendFile(String path) throws IOException {
+ File file = new File(filePath);
+longfileSize= file.length();
+ writer.println(fileSize);
+ FileInputStream fileIn = new FileInputStream(file); DataOutputStream fileOut = new DataOutputStream(socket.getOutputStream());
+ byte[] buffer = new byte[64]; int count; while ((count = fileIn.read(buffer)) > 0)    fileOut.write(buffer,0,count); fileIn.close();}
+
+
+Informacja o rozmiarze (serwer)
+
+public void transferFile(String fileSize, ClientHandler sender, ClientHandler recipient) throws IOException { DataInputStream fileIn = new DataInputStream(sender.getSocket().getInputStream()); DataOutputStream fileOut = new DataOutputStream(recipient.getSocket().getOutputStream()); byte[] buffer = new byte[64]; int count;recipient.send(fileSize);
+ while((count = fileIn.read(buffer)) > 0)  fileOut.write(buffer, 0, count);
+}
+
+
+Informacja o rozmiarze (odbiorca)
+
+public void receiveFile(String size) throws IOException {
+longfileSize= Long.parseLong(size);
+ File file = new File(String.valueOf( Path.of(System.getProperty("java.io.tmpdir")).resolve("result.bin") ));
+ DataInputStream fileIn = new DataInputStream(socket.getInputStream()); FileOutputStreamfileOut = new FileOutputStream(file); byte[]buffer = new byte[64]; intcount, receivedSize= 0;
+ while ((count = fileIn.read(buffer)) > 0) {    System.out.print("\r" + (receivedSize* 100 / fileSize) + "%"); fileOut.write(buffer, 0, count);
+ } fileOut.close();}
+
+25%
+51%
+76%
+100%
+
+
+

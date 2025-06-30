@@ -1,0 +1,15 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="pl.umcs.drawingapp.DrawingController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <HBox spacing="10">
+        <Label text="Select Shape:"/>
+        <ComboBox fx:id="shapeComboBox" prefWidth="150"/>
+        <Button text="Draw" onAction="#onDrawButtonClicked"/>
+    </HBox>
+    <Canvas fx:id="drawingCanvas" width="500" height="500" style="-fx-border-color: black;"/>
+</VBox>
