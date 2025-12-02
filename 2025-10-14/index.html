@@ -1,0 +1,2100 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2025-10-07/">
+      
+      
+        <link rel="next" href="../2025-10-21/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Laboratorium - Funkcje Skrótu (Hashing) - Linux Geeks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#laboratorium-funkcje-skrotu-hashing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Geeks" class="md-header__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Geeks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Laboratorium - Funkcje Skrótu (Hashing)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Geeks" class="md-nav__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linux Geeks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - cURL i jq (JSON Query)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Funkcje Skrótu (Hashing)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Funkcje Skrótu (Hashing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spis-tresci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spis treści
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wstep-podstawy-hashowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wstęp - Podstawy hashowania
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wstęp - Podstawy hashowania">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roznica-miedzy-echo-a-echo-n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Różnica między echo a echo -n
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podstawowe-komendy-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podstawowe komendy OpenSSL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-11-hash-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.1 - Hash MD5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.1 - Hash MD5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-sowa-i-obliczenie-hash-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie słowa i obliczenie hash MD5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-odpowiedzi-do-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-12-hash-sha-256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.2 - Hash SHA-256
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.2 - Hash SHA-256">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-sowa-i-obliczenie-hash-sha-256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie słowa i obliczenie hash SHA-256
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-odpowiedzi-do-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-13-hash-sha-512" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.3 - Hash SHA-512
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.3 - Hash SHA-512">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-sowa-i-obliczenie-hash-sha-512" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie słowa i obliczenie hash SHA-512
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-odpowiedzi-do-serwera_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-14-hash-argon2i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.4 - Hash Argon2i
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.4 - Hash Argon2i">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-parametrow-i-obliczenie-hash-argon2i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie parametrów i obliczenie hash Argon2i
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-odpowiedzi-do-serwera_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-15-hash-bcrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.5 - Hash Bcrypt
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.5 - Hash Bcrypt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-16-python-md5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.6 - Python: MD5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.6 - Python: MD5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testowanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-17-python-sha-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.7 - Python: SHA-1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.7 - Python: SHA-1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testowanie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testowanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-18-python-sha-256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.8 - Python: SHA-256
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.8 - Python: SHA-256">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testowanie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testowanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-19-python-bcrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.9 - Python: Bcrypt
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.9 - Python: Bcrypt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testowanie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testowanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-110-i-112-identyfikacja-sha-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.10 i 1.12 - Identyfikacja: SHA-1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.10 i 1.12 - Identyfikacja: SHA-1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wynik" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wynik
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-111-i-113-identyfikacja-bcrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.11 i 1.13 - Identyfikacja: Bcrypt
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.11 i 1.13 - Identyfikacja: Bcrypt">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wynik_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wynik
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-114-identyfikacja-ripemd-160" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 1.14 - Identyfikacja: RIPEMD-160
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 1.14 - Identyfikacja: RIPEMD-160">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wynik_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wynik
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podsumowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podsumowanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Podsumowanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formaty-hashow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formaty hashów
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weryfikacja-hashow-w-konsoli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weryfikacja hashów w konsoli
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biblioteki-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biblioteki Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skrypty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skrypty
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Symetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Asymetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Łamanie Haseł
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPG Exercises - 2025-11-18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../powt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zadania - Bezpieczeństwo Systemów
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="laboratorium-funkcje-skrotu-hashing">Laboratorium - Funkcje Skrótu (Hashing)</h1>
+<p>Data: 14 października 2025</p>
+<h2 id="spis-tresci">Spis treści</h2>
+<ul>
+<li><a href="#wstęp---podstawy-hashowania">Wstęp - Podstawy hashowania</a></li>
+<li><a href="#zadanie-11---hash-md5">Zadanie 1.1 - Hash MD5</a></li>
+<li><a href="#zadanie-12---hash-sha-256">Zadanie 1.2 - Hash SHA-256</a></li>
+<li><a href="#zadanie-13---hash-sha-512">Zadanie 1.3 - Hash SHA-512</a></li>
+<li><a href="#zadanie-14---hash-argon2i">Zadanie 1.4 - Hash Argon2i</a></li>
+<li><a href="#zadanie-15---hash-bcrypt">Zadanie 1.5 - Hash Bcrypt</a></li>
+<li><a href="#zadanie-16---python-md5">Zadanie 1.6 - Python: MD5</a></li>
+<li><a href="#zadanie-17---python-sha-1">Zadanie 1.7 - Python: SHA-1</a></li>
+<li><a href="#zadanie-18---python-sha-256">Zadanie 1.8 - Python: SHA-256</a></li>
+<li><a href="#zadanie-19---python-bcrypt">Zadanie 1.9 - Python: Bcrypt</a></li>
+<li><a href="#zadanie-110-i-112---identyfikacja-sha-1">Zadanie 1.10 i 1.12 - Identyfikacja: SHA-1</a></li>
+<li><a href="#zadanie-111-i-113---identyfikacja-bcrypt">Zadanie 1.11 i 1.13 - Identyfikacja: Bcrypt</a></li>
+<li><a href="#zadanie-114---identyfikacja-ripemd-160">Zadanie 1.14 - Identyfikacja: RIPEMD-160</a></li>
+</ul>
+<hr />
+<h2 id="wstep-podstawy-hashowania">Wstęp - Podstawy hashowania</h2>
+<h3 id="roznica-miedzy-echo-a-echo-n">Różnica między <code>echo</code> a <code>echo -n</code></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># echo dodaje znak nowej linii (line feed)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;marek&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>md5sum<span class="w"> </span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Output: b0207a607303c08cd4f78c324952d7c2  -</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;marek&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">#       1       1       6</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># echo -n NIE dodaje znaku nowej linii</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;marek&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">#       0       1       5</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;marek&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>md5sum<span class="w"> </span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># Output: e061c9aea5026301e7b3ff09e9aca2cf  -</span>
+</code></pre></div>
+<p><strong>Ważne:</strong> Przy hashowaniu zawsze używaj <code>echo -n</code> aby uniknąć hashowania dodatkowego znaku nowej linii!</p>
+<h3 id="podstawowe-komendy-openssl">Podstawowe komendy OpenSSL</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Lista dostępnych algorytmów</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>openssl<span class="w"> </span>dgst<span class="w"> </span>-list<span class="w"> </span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Przykładowe użycie</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;marek&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-md5<span class="w"> </span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Output: MD5(stdin)= e061c9aea5026301e7b3ff09e9aca2cf</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-11-hash-md5">Zadanie 1.1 - Hash MD5</h2>
+<h3 id="polecenie">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:10001</code> działa prosty serwer HTTP udostępniający dwa endpointy:
+- <code>http://127.0.0.1:10001/hash</code> - pobieranie słowa do zahashowania
+- <code>http://127.0.0.1:10001/submit</code> - wysyłanie odpowiedzi</p>
+<p><strong>Zadanie:</strong> Oblicz skrót MD5 podanego przez serwer losowego słowa i wyślij wynik w formacie hex.</p>
+<h3 id="rozwiazanie">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">10001</span>:10001<span class="w"> </span>docker.io/mazurkatarzyna/hashing-md5-ex1:latest
+</code></pre></div>
+<h4 id="b-pobranie-sowa-i-obliczenie-hash-md5">(b) Pobranie słowa i obliczenie hash MD5</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Pobierz słowo od serwera</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:10001/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6224ec9042035711&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lostfan&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Oblicz hash MD5</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;lostfan&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-md5<span class="w"> </span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># Output: MD5(stdin)= b0ef584b7757e61150df570b16f110d5</span>
+</code></pre></div>
+<h4 id="c-wysanie-odpowiedzi-do-serwera">(c) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:10001/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;6224ec9042035711&quot;, &quot;hash_hex&quot;: &quot;b0ef584b7757e61150df570b16f110d5&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct MD5 hash!&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-12-hash-sha-256">Zadanie 1.2 - Hash SHA-256</h2>
+<h3 id="polecenie_1">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:10002</code> działa serwer z endpointami do hashowania SHA-256.</p>
+<p><strong>Zadanie:</strong> Oblicz skrót SHA-256 podanego przez serwer losowego słowa.</p>
+<h3 id="rozwiazanie_1">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_1">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">10002</span>:10002<span class="w"> </span>docker.io/mazurkatarzyna/hashing-sha256-ex1:latest
+</code></pre></div>
+<h4 id="b-pobranie-sowa-i-obliczenie-hash-sha-256">(b) Pobranie słowa i obliczenie hash SHA-256</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:10002/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f93f2ee9e6637118&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dayah1&quot;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;dayah1&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># Output: SHA2-256(stdin)= a3c0d2d4464d7d6c1e3bbe362020069194a1dcd2f8f6c9249e0d1c54bde4bae8</span>
+</code></pre></div>
+<h4 id="c-wysanie-odpowiedzi-do-serwera_1">(c) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:10002/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;f93f2ee9e6637118&quot;, &quot;hash_hex&quot;: &quot;a3c0d2d4464d7d6c1e3bbe362020069194a1dcd2f8f6c9249e0d1c54bde4bae8&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct SHA-256 hash!&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-13-hash-sha-512">Zadanie 1.3 - Hash SHA-512</h2>
+<h3 id="polecenie_2">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:10003</code> działa serwer z endpointami do hashowania SHA-512.</p>
+<p><strong>Zadanie:</strong> Oblicz skrót SHA-512 podanego przez serwer losowego słowa.</p>
+<h3 id="rozwiazanie_2">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_2">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">10003</span>:10003<span class="w"> </span>docker.io/mazurkatarzyna/hashing-sha-512-ex1:latest
+</code></pre></div>
+<h4 id="b-pobranie-sowa-i-obliczenie-hash-sha-512">(b) Pobranie słowa i obliczenie hash SHA-512</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:10003/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f5f4015412e650ab&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;loserhead1&quot;</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;loserhead1&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha512
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># Output: SHA2-512(stdin)= bcfabb92d9db9b998688d58d817be2a3c316db24d5b7028414e0ba8a1009657294f9d9d52397e756093dec54437071154cb5c8f51a4d4850d201312258e332be</span>
+</code></pre></div>
+<h4 id="c-wysanie-odpowiedzi-do-serwera_2">(c) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:10003/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;f5f4015412e650ab&quot;, &quot;hash_hex&quot;: &quot;bcfabb92d9db9b998688d58d817be2a3c316db24d5b7028414e0ba8a1009657294f9d9d52397e756093dec54437071154cb5c8f51a4d4850d201312258e332be&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct SHA-512 hash!&quot;</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-14-hash-argon2i">Zadanie 1.4 - Hash Argon2i</h2>
+<h3 id="polecenie_3">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:10004</code> działa serwer z endpointami do hashowania Argon2i.</p>
+<p><strong>Zadanie:</strong> Oblicz skrót Argon2i podanego przez serwer losowego słowa z określonymi parametrami.</p>
+<h3 id="rozwiazanie_3">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_3">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">10004</span>:10004<span class="w"> </span>docker.io/mazurkatarzyna/hashing-argon-ex1:latest
+</code></pre></div>
+<h4 id="b-pobranie-parametrow-i-obliczenie-hash-argon2i">(b) Pobranie parametrów i obliczenie hash Argon2i</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:10004/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">&quot;kdf_options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="nt">&quot;iter&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="nt">&quot;keylen&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">    </span><span class="nt">&quot;memcost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8192</span><span class="p">,</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="nt">&quot;salt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NaCl2024&quot;</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2ca7181d3989a0e8&quot;</span><span class="p">,</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;danish1&quot;</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>KDF (Key Derivation Function)</strong> - funkcja, która generuje klucz poprzez wielokrotne hashowanie z solą. Spowalnia to proces bruteforce.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Uruchom kontener z OpenSSL 3.3.2 (zawiera wsparcie dla Argon2)</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>docker.io/mazurkatarzyna/openssl-332-ubuntu:latest
+</code></pre></div>
+<p>W kontenerze:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>openssl<span class="w"> </span>version
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="c1"># OpenSSL 3.3.2</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>openssl<span class="w"> </span>kdf<span class="w"> </span>-keylen<span class="w"> </span><span class="m">24</span><span class="w"> </span>-kdfopt<span class="w"> </span>pass:danish1<span class="w"> </span>-kdfopt<span class="w"> </span>salt:NaCl2024<span class="w"> </span>-kdfopt<span class="w"> </span>iter:1<span class="w"> </span>-kdfopt<span class="w"> </span>memcost:8192<span class="w"> </span>ARGON2I
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># Output: A3:5A:CC:24:AC:08:D6:1B:AA:86:BC:67:16:3B:EC:16:85:D6:79:9E:02:B2:B3:25</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Formatowanie do hex (usunięcie dwukropków i zamiana na małe litery)</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;A3:5A:CC:24:AC:08:D6:1B:AA:86:BC:67:16:3B:EC:16:85:D6:79:9E:02:B2:B3:25&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;:&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;[:upper:]&#39;</span><span class="w"> </span><span class="s1">&#39;[:lower:]&#39;</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="c1"># Output: a35acc24ac08d61baa86bc67163bec1685d6799e02b2b325</span>
+</code></pre></div>
+<h4 id="c-wysanie-odpowiedzi-do-serwera_3">(c) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:10004/submit/argon2i<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;2ca7181d3989a0e8&quot;, &quot;hash_hex&quot;: &quot;a35acc24ac08d61baa86bc67163bec1685d6799e02b2b325&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="p">{</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct ARGON2I hash!&quot;</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-15-hash-bcrypt">Zadanie 1.5 - Hash Bcrypt</h2>
+<h3 id="polecenie_4">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:10005</code> działa serwer z endpointami do hashowania bcrypt.</p>
+<p><strong>Zadanie:</strong> Oblicz skrót bcrypt podanego przez serwer losowego słowa.</p>
+<h3 id="rozwiazanie_4">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Pobierz słowo od serwera</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:10005/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="p">{</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3afab0a889a870f2&quot;</span><span class="p">,</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;niepomilkla&quot;</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Wygeneruj hash bcrypt (10 rund)</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>htpasswd<span class="w"> </span>-bnBC<span class="w"> </span><span class="m">10</span><span class="w"> </span>user<span class="w"> </span><span class="s2">&quot;niepomilkla&quot;</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="c1"># Output: user:$2y$10$z9LJynbEzdQiV5tqtBSf.OhVv5UKytkrDFJXyVSxWqToxCjz0rjQK</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Wyślij odpowiedź</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:10005/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;3afab0a889a870f2&quot;, &quot;hash_hex&quot;: &quot;$2y$10$z9LJynbEzdQiV5tqtBSf.OhVv5UKytkrDFJXyVSxWqToxCjz0rjQK&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="p">{</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct bcrypt hash!&quot;</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>💡 Wskazówka dla bezpiecznych haseł:</strong> WyRaZ+WyRaZ (np. pierwsze litery z wiersza/piosenki) + znaki specjalne</p>
+<hr />
+<h2 id="zadanie-16-python-md5">Zadanie 1.6 - Python: MD5</h2>
+<h3 id="polecenie_5">Polecenie</h3>
+<p>Napisz skrypt w języku Python, który wygeneruje hash MD5 dowolnego ciągu znaków podawanego jako argument wywołania skryptu. Sprawdź poprawność porównując z <code>md5sum</code> lub <code>openssl</code>. Wykorzystaj bibliotekę <code>hashlib</code>.</p>
+<h3 id="rozwiazanie_5">Rozwiązanie</h3>
+<p><strong>Plik:</strong> <code>zadanie_1_6.py</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="ch">#!/usr/bin/env python3</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="sd">Zadanie 1.6: Generowanie hash MD5 z wykorzystaniem hashlib</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">md5_hash_string</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="sd">    Returns the MD5 hash of a given string.</span>
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>    <span class="c1"># Konwertuj string na bajty</span>
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a>    <span class="n">input_bytes</span> <span class="o">=</span> <span class="n">input_string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>    <span class="c1"># Stwórz obiekt MD5 hash</span>
+<a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a>    <span class="n">md5_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">input_bytes</span><span class="p">)</span>
+<a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a>    <span class="c1"># Zwróć hash w formacie hex</span>
+<a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>    <span class="k">return</span> <span class="n">md5_hash</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a>
+<a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a>
+<a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a>        <span class="n">text</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a>        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span>
+<a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>
+<a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">md5_hash_string</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MD5 hash of &#39;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="testowanie">Testowanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Uruchom skrypt</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>python3<span class="w"> </span>zadanie_1_6.py<span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="c1"># Output: MD5 hash of &#39;hello world&#39;: 5eb63bbbe01eeed093cb22bb8f5acdc3</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="c1"># Weryfikacja z md5sum</span>
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;hello world&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>md5sum
+<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="c1"># Output: 5eb63bbbe01eeed093cb22bb8f5acdc3  -</span>
+<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>
+<a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a><span class="c1"># ✓ Hashe się zgadzają!</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-17-python-sha-1">Zadanie 1.7 - Python: SHA-1</h2>
+<h3 id="polecenie_6">Polecenie</h3>
+<p>Napisz skrypt w języku Python, który wygeneruje hash SHA-1 dowolnego ciągu znaków podawanego jako argument wywołania skryptu. Sprawdź poprawność porównując z <code>sha1sum</code> lub <code>openssl</code>. Wykorzystaj bibliotekę <code>hashlib</code>.</p>
+<h3 id="rozwiazanie_6">Rozwiązanie</h3>
+<p><strong>Plik:</strong> <code>zadanie_1_7.py</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="ch">#!/usr/bin/env python3</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="sd">Zadanie 1.7: Generowanie hash SHA-1 z wykorzystaniem hashlib</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">sha1_hash_string</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a><span class="sd">    Returns the SHA-1 hash of a given string.</span>
+<a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a>    <span class="c1"># Konwertuj string na bajty</span>
+<a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>    <span class="n">input_bytes</span> <span class="o">=</span> <span class="n">input_string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a>    <span class="c1"># Stwórz obiekt SHA-1 hash</span>
+<a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a>    <span class="n">sha1_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">input_bytes</span><span class="p">)</span>
+<a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>    <span class="c1"># Zwróć hash w formacie hex</span>
+<a id="__codelineno-35-19" name="__codelineno-35-19" href="#__codelineno-35-19"></a>    <span class="k">return</span> <span class="n">sha1_hash</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a>
+<a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a>
+<a id="__codelineno-35-22" name="__codelineno-35-22" href="#__codelineno-35-22"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-35-23" name="__codelineno-35-23" href="#__codelineno-35-23"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-35-24" name="__codelineno-35-24" href="#__codelineno-35-24"></a>        <span class="n">text</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-35-25" name="__codelineno-35-25" href="#__codelineno-35-25"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-35-26" name="__codelineno-35-26" href="#__codelineno-35-26"></a>        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span>
+<a id="__codelineno-35-27" name="__codelineno-35-27" href="#__codelineno-35-27"></a>
+<a id="__codelineno-35-28" name="__codelineno-35-28" href="#__codelineno-35-28"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">sha1_hash_string</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-35-29" name="__codelineno-35-29" href="#__codelineno-35-29"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SHA-1 hash of &#39;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="testowanie_1">Testowanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Uruchom skrypt</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>python3<span class="w"> </span>zadanie_1_7.py<span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="c1"># Output: SHA-1 hash of &#39;hello world&#39;: 2aae6c35c94fcfb415dbe95f408b9ce91ee846ed</span>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="c1"># Weryfikacja z sha1sum</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;hello world&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sha1sum
+<a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="c1"># Output: 2aae6c35c94fcfb415dbe95f408b9ce91ee846ed  -</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>
+<a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a><span class="c1"># ✓ Hashe się zgadzają!</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-18-python-sha-256">Zadanie 1.8 - Python: SHA-256</h2>
+<h3 id="polecenie_7">Polecenie</h3>
+<p>Napisz skrypt w języku Python, który wygeneruje hash SHA-256 dowolnego ciągu znaków podawanego jako argument wywołania skryptu. Sprawdź poprawność porównując z <code>openssl</code>. Wykorzystaj bibliotekę <code>hashlib</code>.</p>
+<h3 id="rozwiazanie_7">Rozwiązanie</h3>
+<p><strong>Plik:</strong> <code>zadanie_1_8.py</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="ch">#!/usr/bin/env python3</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="sd">Zadanie 1.8: Generowanie hash SHA-256 z wykorzystaniem hashlib</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>
+<a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>
+<a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>
+<a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">sha256_hash_string</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="sd">    Returns the SHA-256 hash of a given string.</span>
+<a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a>    <span class="c1"># Konwertuj string na bajty</span>
+<a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>    <span class="n">input_bytes</span> <span class="o">=</span> <span class="n">input_string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a>    <span class="c1"># Stwórz obiekt SHA-256 hash</span>
+<a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a>    <span class="n">sha256_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">input_bytes</span><span class="p">)</span>
+<a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a>    <span class="c1"># Zwróć hash w formacie hex</span>
+<a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a>    <span class="k">return</span> <span class="n">sha256_hash</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a>
+<a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a>
+<a id="__codelineno-37-22" name="__codelineno-37-22" href="#__codelineno-37-22"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-37-23" name="__codelineno-37-23" href="#__codelineno-37-23"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-37-24" name="__codelineno-37-24" href="#__codelineno-37-24"></a>        <span class="n">text</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-37-25" name="__codelineno-37-25" href="#__codelineno-37-25"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-37-26" name="__codelineno-37-26" href="#__codelineno-37-26"></a>        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;hello world&quot;</span>
+<a id="__codelineno-37-27" name="__codelineno-37-27" href="#__codelineno-37-27"></a>
+<a id="__codelineno-37-28" name="__codelineno-37-28" href="#__codelineno-37-28"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">sha256_hash_string</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-37-29" name="__codelineno-37-29" href="#__codelineno-37-29"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SHA-256 hash of &#39;</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="testowanie_2">Testowanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># Uruchom skrypt</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>python3<span class="w"> </span>zadanie_1_8.py<span class="w"> </span><span class="s2">&quot;hello world&quot;</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="c1"># Output: SHA-256 hash of &#39;hello world&#39;: b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="c1"># Weryfikacja z openssl</span>
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;hello world&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="c1"># Output: SHA2-256(stdin)= b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9</span>
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>
+<a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a><span class="c1"># ✓ Hashe się zgadzają!</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-19-python-bcrypt">Zadanie 1.9 - Python: Bcrypt</h2>
+<h3 id="polecenie_8">Polecenie</h3>
+<p>Napisz skrypt w języku Python, który wygeneruje hash bcrypt dowolnego ciągu znaków podawanego jako argument wywołania skryptu. Sprawdź poprawność porównując z <code>htpasswd</code>. Wykorzystaj bibliotekę <code>bcrypt</code>.</p>
+<h3 id="rozwiazanie_8">Rozwiązanie</h3>
+<p><strong>Instalacja biblioteki:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>pip<span class="w"> </span>install<span class="w"> </span>bcrypt
+</code></pre></div>
+<p><strong>Plik:</strong> <code>zadanie_1_9.py</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="ch">#!/usr/bin/env python3</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="sd">Zadanie 1.9: Generowanie hash bcrypt z wykorzystaniem biblioteki bcrypt</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="sd">Instalacja: pip install bcrypt</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">bcrypt</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">bcrypt_hash_password</span><span class="p">(</span><span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a><span class="sd">    Hash a password using bcrypt.</span>
+<a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a>    <span class="c1"># Konwertuj hasło na bajty</span>
+<a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a>    <span class="n">password_bytes</span> <span class="o">=</span> <span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a>    <span class="c1"># Wygeneruj salt i hash hasła (10 rund)</span>
+<a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>    <span class="n">salt</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">gensalt</span><span class="p">(</span><span class="n">rounds</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a>    <span class="n">hashed</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hashpw</span><span class="p">(</span><span class="n">password_bytes</span><span class="p">,</span> <span class="n">salt</span><span class="p">)</span>
+<a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a>    <span class="c1"># Zwróć hash jako string</span>
+<a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a>    <span class="k">return</span> <span class="n">hashed</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a>
+<a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a>
+<a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="k">def</span><span class="w"> </span><span class="nf">bcrypt_verify_password</span><span class="p">(</span><span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hashed</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="sd">    Verify a password against a bcrypt hash.</span>
+<a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a>    <span class="c1"># Konwertuj hasło i hash na bajty</span>
+<a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a>    <span class="n">password_bytes</span> <span class="o">=</span> <span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a>    <span class="n">hashed_bytes</span> <span class="o">=</span> <span class="n">hashed</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a>    <span class="c1"># Zweryfikuj hasło</span>
+<a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a>    <span class="k">return</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">checkpw</span><span class="p">(</span><span class="n">password_bytes</span><span class="p">,</span> <span class="n">hashed_bytes</span><span class="p">)</span>
+<a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a>
+<a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a>
+<a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a><span class="c1"># Example usage</span>
+<a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a>        <span class="n">pwd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-40-40" name="__codelineno-40-40" href="#__codelineno-40-40"></a>        <span class="n">pwd</span> <span class="o">=</span> <span class="s2">&quot;my_secure_password&quot;</span>
+<a id="__codelineno-40-41" name="__codelineno-40-41" href="#__codelineno-40-41"></a>
+<a id="__codelineno-40-42" name="__codelineno-40-42" href="#__codelineno-40-42"></a>    <span class="c1"># Hash the password</span>
+<a id="__codelineno-40-43" name="__codelineno-40-43" href="#__codelineno-40-43"></a>    <span class="n">hashed_pwd</span> <span class="o">=</span> <span class="n">bcrypt_hash_password</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span>
+<a id="__codelineno-40-44" name="__codelineno-40-44" href="#__codelineno-40-44"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Password: </span><span class="si">{</span><span class="n">pwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-45" name="__codelineno-40-45" href="#__codelineno-40-45"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bcrypt hash: </span><span class="si">{</span><span class="n">hashed_pwd</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-46" name="__codelineno-40-46" href="#__codelineno-40-46"></a>
+<a id="__codelineno-40-47" name="__codelineno-40-47" href="#__codelineno-40-47"></a>    <span class="c1"># Verify the password</span>
+<a id="__codelineno-40-48" name="__codelineno-40-48" href="#__codelineno-40-48"></a>    <span class="n">is_valid</span> <span class="o">=</span> <span class="n">bcrypt_verify_password</span><span class="p">(</span><span class="n">pwd</span><span class="p">,</span> <span class="n">hashed_pwd</span><span class="p">)</span>
+<a id="__codelineno-40-49" name="__codelineno-40-49" href="#__codelineno-40-49"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Verification: </span><span class="si">{</span><span class="n">is_valid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-40-50" name="__codelineno-40-50" href="#__codelineno-40-50"></a>
+<a id="__codelineno-40-51" name="__codelineno-40-51" href="#__codelineno-40-51"></a>    <span class="c1"># Test with wrong password</span>
+<a id="__codelineno-40-52" name="__codelineno-40-52" href="#__codelineno-40-52"></a>    <span class="n">is_valid_wrong</span> <span class="o">=</span> <span class="n">bcrypt_verify_password</span><span class="p">(</span><span class="s2">&quot;wrong_password&quot;</span><span class="p">,</span> <span class="n">hashed_pwd</span><span class="p">)</span>
+<a id="__codelineno-40-53" name="__codelineno-40-53" href="#__codelineno-40-53"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Verification with wrong password: </span><span class="si">{</span><span class="n">is_valid_wrong</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="testowanie_3">Testowanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Uruchom skrypt</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>python3<span class="w"> </span>zadanie_1_9.py<span class="w"> </span><span class="s2">&quot;my_secure_password&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>Password: my_secure_password
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>Bcrypt hash: $2b$10$cCQSEjG1SLXoffSK7VckzOTJGh4Pi1SH8x4cGDXcZbTQgukJzTWzO
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>Verification: True
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>Verification with wrong password: False
+</code></pre></div>
+<p><strong>Weryfikacja z htpasswd:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>htpasswd<span class="w"> </span>-bnBC<span class="w"> </span><span class="m">10</span><span class="w"> </span>user<span class="w"> </span><span class="s2">&quot;my_secure_password&quot;</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="c1"># Output: user:$2y$10$...hash...</span>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1"># Każde uruchomienie generuje inny hash (inny salt), ale wszystkie są poprawne!</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-110-i-112-identyfikacja-sha-1">Zadanie 1.10 i 1.12 - Identyfikacja: SHA-1</h2>
+<h3 id="polecenie_9">Polecenie</h3>
+<p>Mając dany początkowy ciąg znaków <code>helloworld</code>, który następnie został zahashowany, określ, jaka funkcja skrótu została wykorzystana do utworzenia hasha: <code>6adfb183a4a2c94a2f92dab5ade762a47889a5a1</code>.</p>
+<p><strong>Uwaga:</strong> Można użyć narzędzia <code>hash-identifier</code> lub <code>hashid</code>, ale możemy również napisać własne rozwiązanie w Python.</p>
+<h3 id="rozwiazanie_9">Rozwiązanie</h3>
+<p><strong>Plik:</strong> <code>zadanie_1_10_13.py</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="ch">#!/usr/bin/env python3</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="sd">Zadania 1.10-1.13: Identyfikacja typów hashów</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="sd">Zamiast używać hash-identifier lub hashid, testujemy różne algorytmy</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>
+<a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>
+<a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>
+<a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">identify_hash</span><span class="p">(</span><span class="n">original_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_hash</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a><span class="sd">    Próbuje zidentyfikować algorytm hash poprzez testowanie popularnych algorytmów</span>
+<a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a>    <span class="n">input_bytes</span> <span class="o">=</span> <span class="n">original_text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a>
+<a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a>    <span class="c1"># Lista popularnych algorytmów hash z ich typową długością</span>
+<a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a>    <span class="n">common_algorithms</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-44-18" name="__codelineno-44-18" href="#__codelineno-44-18"></a>        <span class="s2">&quot;md5&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+<a id="__codelineno-44-19" name="__codelineno-44-19" href="#__codelineno-44-19"></a>        <span class="s2">&quot;sha1&quot;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+<a id="__codelineno-44-20" name="__codelineno-44-20" href="#__codelineno-44-20"></a>        <span class="s2">&quot;sha224&quot;</span><span class="p">:</span> <span class="mi">56</span><span class="p">,</span>
+<a id="__codelineno-44-21" name="__codelineno-44-21" href="#__codelineno-44-21"></a>        <span class="s2">&quot;sha256&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+<a id="__codelineno-44-22" name="__codelineno-44-22" href="#__codelineno-44-22"></a>        <span class="s2">&quot;sha384&quot;</span><span class="p">:</span> <span class="mi">96</span><span class="p">,</span>
+<a id="__codelineno-44-23" name="__codelineno-44-23" href="#__codelineno-44-23"></a>        <span class="s2">&quot;sha512&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+<a id="__codelineno-44-24" name="__codelineno-44-24" href="#__codelineno-44-24"></a>        <span class="s2">&quot;sha3_224&quot;</span><span class="p">:</span> <span class="mi">56</span><span class="p">,</span>
+<a id="__codelineno-44-25" name="__codelineno-44-25" href="#__codelineno-44-25"></a>        <span class="s2">&quot;sha3_256&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+<a id="__codelineno-44-26" name="__codelineno-44-26" href="#__codelineno-44-26"></a>        <span class="s2">&quot;sha3_384&quot;</span><span class="p">:</span> <span class="mi">96</span><span class="p">,</span>
+<a id="__codelineno-44-27" name="__codelineno-44-27" href="#__codelineno-44-27"></a>        <span class="s2">&quot;sha3_512&quot;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+<a id="__codelineno-44-28" name="__codelineno-44-28" href="#__codelineno-44-28"></a>    <span class="p">}</span>
+<a id="__codelineno-44-29" name="__codelineno-44-29" href="#__codelineno-44-29"></a>
+<a id="__codelineno-44-30" name="__codelineno-44-30" href="#__codelineno-44-30"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tekst oryginalny: &#39;</span><span class="si">{</span><span class="n">original_text</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-31" name="__codelineno-44-31" href="#__codelineno-44-31"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hash do zidentyfikowania: </span><span class="si">{</span><span class="n">target_hash</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-32" name="__codelineno-44-32" href="#__codelineno-44-32"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Długość hash: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">target_hash</span><span class="p">)</span><span class="si">}</span><span class="s2"> znaków&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-33" name="__codelineno-44-33" href="#__codelineno-44-33"></a>
+<a id="__codelineno-44-34" name="__codelineno-44-34" href="#__codelineno-44-34"></a>    <span class="c1"># Sprawdź czy to bcrypt (zaczyna się od $2y$ lub $2a$ lub $2b$)</span>
+<a id="__codelineno-44-35" name="__codelineno-44-35" href="#__codelineno-44-35"></a>    <span class="k">if</span> <span class="p">(</span>
+<a id="__codelineno-44-36" name="__codelineno-44-36" href="#__codelineno-44-36"></a>        <span class="n">target_hash</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$2y$&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-37" name="__codelineno-44-37" href="#__codelineno-44-37"></a>        <span class="ow">or</span> <span class="n">target_hash</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$2a$&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-38" name="__codelineno-44-38" href="#__codelineno-44-38"></a>        <span class="ow">or</span> <span class="n">target_hash</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;$2b$&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-39" name="__codelineno-44-39" href="#__codelineno-44-39"></a>    <span class="p">):</span>
+<a id="__codelineno-44-40" name="__codelineno-44-40" href="#__codelineno-44-40"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ Zidentyfikowano: BCRYPT&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-41" name="__codelineno-44-41" href="#__codelineno-44-41"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Format: $2y$rounds$salt+hash&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-42" name="__codelineno-44-42" href="#__codelineno-44-42"></a>        <span class="k">return</span> <span class="s2">&quot;bcrypt&quot;</span>
+<a id="__codelineno-44-43" name="__codelineno-44-43" href="#__codelineno-44-43"></a>
+<a id="__codelineno-44-44" name="__codelineno-44-44" href="#__codelineno-44-44"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Testowanie standardowych algorytmów hash:&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-45" name="__codelineno-44-45" href="#__codelineno-44-45"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-44-46" name="__codelineno-44-46" href="#__codelineno-44-46"></a>
+<a id="__codelineno-44-47" name="__codelineno-44-47" href="#__codelineno-44-47"></a>    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-44-48" name="__codelineno-44-48" href="#__codelineno-44-48"></a>    <span class="k">for</span> <span class="n">algo_name</span><span class="p">,</span> <span class="n">expected_len</span> <span class="ow">in</span> <span class="n">common_algorithms</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-44-49" name="__codelineno-44-49" href="#__codelineno-44-49"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-44-50" name="__codelineno-44-50" href="#__codelineno-44-50"></a>            <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">algo_name</span><span class="p">,</span> <span class="n">input_bytes</span><span class="p">)</span>
+<a id="__codelineno-44-51" name="__codelineno-44-51" href="#__codelineno-44-51"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<a id="__codelineno-44-52" name="__codelineno-44-52" href="#__codelineno-44-52"></a>
+<a id="__codelineno-44-53" name="__codelineno-44-53" href="#__codelineno-44-53"></a>            <span class="n">match</span> <span class="o">=</span> <span class="s2">&quot;✓ MATCH!&quot;</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">target_hash</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-44-54" name="__codelineno-44-54" href="#__codelineno-44-54"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">algo_name</span><span class="si">:</span><span class="s2">12</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">expected_len</span><span class="si">}</span><span class="s2"> znaków): </span><span class="si">{</span><span class="n">result</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span><span class="si">}</span><span class="s2">... </span><span class="si">{</span><span class="n">match</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-55" name="__codelineno-44-55" href="#__codelineno-44-55"></a>
+<a id="__codelineno-44-56" name="__codelineno-44-56" href="#__codelineno-44-56"></a>            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">target_hash</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+<a id="__codelineno-44-57" name="__codelineno-44-57" href="#__codelineno-44-57"></a>                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-44-58" name="__codelineno-44-58" href="#__codelineno-44-58"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">✓ ZNALEZIONO! Algorytm: </span><span class="si">{</span><span class="n">algo_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-59" name="__codelineno-44-59" href="#__codelineno-44-59"></a>        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+<a id="__codelineno-44-60" name="__codelineno-44-60" href="#__codelineno-44-60"></a>            <span class="k">pass</span>
+<a id="__codelineno-44-61" name="__codelineno-44-61" href="#__codelineno-44-61"></a>
+<a id="__codelineno-44-62" name="__codelineno-44-62" href="#__codelineno-44-62"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+<a id="__codelineno-44-63" name="__codelineno-44-63" href="#__codelineno-44-63"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Nie znaleziono pasującego algorytmu wśród standardowych hashów.&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-64" name="__codelineno-44-64" href="#__codelineno-44-64"></a>
+<a id="__codelineno-44-65" name="__codelineno-44-65" href="#__codelineno-44-65"></a>    <span class="k">return</span> <span class="kc">None</span>
+<a id="__codelineno-44-66" name="__codelineno-44-66" href="#__codelineno-44-66"></a>
+<a id="__codelineno-44-67" name="__codelineno-44-67" href="#__codelineno-44-67"></a>
+<a id="__codelineno-44-68" name="__codelineno-44-68" href="#__codelineno-44-68"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-44-69" name="__codelineno-44-69" href="#__codelineno-44-69"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-44-70" name="__codelineno-44-70" href="#__codelineno-44-70"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ZADANIE 1.10 i 1.12&quot;</span><span class="p">)</span>
+<a id="__codelineno-44-71" name="__codelineno-44-71" href="#__codelineno-44-71"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-44-72" name="__codelineno-44-72" href="#__codelineno-44-72"></a>    <span class="n">identify_hash</span><span class="p">(</span><span class="s2">&quot;helloworld&quot;</span><span class="p">,</span> <span class="s2">&quot;6adfb183a4a2c94a2f92dab5ade762a47889a5a1&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="wynik">Wynik</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>python3<span class="w"> </span>zadanie_1_10_13.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>============================================================
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>ZADANIE 1.10 i 1.12
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>============================================================
+<a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>Tekst oryginalny: &#39;helloworld&#39;
+<a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a>Hash do zidentyfikowania: 6adfb183a4a2c94a2f92dab5ade762a47889a5a1
+<a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>Długość hash: 40 znaków
+<a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a>
+<a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a>Testowanie standardowych algorytmów hash:
+<a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a>------------------------------------------------------------
+<a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a>md5          (32 znaków): fc5e038d38a570320854... 
+<a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a>sha1         (40 znaków): 6adfb183a4a2c94a2f92... ✓ MATCH!
+<a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a>
+<a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a>✓ ZNALEZIONO! Algorytm: SHA1
+</code></pre></div>
+<p><strong>Odpowiedź:</strong> Hash został wygenerowany algorytmem <strong>SHA-1</strong></p>
+<hr />
+<h2 id="zadanie-111-i-113-identyfikacja-bcrypt">Zadanie 1.11 i 1.13 - Identyfikacja: Bcrypt</h2>
+<h3 id="polecenie_10">Polecenie</h3>
+<p>Mając dany początkowy ciąg znaków <code>helloworld</code>, który następnie został zahashowany, określ, jaka funkcja skrótu została wykorzystana do utworzenia hasha: <code>$2y$10$xbyAv5a46CQYPay5UISCNeFWpVdx2qvhCBEOZ/YtfxoVXhOGrVKQa</code>.</p>
+<h3 id="rozwiazanie_10">Rozwiązanie</h3>
+<p>Używamy tego samego skryptu co w zadaniu 1.10, ale modyfikujemy <code>__main__</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ZADANIE 1.11 i 1.13&quot;</span><span class="p">)</span>
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>    <span class="n">identify_hash</span><span class="p">(</span><span class="s2">&quot;helloworld&quot;</span><span class="p">,</span> <span class="s2">&quot;$2y$10$xbyAv5a46CQYPay5UISCNeFWpVdx2qvhCBEOZ/YtfxoVXhOGrVKQa&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="wynik_1">Wynik</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>============================================================
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>ZADANIE 1.11 i 1.13
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>============================================================
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>Tekst oryginalny: &#39;helloworld&#39;
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>Hash do zidentyfikowania: $2y$10$xbyAv5a46CQYPay5UISCNeFWpVdx2qvhCBEOZ/YtfxoVXhOGrVKQa
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>Długość hash: 60 znaków
+<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>
+<a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a>✓ Zidentyfikowano: BCRYPT
+<a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a>  Format: $2y$rounds$salt+hash
+</code></pre></div>
+<p><strong>Odpowiedź:</strong> Hash został wygenerowany algorytmem <strong>Bcrypt</strong></p>
+<p><strong>Wyjaśnienie formatu:</strong>
+- <code>$2y$</code> - oznacza bcrypt
+- <code>10</code> - liczba rund (2^10 = 1024 iteracje)
+- Następnie salt i hash</p>
+<hr />
+<h2 id="zadanie-114-identyfikacja-ripemd-160">Zadanie 1.14 - Identyfikacja: RIPEMD-160</h2>
+<h3 id="polecenie_11">Polecenie</h3>
+<p>Mając dany początkowy ciąg znaków <code>R3iSrSNmgU9SFHxVekUD</code>, który następnie został zahashowany, określ, jaka funkcja skrótu została wykorzystana do utworzenia hasha: <code>48cab4b54bef42fddaa6353c68a20b369f40026e</code>.</p>
+<p><strong>Podpowiedź:</strong> Algorytm jest dostępny w bibliotece <code>hashlib</code>.</p>
+<h3 id="rozwiazanie_11">Rozwiązanie</h3>
+<p><strong>Plik:</strong> <code>zadanie_1_14.py</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="ch">#!/usr/bin/env python3</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="sd">Zadanie 1.14: Identyfikacja funkcji skrótu dla hashu 48cab4b54bef42fddaa6353c68a20b369f40026e</span>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="sd">Tekst oryginalny: R3iSrSNmgU9SFHxVekUD</span>
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>
+<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>
+<a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a>
+<a id="__codelineno-49-10" name="__codelineno-49-10" href="#__codelineno-49-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_all_hashes</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_hash</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-49-11" name="__codelineno-49-11" href="#__codelineno-49-11"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-49-12" name="__codelineno-49-12" href="#__codelineno-49-12"></a><span class="sd">    Testuje wszystkie dostępne algorytmy hash z hashlib</span>
+<a id="__codelineno-49-13" name="__codelineno-49-13" href="#__codelineno-49-13"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-49-14" name="__codelineno-49-14" href="#__codelineno-49-14"></a>    <span class="n">input_bytes</span> <span class="o">=</span> <span class="n">input_string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-15" name="__codelineno-49-15" href="#__codelineno-49-15"></a>
+<a id="__codelineno-49-16" name="__codelineno-49-16" href="#__codelineno-49-16"></a>    <span class="c1"># Lista algorytmów dostępnych w hashlib</span>
+<a id="__codelineno-49-17" name="__codelineno-49-17" href="#__codelineno-49-17"></a>    <span class="n">algorithms</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">algorithms_available</span>
+<a id="__codelineno-49-18" name="__codelineno-49-18" href="#__codelineno-49-18"></a>
+<a id="__codelineno-49-19" name="__codelineno-49-19" href="#__codelineno-49-19"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Szukam algorytmu dla: &#39;</span><span class="si">{</span><span class="n">input_string</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-20" name="__codelineno-49-20" href="#__codelineno-49-20"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Oczekiwany hash: </span><span class="si">{</span><span class="n">target_hash</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-21" name="__codelineno-49-21" href="#__codelineno-49-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Testowanie </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">algorithms</span><span class="p">)</span><span class="si">}</span><span class="s2"> algorytmów...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-22" name="__codelineno-49-22" href="#__codelineno-49-22"></a>
+<a id="__codelineno-49-23" name="__codelineno-49-23" href="#__codelineno-49-23"></a>    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-49-24" name="__codelineno-49-24" href="#__codelineno-49-24"></a>    <span class="k">for</span> <span class="n">algo_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">algorithms</span><span class="p">):</span>
+<a id="__codelineno-49-25" name="__codelineno-49-25" href="#__codelineno-49-25"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-49-26" name="__codelineno-49-26" href="#__codelineno-49-26"></a>            <span class="c1"># Stwórz hash dla danego algorytmu</span>
+<a id="__codelineno-49-27" name="__codelineno-49-27" href="#__codelineno-49-27"></a>            <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">algo_name</span><span class="p">,</span> <span class="n">input_bytes</span><span class="p">)</span>
+<a id="__codelineno-49-28" name="__codelineno-49-28" href="#__codelineno-49-28"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<a id="__codelineno-49-29" name="__codelineno-49-29" href="#__codelineno-49-29"></a>
+<a id="__codelineno-49-30" name="__codelineno-49-30" href="#__codelineno-49-30"></a>            <span class="c1"># Sprawdź czy hash się zgadza</span>
+<a id="__codelineno-49-31" name="__codelineno-49-31" href="#__codelineno-49-31"></a>            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">target_hash</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+<a id="__codelineno-49-32" name="__codelineno-49-32" href="#__codelineno-49-32"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ ZNALEZIONO! Algorytm: </span><span class="si">{</span><span class="n">algo_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-33" name="__codelineno-49-33" href="#__codelineno-49-33"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Hash: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-34" name="__codelineno-49-34" href="#__codelineno-49-34"></a>                <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-49-35" name="__codelineno-49-35" href="#__codelineno-49-35"></a>        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+<a id="__codelineno-49-36" name="__codelineno-49-36" href="#__codelineno-49-36"></a>            <span class="c1"># Niektóre algorytmy mogą wymagać dodatkowych parametrów</span>
+<a id="__codelineno-49-37" name="__codelineno-49-37" href="#__codelineno-49-37"></a>            <span class="k">pass</span>
+<a id="__codelineno-49-38" name="__codelineno-49-38" href="#__codelineno-49-38"></a>
+<a id="__codelineno-49-39" name="__codelineno-49-39" href="#__codelineno-49-39"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+<a id="__codelineno-49-40" name="__codelineno-49-40" href="#__codelineno-49-40"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nie znaleziono pasującego algorytmu.&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-41" name="__codelineno-49-41" href="#__codelineno-49-41"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Próba najpopularniejszych algorytmów:&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-42" name="__codelineno-49-42" href="#__codelineno-49-42"></a>        <span class="k">for</span> <span class="n">algo</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;md5&quot;</span><span class="p">,</span> <span class="s2">&quot;sha1&quot;</span><span class="p">,</span> <span class="s2">&quot;sha224&quot;</span><span class="p">,</span> <span class="s2">&quot;sha256&quot;</span><span class="p">,</span> <span class="s2">&quot;sha384&quot;</span><span class="p">,</span> <span class="s2">&quot;sha512&quot;</span><span class="p">]:</span>
+<a id="__codelineno-49-43" name="__codelineno-49-43" href="#__codelineno-49-43"></a>            <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">algo</span><span class="p">,</span> <span class="n">input_bytes</span><span class="p">)</span>
+<a id="__codelineno-49-44" name="__codelineno-49-44" href="#__codelineno-49-44"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">algo</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-49-45" name="__codelineno-49-45" href="#__codelineno-49-45"></a>
+<a id="__codelineno-49-46" name="__codelineno-49-46" href="#__codelineno-49-46"></a>
+<a id="__codelineno-49-47" name="__codelineno-49-47" href="#__codelineno-49-47"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-49-48" name="__codelineno-49-48" href="#__codelineno-49-48"></a>    <span class="n">original_text</span> <span class="o">=</span> <span class="s2">&quot;R3iSrSNmgU9SFHxVekUD&quot;</span>
+<a id="__codelineno-49-49" name="__codelineno-49-49" href="#__codelineno-49-49"></a>    <span class="n">target_hash</span> <span class="o">=</span> <span class="s2">&quot;48cab4b54bef42fddaa6353c68a20b369f40026e&quot;</span>
+<a id="__codelineno-49-50" name="__codelineno-49-50" href="#__codelineno-49-50"></a>
+<a id="__codelineno-49-51" name="__codelineno-49-51" href="#__codelineno-49-51"></a>    <span class="n">test_all_hashes</span><span class="p">(</span><span class="n">original_text</span><span class="p">,</span> <span class="n">target_hash</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="wynik_2">Wynik</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>python3<span class="w"> </span>zadanie_1_14.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>Szukam algorytmu dla: &#39;R3iSrSNmgU9SFHxVekUD&#39;
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>Oczekiwany hash: 48cab4b54bef42fddaa6353c68a20b369f40026e
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>Testowanie 19 algorytmów...
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>
+<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>✓ ZNALEZIONO! Algorytm: ripemd160
+<a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>  Hash: 48cab4b54bef42fddaa6353c68a20b369f40026e
+</code></pre></div>
+<p><strong>Odpowiedź:</strong> Hash został wygenerowany algorytmem <strong>RIPEMD-160</strong></p>
+<p><strong>RIPEMD-160</strong> (RACE Integrity Primitives Evaluation Message Digest):
+- Generuje hash 160-bitowy (40 znaków hex)
+- Podobna długość jak SHA-1, ale inny algorytm
+- Używany m.in. w Bitcoin</p>
+<hr />
+<h2 id="podsumowanie">Podsumowanie</h2>
+<h3 id="formaty-hashow">Formaty hashów</h3>
+<table>
+<thead>
+<tr>
+<th>Algorytm</th>
+<th>Długość hex</th>
+<th>Długość bitowa</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MD5</td>
+<td>32 znaki</td>
+<td>128 bitów</td>
+<td><code>5eb63bbbe01eeed093cb22bb8f5acdc3</code></td>
+</tr>
+<tr>
+<td>SHA-1</td>
+<td>40 znaków</td>
+<td>160 bitów</td>
+<td><code>2aae6c35c94fcfb415dbe95f408b9ce91ee846ed</code></td>
+</tr>
+<tr>
+<td>RIPEMD-160</td>
+<td>40 znaków</td>
+<td>160 bitów</td>
+<td><code>48cab4b54bef42fddaa6353c68a20b369f40026e</code></td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>64 znaki</td>
+<td>256 bitów</td>
+<td><code>b94d27b9934d3e08a52e52d7da7dab...</code></td>
+</tr>
+<tr>
+<td>SHA-512</td>
+<td>128 znaków</td>
+<td>512 bitów</td>
+<td><code>bcfabb92d9db9b998688d58d817be2...</code></td>
+</tr>
+<tr>
+<td>Bcrypt</td>
+<td>60 znaków</td>
+<td>-</td>
+<td><code>$2y$10$xbyAv5a46CQYPay5UISCNe...</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="weryfikacja-hashow-w-konsoli">Weryfikacja hashów w konsoli</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="c1"># MD5</span>
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>md5sum
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-md5
+<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>
+<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a><span class="c1"># SHA-1</span>
+<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sha1sum
+<a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha1
+<a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>
+<a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a><span class="c1"># SHA-256</span>
+<a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sha256sum
+<a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256
+<a id="__codelineno-52-12" name="__codelineno-52-12" href="#__codelineno-52-12"></a>
+<a id="__codelineno-52-13" name="__codelineno-52-13" href="#__codelineno-52-13"></a><span class="c1"># SHA-512</span>
+<a id="__codelineno-52-14" name="__codelineno-52-14" href="#__codelineno-52-14"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sha512sum
+<a id="__codelineno-52-15" name="__codelineno-52-15" href="#__codelineno-52-15"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tekst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha512
+<a id="__codelineno-52-16" name="__codelineno-52-16" href="#__codelineno-52-16"></a>
+<a id="__codelineno-52-17" name="__codelineno-52-17" href="#__codelineno-52-17"></a><span class="c1"># Bcrypt (wymaga htpasswd z apache2-utils)</span>
+<a id="__codelineno-52-18" name="__codelineno-52-18" href="#__codelineno-52-18"></a>htpasswd<span class="w"> </span>-bnBC<span class="w"> </span><span class="m">10</span><span class="w"> </span>user<span class="w"> </span><span class="s2">&quot;haslo&quot;</span>
+</code></pre></div>
+<h3 id="biblioteki-python">Biblioteki Python</h3>
+<ul>
+<li><strong>hashlib</strong> - standardowa biblioteka (MD5, SHA-1, SHA-256, SHA-512, RIPEMD-160, SHA-3)</li>
+<li><strong>bcrypt</strong> - zewnętrzna biblioteka (instalacja: <code>pip install bcrypt</code>)</li>
+</ul>
+<h3 id="skrypty">Skrypty</h3>
+<p>Wszystkie skrypty Python znajdują się w tym katalogu:</p>
+<ul>
+<li><code>zadanie_1_6.py</code> - Generator MD5</li>
+<li><code>zadanie_1_7.py</code> - Generator SHA-1</li>
+<li><code>zadanie_1_8.py</code> - Generator SHA-256</li>
+<li><code>zadanie_1_9.py</code> - Generator Bcrypt</li>
+<li><code>zadanie_1_10_13.py</code> - Identyfikator hashów (SHA-1, Bcrypt)</li>
+<li><code>zadanie_1_14.py</code> - Identyfikator hashów (wszystkie algorytmy)</li>
+</ul>
+<hr />
+<p><strong>Autor:</strong> Notatki z laboratorium bezpieczeństwa<br />
+<strong>Data:</strong> 14 października 2025</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/alezab"  target="_blank" rel="noopener">alezab</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/alezab" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

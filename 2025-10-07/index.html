@@ -1,0 +1,2958 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="../2025-10-14/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Laboratorium - cURL i jq (JSON Query) - Linux Geeks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#laboratorium-curl-i-jq-json-query" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Geeks" class="md-header__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Geeks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Laboratorium - cURL i jq (JSON Query)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Geeks" class="md-nav__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linux Geeks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - cURL i jq (JSON Query)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - cURL i jq (JSON Query)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spis-tresci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spis treści
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-00-uruchomienie-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.0 - Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.0 - Uruchomienie serwera">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-01-wyswietlanie-caego-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.1 - Wyświetlanie całego JSON
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.1 - Wyświetlanie całego JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-02-wyswietlanie-konkretnego-pola" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.2 - Wyświetlanie konkretnego pola
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.2 - Wyświetlanie konkretnego pola">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-03-pobieranie-email" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.3 - Pobieranie email
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.3 - Pobieranie email">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-04-pobieranie-wieku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.4 - Pobieranie wieku
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.4 - Pobieranie wieku">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-05-pobieranie-miasta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.5 - Pobieranie miasta
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.5 - Pobieranie miasta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-06-wyswietlanie-tablic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.6 - Wyświetlanie tablic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.6 - Wyświetlanie tablic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-07-sprawdzanie-zawartosci-tablicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.7 - Sprawdzanie zawartości tablicy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.7 - Sprawdzanie zawartości tablicy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metoda-1-uzycie-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metoda 1: Użycie index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metoda-2-uzycie-contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metoda 2: Użycie contains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metoda-3-uzycie-any" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metoda 3: Użycie any
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-08-dostep-do-elementu-tablicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.8 - Dostęp do elementu tablicy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.8 - Dostęp do elementu tablicy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-09-dugosc-tablicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.9 - Długość tablicy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.9 - Długość tablicy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#z-interpolacja-tekstu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Z interpolacją tekstu:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tylko-liczba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tylko liczba:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w-petli-dla-wielu-uzytkownikow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W pętli dla wielu użytkowników:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-010-interpolacja-stringow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.10 - Interpolacja stringów
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.10 - Interpolacja stringów">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-011-iteratory-i-mapowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.11 - Iteratory i mapowanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.11 - Iteratory i mapowanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wszystkie-przedmioty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wszystkie przedmioty:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterator-same-przedmioty-bez-nawiasow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterator - same przedmioty (bez nawiasów):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterator-same-nazwy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterator - same nazwy:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zapisanie-wyniku-do-listy-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zapisanie wyniku do listy JSON:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-012-filtrowanie-select" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.12 - Filtrowanie select
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.12 - Filtrowanie select">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tylko-nazwy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tylko nazwy:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#w-liscie-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W liście JSON:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-013-filtrowanie-mniejsze-niz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.13 - Filtrowanie mniejsze niż
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.13 - Filtrowanie mniejsze niż">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-014-sortowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.14 - Sortowanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.14 - Sortowanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rosnaco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rosnąco:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#malejaco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Malejąco:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-015-suma-wartosci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.15 - Suma wartości
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.15 - Suma wartości">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sposob-1-przez-konstrukcje-tablicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 1: Przez konstrukcję tablicy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sposob-2-przez-mapowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 2: Przez mapowanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-016-wyszukiwanie-tekstowe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.16 - Wyszukiwanie tekstowe
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.16 - Wyszukiwanie tekstowe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sposob-1-uzycie-contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 1: Użycie contains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sposob-2-uzycie-test-regex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 2: Użycie test (regex)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sposob-3-regex-case-insensitive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 3: Regex case-insensitive
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-017-zakres-wartosci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.17 - Zakres wartości
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.17 - Zakres wartości">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sposob-1-dwa-select" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 1: Dwa select
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sposob-2-operator-and" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 2: Operator and
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-018-zozone-warunki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.18 - Złożone warunki
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.18 - Złożone warunki">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sprawdzenie-truefalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sprawdzenie true/false:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wyswietlenie-tylko-pasujacych-uzytkownikow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wyświetlenie tylko pasujących użytkowników:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-019-post-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.19 - POST request
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.19 - POST request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-020-dodawanie-danych-post" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.20 - Dodawanie danych POST
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.20 - Dodawanie danych POST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-021-aktualizacja-put" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.21 - Aktualizacja PUT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.21 - Aktualizacja PUT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-022-usuwanie-delete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.22 - Usuwanie DELETE
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.22 - Usuwanie DELETE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-023-maksimum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.23 - Maksimum
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.23 - Maksimum">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-024-modyfikacja-wartosci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.24 - Modyfikacja wartości
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.24 - Modyfikacja wartości">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-025-petle-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.25 - Pętle bash
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.25 - Pętle bash">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-026-aczenie-elementow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.26 - Łączenie elementów
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.26 - Łączenie elementów">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-027-pierwszy-i-ostatni-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.27 - Pierwszy i ostatni element
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.27 - Pierwszy i ostatni element">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pierwszy-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pierwszy element:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ostatni-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ostatni element:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-028-funkcja-any" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.28 - Funkcja any
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.28 - Funkcja any">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sposob-1-any-z-iteratorem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 1: any z iteratorem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sposob-2-any-na-tablicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sposób 2: any na tablicy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-029-post-i-lista" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.29 - POST i lista
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.29 - POST i lista">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-030-put-i-aktualizacja" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 0.30 - PUT i aktualizacja
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 0.30 - PUT i aktualizacja">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podsumowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podsumowanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Podsumowanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#podstawowe-komendy-curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podstawowe komendy cURL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podstawowe-operacje-jq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podstawowe operacje jq
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#funkcje-sprawdzajace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funkcje sprawdzające
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operatory-warunkowe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operatory warunkowe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operatory-arytmetyczne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operatory arytmetyczne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wyszukiwanie-tekstowe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wyszukiwanie tekstowe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rest-api-metody-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST API - Metody HTTP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#przydatne-konstrukcje-bash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Przydatne konstrukcje bash
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Funkcje Skrótu (Hashing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Symetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Asymetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Łamanie Haseł
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPG Exercises - 2025-11-18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../powt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zadania - Bezpieczeństwo Systemów
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="laboratorium-curl-i-jq-json-query">Laboratorium - cURL i jq (JSON Query)</h1>
+<p>Data: 7 października 2025</p>
+<h2 id="spis-tresci">Spis treści</h2>
+<ul>
+<li><a href="#zadanie-00---uruchomienie-serwera">Zadanie 0.0 - Uruchomienie serwera</a></li>
+<li><a href="#zadanie-01---wyświetlanie-całego-json">Zadanie 0.1 - Wyświetlanie całego JSON</a></li>
+<li><a href="#zadanie-02---wyświetlanie-konkretnego-pola">Zadanie 0.2 - Wyświetlanie konkretnego pola</a></li>
+<li><a href="#zadanie-03---pobieranie-email">Zadanie 0.3 - Pobieranie email</a></li>
+<li><a href="#zadanie-04---pobieranie-wieku">Zadanie 0.4 - Pobieranie wieku</a></li>
+<li><a href="#zadanie-05---pobieranie-miasta">Zadanie 0.5 - Pobieranie miasta</a></li>
+<li><a href="#zadanie-06---wyświetlanie-tablic">Zadanie 0.6 - Wyświetlanie tablic</a></li>
+<li><a href="#zadanie-07---sprawdzanie-zawartości-tablicy">Zadanie 0.7 - Sprawdzanie zawartości tablicy</a></li>
+<li><a href="#zadanie-08---dostęp-do-elementu-tablicy">Zadanie 0.8 - Dostęp do elementu tablicy</a></li>
+<li><a href="#zadanie-09---długość-tablicy">Zadanie 0.9 - Długość tablicy</a></li>
+<li><a href="#zadanie-010---interpolacja-stringów">Zadanie 0.10 - Interpolacja stringów</a></li>
+<li><a href="#zadanie-011---iteratory-i-mapowanie">Zadanie 0.11 - Iteratory i mapowanie</a></li>
+<li><a href="#zadanie-012---filtrowanie-select">Zadanie 0.12 - Filtrowanie select</a></li>
+<li><a href="#zadanie-013---filtrowanie-mniejsze-niż">Zadanie 0.13 - Filtrowanie mniejsze niż</a></li>
+<li><a href="#zadanie-014---sortowanie">Zadanie 0.14 - Sortowanie</a></li>
+<li><a href="#zadanie-015---suma-wartości">Zadanie 0.15 - Suma wartości</a></li>
+<li><a href="#zadanie-016---wyszukiwanie-tekstowe">Zadanie 0.16 - Wyszukiwanie tekstowe</a></li>
+<li><a href="#zadanie-017---zakres-wartości">Zadanie 0.17 - Zakres wartości</a></li>
+<li><a href="#zadanie-018---złożone-warunki">Zadanie 0.18 - Złożone warunki</a></li>
+<li><a href="#zadanie-019---post-request">Zadanie 0.19 - POST request</a></li>
+<li><a href="#zadanie-020---dodawanie-danych-post">Zadanie 0.20 - Dodawanie danych POST</a></li>
+<li><a href="#zadanie-021---aktualizacja-put">Zadanie 0.21 - Aktualizacja PUT</a></li>
+<li><a href="#zadanie-022---usuwanie-delete">Zadanie 0.22 - Usuwanie DELETE</a></li>
+<li><a href="#zadanie-023---maksimum">Zadanie 0.23 - Maksimum</a></li>
+<li><a href="#zadanie-024---modyfikacja-wartości">Zadanie 0.24 - Modyfikacja wartości</a></li>
+<li><a href="#zadanie-025---pętle-bash">Zadanie 0.25 - Pętle bash</a></li>
+<li><a href="#zadanie-026---łączenie-elementów">Zadanie 0.26 - Łączenie elementów</a></li>
+<li><a href="#zadanie-027---pierwszy-i-ostatni-element">Zadanie 0.27 - Pierwszy i ostatni element</a></li>
+<li><a href="#zadanie-028---funkcja-any">Zadanie 0.28 - Funkcja any</a></li>
+<li><a href="#zadanie-029---post-i-lista">Zadanie 0.29 - POST i lista</a></li>
+<li><a href="#zadanie-030---put-i-aktualizacja">Zadanie 0.30 - PUT i aktualizacja</a></li>
+<li><a href="#podsumowanie">Podsumowanie</a></li>
+</ul>
+<hr />
+<h2 id="zadanie-00-uruchomienie-serwera">Zadanie 0.0 - Uruchomienie serwera</h2>
+<h3 id="polecenie">Polecenie</h3>
+<p>Uruchom serwer testowy Docker do ćwiczeń z cURL i jq.</p>
+<h3 id="rozwiazanie">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span>docker.io/mazurkatarzyna/curl-jq-server:latest
+</code></pre></div>
+<p><strong>Opis:</strong>
+- Serwer nasłuchuje na porcie <code>5000</code>
+- Udostępnia endpointy do testowania REST API
+- Zawiera dane użytkowników i przedmiotów</p>
+<hr />
+<h2 id="zadanie-01-wyswietlanie-caego-json">Zadanie 0.1 - Wyświetlanie całego JSON</h2>
+<h3 id="polecenie_1">Polecenie</h3>
+<p>Wyświetl wszystkie informacje użytkownika Alice.</p>
+<h3 id="rozwiazanie_1">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Warsaw&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;hobbies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="s2">&quot;reading&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="s2">&quot;chess&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="s2">&quot;cycling&quot;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alice Smith&quot;</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>curl -s</code> - ciche wykonanie (bez progress bar)
+- <code>jq .</code> - wyświetla cały JSON w ładnym formacie</p>
+<hr />
+<h2 id="zadanie-02-wyswietlanie-konkretnego-pola">Zadanie 0.2 - Wyświetlanie konkretnego pola</h2>
+<h3 id="polecenie_2">Polecenie</h3>
+<p>Wyświetl imię i nazwisko użytkownika Alice.</p>
+<h3 id="rozwiazanie_2">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.name
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Alice Smith
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>jq -r</code> - raw output (bez cudzysłowów)
+- <code>.name</code> - dostęp do pola <code>name</code></p>
+<hr />
+<h2 id="zadanie-03-pobieranie-email">Zadanie 0.3 - Pobieranie email</h2>
+<h3 id="polecenie_3">Polecenie</h3>
+<p>Wyświetl adres e-mail użytkownika Bob.</p>
+<h3 id="rozwiazanie_3">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/bob<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.email
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>bob@example.com
+</code></pre></div></p>
+<hr />
+<h2 id="zadanie-04-pobieranie-wieku">Zadanie 0.4 - Pobieranie wieku</h2>
+<h3 id="polecenie_4">Polecenie</h3>
+<p>Wyświetl wiek użytkownika Alice.</p>
+<h3 id="rozwiazanie_4">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.age
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>25
+</code></pre></div></p>
+<hr />
+<h2 id="zadanie-05-pobieranie-miasta">Zadanie 0.5 - Pobieranie miasta</h2>
+<h3 id="polecenie_5">Polecenie</h3>
+<p>Wyświetl nazwę miasta, w którym mieszka użytkownik Bob.</p>
+<h3 id="rozwiazanie_5">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/bob<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.city
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Krakow
+</code></pre></div></p>
+<hr />
+<h2 id="zadanie-06-wyswietlanie-tablic">Zadanie 0.6 - Wyświetlanie tablic</h2>
+<h3 id="polecenie_6">Polecenie</h3>
+<p>Wyświetl hobby użytkownika Alice.</p>
+<h3 id="rozwiazanie_6">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hobbies
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">[</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="s2">&quot;reading&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="s2">&quot;chess&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="s2">&quot;cycling&quot;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="p">]</span>
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>.hobbies</code> zwraca całą tablicę w formacie JSON</p>
+<hr />
+<h2 id="zadanie-07-sprawdzanie-zawartosci-tablicy">Zadanie 0.7 - Sprawdzanie zawartości tablicy</h2>
+<h3 id="polecenie_7">Polecenie</h3>
+<p>Sprawdź, czy jednym z hobby użytkownika Bob są gry (games).</p>
+<h3 id="rozwiazanie_7">Rozwiązanie</h3>
+<h4 id="metoda-1-uzycie-index">Metoda 1: Użycie <code>index</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/bob<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;(.hobbies | index(&quot;games&quot;)) != null&#39;</span>
+</code></pre></div>
+<h4 id="metoda-2-uzycie-contains">Metoda 2: Użycie <code>contains</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/bob<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies | contains([&quot;games&quot;])&#39;</span>
+</code></pre></div>
+<h4 id="metoda-3-uzycie-any">Metoda 3: Użycie <code>any</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/bob<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies | any(. == &quot;games&quot;)&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>true
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>index("games")</code> - zwraca indeks elementu lub null
+- <code>contains(["games"])</code> - sprawdza czy tablica zawiera element
+- <code>any(. == "games")</code> - sprawdza czy którykolwiek element pasuje</p>
+<hr />
+<h2 id="zadanie-08-dostep-do-elementu-tablicy">Zadanie 0.8 - Dostęp do elementu tablicy</h2>
+<h3 id="polecenie_8">Polecenie</h3>
+<p>Wyświetl pierwsze hobby użytkownika Alice.</p>
+<h3 id="rozwiazanie_8">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hobbies<span class="o">[</span><span class="m">0</span><span class="o">]</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>reading
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>[0]</code> - indeksowanie od zera (pierwszy element)</p>
+<hr />
+<h2 id="zadanie-09-dugosc-tablicy">Zadanie 0.9 - Długość tablicy</h2>
+<h3 id="polecenie_9">Polecenie</h3>
+<p>Sprawdź, ile hobby ma użytkownik Bob, a ile użytkownik Alice.</p>
+<h3 id="rozwiazanie_9">Rozwiązanie</h3>
+<h4 id="z-interpolacja-tekstu">Z interpolacją tekstu:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/bob<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;&quot;\(.name) ma \(.hobbies | length) hobby.&quot;&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>&quot;Bob Johnson ma 2 hobby.&quot;
+</code></pre></div></p>
+<h4 id="tylko-liczba">Tylko liczba:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.hobbies | length&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>3
+</code></pre></div></p>
+<h4 id="w-petli-dla-wielu-uzytkownikow">W pętli dla wielu użytkowników:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span>alice<span class="w"> </span>bob<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/<span class="nv">$u</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies | length&#39;</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="k">done</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>3
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>2
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>length</code> - zwraca długość tablicy lub stringa
+- <code>\(wyrażenie)</code> - interpolacja w stringach jq</p>
+<hr />
+<h2 id="zadanie-010-interpolacja-stringow">Zadanie 0.10 - Interpolacja stringów</h2>
+<h3 id="polecenie_10">Polecenie</h3>
+<p>Wyświetl nazwę użytkownika i miasto jako jeden ciąg znaków, np. "Alice Smith (Warsaw)". Zmodyfikuj polecenie, aby tekst był wyświetlany jako "Alice Smith from Warsaw".</p>
+<h3 id="rozwiazanie_10">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;&quot;\(.name) from \(.city).&quot;&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>&quot;Alice Smith from Warsaw.&quot;
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>"\(.name) from \(.city)"</code> - interpolacja wielu pól w jednym stringu</p>
+<hr />
+<h2 id="zadanie-011-iteratory-i-mapowanie">Zadanie 0.11 - Iteratory i mapowanie</h2>
+<h3 id="polecenie_11">Polecenie</h3>
+<p>Wyświetl wszystkie przedmioty. Wyświetl nazwy wszystkich przedmiotów.</p>
+<h3 id="rozwiazanie_11">Rozwiązanie</h3>
+<h4 id="wszystkie-przedmioty">Wszystkie przedmioty:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<h4 id="iterator-same-przedmioty-bez-nawiasow">Iterator - same przedmioty (bez nawiasów):</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.<span class="o">[]</span>
+</code></pre></div>
+<h4 id="iterator-same-nazwy">Iterator - same nazwy:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Sposób 1</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.<span class="o">[]</span>.name
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Sposób 2 (z pipe)</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | .name&#39;</span>
+</code></pre></div>
+<h4 id="zapisanie-wyniku-do-listy-json">Zapisanie wyniku do listy JSON:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;map(.name)&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>.[]</code> - iterator po wszystkich elementach tablicy
+- <code>.[].name</code> - dla każdego elementu pobierz pole name
+- <code>map(.name)</code> - mapuje tablicę na nową tablicę zawierającą tylko nazwy</p>
+<hr />
+<h2 id="zadanie-012-filtrowanie-select">Zadanie 0.12 - Filtrowanie select</h2>
+<h3 id="polecenie_12">Polecenie</h3>
+<p>Wyświetl przedmioty droższe niż 20 pln.</p>
+<h3 id="rozwiazanie_12">Rozwiązanie</h3>
+<h4 id="tylko-nazwy">Tylko nazwy:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.price &gt; 20) | .name&#39;</span>
+</code></pre></div>
+<h4 id="w-liscie-json">W liście JSON:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;map(select(.price &gt; 20)) | map(.name)&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>select(warunek)</code> - filtruje elementy spełniające warunek
+- Można łączyć <code>select</code> z innymi operacjami przez pipe</p>
+<hr />
+<h2 id="zadanie-013-filtrowanie-mniejsze-niz">Zadanie 0.13 - Filtrowanie mniejsze niż</h2>
+<h3 id="polecenie_13">Polecenie</h3>
+<p>Wyświetl przedmioty tańsze niż 30 pln.</p>
+<h3 id="rozwiazanie_13">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.price &lt; 30) | .name&#39;</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-014-sortowanie">Zadanie 0.14 - Sortowanie</h2>
+<h3 id="polecenie_14">Polecenie</h3>
+<p>Posortuj przedmioty według ceny rosnąco, a następnie malejąco.</p>
+<h3 id="rozwiazanie_14">Rozwiązanie</h3>
+<h4 id="rosnaco">Rosnąco:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;sort_by(.price)&#39;</span>
+</code></pre></div>
+<h4 id="malejaco">Malejąco:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;sort_by(.price) | reverse&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>sort_by(.pole)</code> - sortuje tablicę według określonego pola
+- <code>reverse</code> - odwraca kolejność elementów</p>
+<hr />
+<h2 id="zadanie-015-suma-wartosci">Zadanie 0.15 - Suma wartości</h2>
+<h3 id="polecenie_15">Polecenie</h3>
+<p>Pobierz sumę cen wszystkich przedmiotów.</p>
+<h3 id="rozwiazanie_15">Rozwiązanie</h3>
+<h4 id="sposob-1-przez-konstrukcje-tablicy">Sposób 1: Przez konstrukcję tablicy</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;[.[].price] | add&#39;</span>
+</code></pre></div>
+<h4 id="sposob-2-przez-mapowanie">Sposób 2: Przez mapowanie</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;map(.price) | add&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>150.38
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>add</code> - sumuje wszystkie elementy tablicy
+- Działa także dla konkatenacji stringów:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>jq<span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;] | add&#39;</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="c1"># Output: &quot;abc&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-016-wyszukiwanie-tekstowe">Zadanie 0.16 - Wyszukiwanie tekstowe</h2>
+<h3 id="polecenie_16">Polecenie</h3>
+<p>Wyświetl przedmioty, których nazwa zawiera "item".</p>
+<h3 id="rozwiazanie_16">Rozwiązanie</h3>
+<h4 id="sposob-1-uzycie-contains">Sposób 1: Użycie <code>contains</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name | contains(&quot;item&quot;)) | .name&#39;</span>
+</code></pre></div>
+<h4 id="sposob-2-uzycie-test-regex">Sposób 2: Użycie <code>test</code> (regex)</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name | test(&quot;item&quot;)) | .name&#39;</span>
+</code></pre></div>
+<h4 id="sposob-3-regex-case-insensitive">Sposób 3: Regex case-insensitive</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># &quot;i&quot; - flaga case-insensitive (bez rozróżniania wielkości liter)</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.name | test(&quot;item&quot;; &quot;i&quot;))&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>contains("tekst")</code> - sprawdza czy string zawiera podany tekst
+- <code>test("pattern")</code> - sprawdza regex
+- <code>test("pattern"; "i")</code> - regex z flagami</p>
+<hr />
+<h2 id="zadanie-017-zakres-wartosci">Zadanie 0.17 - Zakres wartości</h2>
+<h3 id="polecenie_17">Polecenie</h3>
+<p>Wyświetl przedmioty w przedziale cenowym 10-30 pln.</p>
+<h3 id="rozwiazanie_17">Rozwiązanie</h3>
+<h4 id="sposob-1-dwa-select">Sposób 1: Dwa <code>select</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.price &gt; 10) | select(.price &lt; 30)&#39;</span>
+</code></pre></div>
+<h4 id="sposob-2-operator-and">Sposób 2: Operator <code>and</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.[] | select(.price &gt; 10 and .price &lt; 30)&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- Można łączyć warunki przez <code>and</code> lub <code>or</code>
+- Można też łączyć wiele <code>select</code> w łańcuchu</p>
+<hr />
+<h2 id="zadanie-018-zozone-warunki">Zadanie 0.18 - Złożone warunki</h2>
+<h3 id="polecenie_18">Polecenie</h3>
+<p>Wyświetl użytkowników, którzy mają więcej niż 2 hobby.</p>
+<h3 id="rozwiazanie_18">Rozwiązanie</h3>
+<h4 id="sprawdzenie-truefalse">Sprawdzenie true/false:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span>alice<span class="w"> </span>bob<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/<span class="nv">$u</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies | length &gt; 2&#39;</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="k">done</span>
+</code></pre></div>
+<h4 id="wyswietlenie-tylko-pasujacych-uzytkownikow">Wyświetlenie tylko pasujących użytkowników:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span>alice<span class="w"> </span>bob<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/<span class="nv">$u</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;select(.hobbies | length &gt; 2) | .name&#39;</span>
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="k">done</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>Alice Smith
+</code></pre></div></p>
+<hr />
+<h2 id="zadanie-019-post-request">Zadanie 0.19 - POST request</h2>
+<h3 id="polecenie_19">Polecenie</h3>
+<p>Wyślij do serwera request typu POST (endpoint /echo) i wyświetl odpowiedź.</p>
+<h3 id="rozwiazanie_19">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:5000/echo<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;test&quot;: &quot;data&quot;}&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-X POST</code> - metoda HTTP POST
+- <code>-H "Content-Type: application/json"</code> - nagłówek określający format danych
+- <code>-d '{"key": "value"}'</code> - dane w formacie JSON</p>
+<hr />
+<h2 id="zadanie-020-dodawanie-danych-post">Zadanie 0.20 - Dodawanie danych POST</h2>
+<h3 id="polecenie_20">Polecenie</h3>
+<p>Wyślij do serwera request typu POST, który doda nowy przedmiot (użyj endpointa /items). Wyświetl wszystkie przedmioty po dodaniu.</p>
+<h3 id="rozwiazanie_20">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="c1"># Dodaj nowy przedmiot</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;name&quot;: &quot;Rower&quot;, &quot;price&quot;: 555}&#39;</span>
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a><span class="c1"># Wyświetl wszystkie przedmioty</span>
+<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- POST do <code>/items</code> dodaje nowy przedmiot
+- Serwer automatycznie przypisuje ID</p>
+<hr />
+<h2 id="zadanie-021-aktualizacja-put">Zadanie 0.21 - Aktualizacja PUT</h2>
+<h3 id="polecenie_21">Polecenie</h3>
+<p>Za pomocą requestu typu PUT, zaktualizuj cenę przedmiotu o numerze 1. Wyświetl wszystkie przedmioty.</p>
+<h3 id="rozwiazanie_21">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1"># Aktualizuj przedmiot ID=1</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items/1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;price&quot;: 777}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="c1"># Wyświetl wszystkie przedmioty</span>
+<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>PUT /items/1</code> - aktualizuje przedmiot o ID=1
+- Wysyłamy tylko pola do aktualizacji</p>
+<hr />
+<h2 id="zadanie-022-usuwanie-delete">Zadanie 0.22 - Usuwanie DELETE</h2>
+<h3 id="polecenie_22">Polecenie</h3>
+<p>Za pomocą requestu typu DELETE, usuń przedmiot o numerze 3. Wyświetl wszystkie przedmioty.</p>
+<h3 id="rozwiazanie_22">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1"># Usuń przedmiot ID=3</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items/3
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="c1"># Wyświetl wszystkie przedmioty</span>
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>DELETE /items/3</code> - usuwa przedmiot o ID=3</p>
+<hr />
+<h2 id="zadanie-023-maksimum">Zadanie 0.23 - Maksimum</h2>
+<h3 id="polecenie_23">Polecenie</h3>
+<p>Wyświetl przedmiot o największej cenie.</p>
+<h3 id="rozwiazanie_23">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;sort_by(.price) | .[-1]&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>sort_by(.price)</code> - sortuje rosnąco
+- <code>.[-1]</code> - ostatni element (największy)</p>
+<p><strong>Alternatywa dla minimum:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;sort_by(.price) | .[0]&#39;</span>
+</code></pre></div></p>
+<hr />
+<h2 id="zadanie-024-modyfikacja-wartosci">Zadanie 0.24 - Modyfikacja wartości</h2>
+<h3 id="polecenie_24">Polecenie</h3>
+<p>Wyświetl wszystkie przedmioty z ceną podwyższoną o 10%.</p>
+<h3 id="rozwiazanie_24">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.[] | .price *= 1.1&#39;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>*=</code> - operator mnożenia i przypisania
+- Każda cena zostaje pomnożona przez 1.1 (wzrost o 10%)</p>
+<p><strong>Inne operatory:</strong>
+- <code>+=</code> - dodawanie
+- <code>-=</code> - odejmowanie
+- <code>/=</code> - dzielenie</p>
+<hr />
+<h2 id="zadanie-025-petle-bash">Zadanie 0.25 - Pętle bash</h2>
+<h3 id="polecenie_25">Polecenie</h3>
+<p>Pobierz nazwy wszystkich użytkowników i ich wiek.</p>
+<h3 id="rozwiazanie_25">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span>alice<span class="w"> </span>bob<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w">  </span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/<span class="nv">$u</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;&quot;\(.name): \(.age)&quot;&#39;</span>
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="k">done</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>Alice Smith: 25
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>Bob Johnson: 30
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- Pętla <code>for</code> w bash iteruje po użytkownikach
+- Dla każdego wykonuje zapytanie i formatuje wynik</p>
+<hr />
+<h2 id="zadanie-026-aczenie-elementow">Zadanie 0.26 - Łączenie elementów</h2>
+<h3 id="polecenie_26">Polecenie</h3>
+<p>Wyświetl hobby Alice jako string połączony przecinkami.</p>
+<h3 id="rozwiazanie_26">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies | join(&quot;,&quot;)&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>reading,chess,cycling
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>join("separator")</code> - łączy elementy tablicy w string</p>
+<p><strong>Przykład z innym separatorem:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies | join(&quot; | &quot;)&#39;</span>
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="c1"># Output: reading | chess | cycling</span>
+</code></pre></div></p>
+<hr />
+<h2 id="zadanie-027-pierwszy-i-ostatni-element">Zadanie 0.27 - Pierwszy i ostatni element</h2>
+<h3 id="polecenie_27">Polecenie</h3>
+<p>Pobierz pierwszy i ostatni przedmiot z listy.</p>
+<h3 id="rozwiazanie_27">Rozwiązanie</h3>
+<h4 id="pierwszy-element">Pierwszy element:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies[0]&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>reading
+</code></pre></div></p>
+<h4 id="ostatni-element">Ostatni element:</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/user/alice<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.hobbies[-1]&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>cycling
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>[0]</code> - pierwszy element
+- <code>[-1]</code> - ostatni element
+- <code>[-2]</code> - przedostatni element, itd.</p>
+<hr />
+<h2 id="zadanie-028-funkcja-any">Zadanie 0.28 - Funkcja any</h2>
+<h3 id="polecenie_28">Polecenie</h3>
+<p>Sprawdź, czy są przedmioty droższe niż 100 pln.</p>
+<h3 id="rozwiazanie_28">Rozwiązanie</h3>
+<h4 id="sposob-1-any-z-iteratorem">Sposób 1: <code>any</code> z iteratorem</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;any(.[]; .price &gt; 100)&#39;</span>
+</code></pre></div>
+<h4 id="sposob-2-any-na-tablicy">Sposób 2: <code>any</code> na tablicy</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;[.[].price] | any(. &gt; 100)&#39;</span>
+</code></pre></div>
+<p><strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>true  # lub false
+</code></pre></div></p>
+<p><strong>Wyjaśnienie:</strong>
+- <code>any(warunek)</code> - zwraca true jeśli przynajmniej jeden element spełnia warunek
+- <code>all(warunek)</code> - zwraca true jeśli wszystkie elementy spełniają warunek</p>
+<hr />
+<h2 id="zadanie-029-post-i-lista">Zadanie 0.29 - POST i lista</h2>
+<h3 id="polecenie_29">Polecenie</h3>
+<p>Utwórz nowy przedmiot za pomocą POST /items. Wyświetl odpowiedź serwera i następnie listę wszystkich przedmiotów.</p>
+<h3 id="rozwiazanie_29">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="c1"># Dodaj przedmiot i wyświetl odpowiedź</span>
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;name&quot;: &quot;Laptop&quot;, &quot;price&quot;: 2500}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.<span class="w"> </span>
+<a id="__codelineno-67-5" name="__codelineno-67-5" href="#__codelineno-67-5"></a>
+<a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a><span class="c1"># Wyświetl listę wszystkich przedmiotów</span>
+<a id="__codelineno-67-7" name="__codelineno-67-7" href="#__codelineno-67-7"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="zadanie-030-put-i-aktualizacja">Zadanie 0.30 - PUT i aktualizacja</h2>
+<h3 id="polecenie_30">Polecenie</h3>
+<p>Zaktualizuj przedmiot id=2. Wyświetl odpowiedź serwera i następnie listę wszystkich przedmiotów.</p>
+<h3 id="rozwiazanie_30">Rozwiązanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a><span class="c1"># Aktualizuj przedmiot ID=2</span>
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items/2<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;name&quot;: &quot;Updated Item&quot;, &quot;price&quot;: 999}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a>
+<a id="__codelineno-68-6" name="__codelineno-68-6" href="#__codelineno-68-6"></a><span class="c1"># Wyświetl listę wszystkich przedmiotów</span>
+<a id="__codelineno-68-7" name="__codelineno-68-7" href="#__codelineno-68-7"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5000/items<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="podsumowanie">Podsumowanie</h2>
+<h3 id="podstawowe-komendy-curl">Podstawowe komendy cURL</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="c1"># GET request</span>
+<a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>URL
+<a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>
+<a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a><span class="c1"># POST request</span>
+<a id="__codelineno-69-5" name="__codelineno-69-5" href="#__codelineno-69-5"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>URL<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;key&quot;: &quot;value&quot;}&#39;</span>
+<a id="__codelineno-69-6" name="__codelineno-69-6" href="#__codelineno-69-6"></a>
+<a id="__codelineno-69-7" name="__codelineno-69-7" href="#__codelineno-69-7"></a><span class="c1"># PUT request</span>
+<a id="__codelineno-69-8" name="__codelineno-69-8" href="#__codelineno-69-8"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>URL<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;key&quot;: &quot;value&quot;}&#39;</span>
+<a id="__codelineno-69-9" name="__codelineno-69-9" href="#__codelineno-69-9"></a>
+<a id="__codelineno-69-10" name="__codelineno-69-10" href="#__codelineno-69-10"></a><span class="c1"># DELETE request</span>
+<a id="__codelineno-69-11" name="__codelineno-69-11" href="#__codelineno-69-11"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span>URL
+</code></pre></div>
+<p><strong>Flagi cURL:</strong>
+- <code>-s</code> - tryb cichy (bez progress bar)
+- <code>-X</code> - metoda HTTP (GET, POST, PUT, DELETE)
+- <code>-H</code> - nagłówek HTTP
+- <code>-d</code> - dane do wysłania</p>
+<h3 id="podstawowe-operacje-jq">Podstawowe operacje jq</h3>
+<table>
+<thead>
+<tr>
+<th>Operacja</th>
+<th>Składnia</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cały JSON</td>
+<td><code>jq .</code></td>
+<td><code>jq .</code></td>
+</tr>
+<tr>
+<td>Pole</td>
+<td><code>jq .pole</code></td>
+<td><code>jq .name</code></td>
+</tr>
+<tr>
+<td>Raw output</td>
+<td><code>jq -r</code></td>
+<td><code>jq -r .name</code></td>
+</tr>
+<tr>
+<td>Element tablicy</td>
+<td><code>jq .[0]</code></td>
+<td><code>jq .hobbies[0]</code></td>
+</tr>
+<tr>
+<td>Ostatni element</td>
+<td><code>jq .[-1]</code></td>
+<td><code>jq .hobbies[-1]</code></td>
+</tr>
+<tr>
+<td>Iterator</td>
+<td><code>jq .[]</code></td>
+<td><code>jq .[].name</code></td>
+</tr>
+<tr>
+<td>Długość</td>
+<td><code>jq length</code></td>
+<td><code>jq '.hobbies \| length'</code></td>
+</tr>
+<tr>
+<td>Filtrowanie</td>
+<td><code>jq 'select(warunek)'</code></td>
+<td><code>jq 'select(.price &gt; 20)'</code></td>
+</tr>
+<tr>
+<td>Mapowanie</td>
+<td><code>jq 'map(wyrażenie)'</code></td>
+<td><code>jq 'map(.name)'</code></td>
+</tr>
+<tr>
+<td>Sortowanie</td>
+<td><code>jq 'sort_by(.pole)'</code></td>
+<td><code>jq 'sort_by(.price)'</code></td>
+</tr>
+<tr>
+<td>Odwracanie</td>
+<td><code>jq 'reverse'</code></td>
+<td><code>jq 'reverse'</code></td>
+</tr>
+<tr>
+<td>Suma</td>
+<td><code>jq 'add'</code></td>
+<td><code>jq 'map(.price) \| add'</code></td>
+</tr>
+<tr>
+<td>Łączenie</td>
+<td><code>jq 'join("sep")'</code></td>
+<td><code>jq '.hobbies \| join(",")'</code></td>
+</tr>
+<tr>
+<td>Interpolacja</td>
+<td><code>jq '"\(.pole)"'</code></td>
+<td><code>jq '"\(.name): \(.age)"'</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="funkcje-sprawdzajace">Funkcje sprawdzające</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="c1"># Sprawdzanie zawartości</span>
+<a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>.hobbies<span class="w"> </span><span class="p">|</span><span class="w"> </span>contains<span class="o">([</span><span class="s2">&quot;games&quot;</span><span class="o">])</span>
+<a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>.hobbies<span class="w"> </span><span class="p">|</span><span class="w"> </span>any<span class="o">(</span>.<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;games&quot;</span><span class="o">)</span>
+<a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a>.hobbies<span class="w"> </span><span class="p">|</span><span class="w"> </span>index<span class="o">(</span><span class="s2">&quot;games&quot;</span><span class="o">)</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span>null
+<a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>
+<a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a><span class="c1"># Sprawdzanie warunku</span>
+<a id="__codelineno-70-7" name="__codelineno-70-7" href="#__codelineno-70-7"></a>any<span class="o">(</span>.<span class="o">[]</span><span class="p">;</span><span class="w"> </span>.price<span class="w"> </span>&gt;<span class="w"> </span><span class="m">100</span><span class="o">)</span>
+<a id="__codelineno-70-8" name="__codelineno-70-8" href="#__codelineno-70-8"></a>all<span class="o">(</span>.<span class="o">[]</span><span class="p">;</span><span class="w"> </span>.price<span class="w"> </span>&lt;<span class="w"> </span><span class="m">1000</span><span class="o">)</span>
+</code></pre></div>
+<h3 id="operatory-warunkowe">Operatory warunkowe</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="c1"># Pojedynczy warunek</span>
+<a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a><span class="k">select</span><span class="o">(</span>.price<span class="w"> </span>&gt;<span class="w"> </span><span class="m">20</span><span class="o">)</span>
+<a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>
+<a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a><span class="c1"># Wiele warunków</span>
+<a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a><span class="k">select</span><span class="o">(</span>.price<span class="w"> </span>&gt;<span class="w"> </span><span class="m">10</span><span class="w"> </span>and<span class="w"> </span>.price<span class="w"> </span>&lt;<span class="w"> </span><span class="m">30</span><span class="o">)</span>
+<a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a><span class="k">select</span><span class="o">(</span>.price<span class="w"> </span>&lt;<span class="w"> </span><span class="m">10</span><span class="w"> </span>or<span class="w"> </span>.price<span class="w"> </span>&gt;<span class="w"> </span><span class="m">100</span><span class="o">)</span>
+<a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a>
+<a id="__codelineno-71-8" name="__codelineno-71-8" href="#__codelineno-71-8"></a><span class="c1"># Negacja</span>
+<a id="__codelineno-71-9" name="__codelineno-71-9" href="#__codelineno-71-9"></a><span class="k">select</span><span class="o">(</span>.price<span class="w"> </span>&gt;<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>not<span class="o">)</span>
+</code></pre></div>
+<h3 id="operatory-arytmetyczne">Operatory arytmetyczne</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="c1"># Modyfikacja wartości</span>
+<a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>.price<span class="w"> </span>*<span class="o">=</span><span class="w"> </span><span class="m">1</span>.1<span class="w">    </span><span class="c1"># Mnożenie</span>
+<a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>.price<span class="w"> </span>+<span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="w">     </span><span class="c1"># Dodawanie</span>
+<a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a>.price<span class="w"> </span>-<span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="w">      </span><span class="c1"># Odejmowanie</span>
+<a id="__codelineno-72-5" name="__codelineno-72-5" href="#__codelineno-72-5"></a>.price<span class="w"> </span>/<span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w">      </span><span class="c1"># Dzielenie</span>
+</code></pre></div>
+<h3 id="wyszukiwanie-tekstowe">Wyszukiwanie tekstowe</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="c1"># Proste wyszukiwanie</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="k">select</span><span class="o">(</span>.name<span class="w"> </span><span class="p">|</span><span class="w"> </span>contains<span class="o">(</span><span class="s2">&quot;item&quot;</span><span class="o">))</span>
+<a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a>
+<a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="c1"># Regex</span>
+<a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a><span class="k">select</span><span class="o">(</span>.name<span class="w"> </span><span class="p">|</span><span class="w"> </span>test<span class="o">(</span><span class="s2">&quot;item&quot;</span><span class="o">))</span>
+<a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a>
+<a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="c1"># Regex case-insensitive</span>
+<a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a><span class="k">select</span><span class="o">(</span>.name<span class="w"> </span><span class="p">|</span><span class="w"> </span>test<span class="o">(</span><span class="s2">&quot;item&quot;</span><span class="p">;</span><span class="w"> </span><span class="s2">&quot;i&quot;</span><span class="o">))</span>
+</code></pre></div>
+<h3 id="rest-api-metody-http">REST API - Metody HTTP</h3>
+<table>
+<thead>
+<tr>
+<th>Metoda</th>
+<th>Przeznaczenie</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>Pobieranie danych</td>
+<td><code>curl -s URL</code></td>
+</tr>
+<tr>
+<td>POST</td>
+<td>Tworzenie nowych</td>
+<td><code>curl -X POST URL -d '{...}'</code></td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>Aktualizacja</td>
+<td><code>curl -X PUT URL/id -d '{...}'</code></td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Usuwanie</td>
+<td><code>curl -X DELETE URL/id</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="przydatne-konstrukcje-bash">Przydatne konstrukcje bash</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="c1"># Pętla po użytkownikach</span>
+<a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a><span class="k">for</span><span class="w"> </span>u<span class="w"> </span><span class="k">in</span><span class="w"> </span>alice<span class="w"> </span>bob<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>
+<a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>URL/user/<span class="nv">$u</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<a id="__codelineno-74-4" name="__codelineno-74-4" href="#__codelineno-74-4"></a><span class="k">done</span>
+<a id="__codelineno-74-5" name="__codelineno-74-5" href="#__codelineno-74-5"></a>
+<a id="__codelineno-74-6" name="__codelineno-74-6" href="#__codelineno-74-6"></a><span class="c1"># Zapisanie do pliku</span>
+<a id="__codelineno-74-7" name="__codelineno-74-7" href="#__codelineno-74-7"></a>curl<span class="w"> </span>-s<span class="w"> </span>URL<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.<span class="w"> </span>&gt;<span class="w"> </span>output.json
+<a id="__codelineno-74-8" name="__codelineno-74-8" href="#__codelineno-74-8"></a>
+<a id="__codelineno-74-9" name="__codelineno-74-9" href="#__codelineno-74-9"></a><span class="c1"># Pipe do innych narzędzi</span>
+<a id="__codelineno-74-10" name="__codelineno-74-10" href="#__codelineno-74-10"></a>curl<span class="w"> </span>-s<span class="w"> </span>URL<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.name<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;pattern&quot;</span>
+</code></pre></div>
+<hr />
+<p><strong>Autor:</strong> Notatki z laboratorium bezpieczeństwa<br />
+<strong>Data:</strong> 7 października 2025</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/alezab"  target="_blank" rel="noopener">alezab</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/alezab" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

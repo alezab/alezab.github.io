@@ -1,0 +1,1444 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2025-11-04/">
+      
+      
+        <link rel="next" href="../powt/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>GPG Exercises - 2025-11-18 - Linux Geeks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gpg-exercises-2025-11-18" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Geeks" class="md-header__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Geeks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GPG Exercises - 2025-11-18
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Geeks" class="md-nav__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linux Geeks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - cURL i jq (JSON Query)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Funkcje Skrótu (Hashing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Symetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Asymetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Łamanie Haseł
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPG Exercises - 2025-11-18
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPG Exercises - 2025-11-18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-54" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.4
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-56" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.6
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.7
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-58" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.8
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-59" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.9
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-510" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.10
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-511" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.11
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-512" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.12
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-513" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.13
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-514" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise 5.14
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../powt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zadania - Bezpieczeństwo Systemów
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="gpg-exercises-2025-11-18">GPG Exercises - 2025-11-18</h1>
+<h2 id="exercise-51">Exercise 5.1</h2>
+<p>Pod adresem http://127.0.0.1:5001 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5001/submit/public oraz http://127.0.0.1:5001/submit/private.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5001</span>:5001<span class="w"> </span>--name<span class="w"> </span>ex1<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex1:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wygeneruj parę kluczy GPG używając algorytmu RSA.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gpg<span class="w"> </span>--list-keys
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>gpg<span class="w"> </span>--full-generate-key
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># 1</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># 2048</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># 6m</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># y </span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Jan Kowalski</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1"># jan_kowalski@abc.pl</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Klucz testowy</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># Ok </span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Password: Anakonda</span>
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pub   rsa2048 2025-11-18 [SC] [expires: 2025-11-25]
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>      C3D85E29FA195F3379CBC9568C8DB94F59FD5FA4
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>uid                      Jan Kowalski (Klucz testowy) &lt;jan_kowalski@abc.pl&gt;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>sub   rsa2048 2025-11-18 [E] [expires: 2025-11-25]
+</code></pre></div></p>
+<p><strong>(c)</strong> Wyeksportuj klucz publiczny i klucz prywatny do plików, odpowiednio pub.key oraz priv.key.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>gpg<span class="w"> </span>--export<span class="w"> </span>--armor<span class="w"> </span>C3D85E29FA195F3379CBC9568C8DB94F59FD5FA4<span class="w"> </span>&gt;<span class="w"> </span>pub.key
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>gpg<span class="w"> </span>--export-secret-keys<span class="w"> </span>--armor<span class="w"> </span>C3D85E29FA195F3379CBC9568C8DB94F59FD5FA4<span class="w"> </span>&gt;<span class="w"> </span>priv.key
+</code></pre></div>
+<p><strong>(d)</strong> Wyślij request do endpointa http://127.0.0.1:5001/submit/public używając metody HTTP POST i prześlij na serwer wyeksportowany klucz publiczny GPG. Serwer w odpowiedzi zwróci informacje o kluczu.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5001/submit/public<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@pub.key&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;algo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1763463084&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">&quot;expires&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1764067884&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C3D85E29FA195F3379CBC9568C8DB94F59FD5FA4&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8C8DB94F59FD5FA4&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2048&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nt">&quot;trust&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="nt">&quot;uids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="s2">&quot;Jan Kowalski (Klucz testowy) &lt;jan_kowalski@abc.pl&gt;&quot;</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5001/submit/private używając metody HTTP POST i prześlij na serwer wyeksportowany klucz prywatny GPG. Serwer w odpowiedzi zwróci informacje o kluczu.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5001/submit/private<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@priv.key&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;algo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1763463084&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nt">&quot;expires&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1764067884&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C3D85E29FA195F3379CBC9568C8DB94F59FD5FA4&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8C8DB94F59FD5FA4&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">  </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2048&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">  </span><span class="nt">&quot;trust&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">  </span><span class="nt">&quot;uids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="s2">&quot;Jan Kowalski (Klucz testowy) &lt;jan_kowalski@abc.pl&gt;&quot;</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby za pomocą narzędzia cURL wysłać plik do serwera, użyj składni: <code>-F "plik=@hello.txt"</code></p>
+<hr />
+<h2 id="exercise-52">Exercise 5.2</h2>
+<p>Pod adresem http://127.0.0.1:5002 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5002/submit/public oraz http://127.0.0.1:5002/submit/private.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex2
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5002</span>:5002<span class="w"> </span>--name<span class="w"> </span>ex2<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex2:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wygeneruj parę kluczy GPG używając algorytmu DSA.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gpg<span class="w"> </span>--quick-generate-key<span class="w"> </span><span class="s2">&quot;Jan Kowalski DSA &lt;jan_dsa@abc.pl&gt;&quot;</span><span class="w"> </span>dsa2048<span class="w"> </span>sign,auth<span class="w"> </span>6m
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pub   dsa2048 2025-11-30 [SCA] [expires: 2026-05-29]
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>      61F45CD449005B4981BE7B93918B4BAB57BF4D5B
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>uid                      Jan Kowalski DSA &lt;jan_dsa@abc.pl&gt;
+</code></pre></div></p>
+<p><strong>(c)</strong> Wyeksportuj klucz publiczny i klucz prywatny do plików, odpowiednio pub.key oraz priv.key.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>gpg<span class="w"> </span>--export<span class="w"> </span>--armor<span class="w"> </span>61F45CD449005B4981BE7B93918B4BAB57BF4D5B<span class="w"> </span>&gt;<span class="w"> </span>pub.key
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>gpg<span class="w"> </span>--export-secret-keys<span class="w"> </span>--armor<span class="w"> </span>61F45CD449005B4981BE7B93918B4BAB57BF4D5B<span class="w"> </span>&gt;<span class="w"> </span>priv.key
+</code></pre></div>
+<p><strong>(d)</strong> Wyślij request do endpointa http://127.0.0.1:5002/submit/public używając metody HTTP POST i prześlij na serwer wyeksportowany klucz publiczny GPG. Serwer w odpowiedzi zwróci informacje o kluczu.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5002/submit/public<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@pub.key&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;algorithm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DSA&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1764536071&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">&quot;expires&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1780088071&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;61F45CD449005B4981BE7B93918B4BAB57BF4D5B&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">  </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GPG/OpenPGP&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;918B4BAB57BF4D5B&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">  </span><span class="nt">&quot;key_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2048</span><span class="p">,</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">  </span><span class="nt">&quot;trust&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">  </span><span class="nt">&quot;uids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="s2">&quot;Jan Kowalski DSA &lt;jan_dsa@abc.pl&gt;&quot;</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5002/submit/private używając metody HTTP POST i prześlij na serwer wyeksportowany klucz prywatny GPG. Serwer w odpowiedzi zwróci informacje o kluczu.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5002/submit/private<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@priv.key&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;algorithm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DSA&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1764536071&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">&quot;expires&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1780088071&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;61F45CD449005B4981BE7B93918B4BAB57BF4D5B&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">  </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GPG/OpenPGP&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;918B4BAB57BF4D5B&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">  </span><span class="nt">&quot;key_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2048</span><span class="p">,</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">  </span><span class="nt">&quot;trust&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">  </span><span class="nt">&quot;uids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="s2">&quot;Jan Kowalski DSA &lt;jan_dsa@abc.pl&gt;&quot;</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby za pomocą narzędzia cURL wysłać plik do serwera, użyj składni: <code>-F "plik=@hello.txt"</code></p>
+<hr />
+<h2 id="exercise-53">Exercise 5.3</h2>
+<p>Pod adresem http://127.0.0.1:5003 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5003/submit/public oraz http://127.0.0.1:5003/submit/private.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex3
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5003</span>:5003<span class="w"> </span>--name<span class="w"> </span>ex3<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex3:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wygeneruj parę kluczy GPG używając algorytmu RSA. Klucze powinny mieć 1024 bity długości, mają być ważne rok, oraz być wygenerowane dla adresu student@uczelnia.pl.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>gpg<span class="w"> </span>--quick-generate-key<span class="w"> </span><span class="s2">&quot;Student &lt;student@uczelnia.pl&gt;&quot;</span><span class="w"> </span>rsa1024<span class="w"> </span>sign,auth<span class="w"> </span>1y
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>pub   rsa1024 2025-11-30 [SCA] [expires: 2026-11-30]
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>      4177BD07C3B6D5902BF6977CFCDFDE711931002F
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>uid                      Student &lt;student@uczelnia.pl&gt;
+</code></pre></div></p>
+<p><strong>(c)</strong> Wyeksportuj klucz publiczny i klucz prywatny do plików, odpowiednio pub.key oraz priv.key.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>gpg<span class="w"> </span>--export<span class="w"> </span>--armor<span class="w"> </span>4177BD07C3B6D5902BF6977CFCDFDE711931002F<span class="w"> </span>&gt;<span class="w"> </span>pub.key
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>gpg<span class="w"> </span>--export-secret-keys<span class="w"> </span>--armor<span class="w"> </span>4177BD07C3B6D5902BF6977CFCDFDE711931002F<span class="w"> </span>&gt;<span class="w"> </span>priv.key
+</code></pre></div>
+<p><strong>(d)</strong> Wyślij request do endpointa http://127.0.0.1:5003/submit/public używając metody HTTP POST i prześlij na serwer wyeksportowany klucz publiczny GPG. Serwer w odpowiedzi zwróci informacje o kluczu.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5003/submit/public<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@pub.key&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">{</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="nt">&quot;algo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1764536205&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span><span class="nt">&quot;expires&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1796072205&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4177BD07C3B6D5902BF6977CFCDFDE711931002F&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FCDFDE711931002F&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">  </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1024&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">  </span><span class="nt">&quot;trust&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;public&quot;</span><span class="p">,</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="w">  </span><span class="nt">&quot;uids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">    </span><span class="s2">&quot;Student &lt;student@uczelnia.pl&gt;&quot;</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="w">  </span><span class="nt">&quot;validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;passed&quot;</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5003/submit/private używając metody HTTP POST i prześlij na serwer wyeksportowany klucz prywatny GPG. Serwer w odpowiedzi zwróci informacje o kluczu.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5003/submit/private<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@priv.key&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">{</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="nt">&quot;algo&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1764536205&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span><span class="nt">&quot;expires&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1796072205&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4177BD07C3B6D5902BF6977CFCDFDE711931002F&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span><span class="nt">&quot;key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FCDFDE711931002F&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">  </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1024&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">  </span><span class="nt">&quot;trust&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="p">,</span>
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">  </span><span class="nt">&quot;uids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="s2">&quot;Student &lt;student@uczelnia.pl&gt;&quot;</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">  </span><span class="p">],</span>
+<a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="w">  </span><span class="nt">&quot;validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;passed&quot;</span>
+<a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="p">}</span>
+</code></pre></div></p>
+<hr />
+<h2 id="exercise-54">Exercise 5.4</h2>
+<p>Pod adresem http://127.0.0.1:5004 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5004/decrypt oraz http://127.0.0.1:5004/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5004</span>:5004<span class="w"> </span>--name<span class="w"> </span>ex4<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex4:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5004/decrypt używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5004/decrypt<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Archive:  data.zip
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>  inflating: encrypted.txt           
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>  inflating: passphrase.txt          
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Odszyfruj plik encrypted.txt używając algorytmu CAMELLIA128 i hasła znajdującego się w pliku passphrase.txt.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>gpg<span class="w"> </span>--decrypt<span class="w"> </span>encrypted.txt
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="c1"># gpg: CAMELLIA128.CFB encrypted data</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="c1"># dragon</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="c1"># gpg: encrypted with 1 passphrase</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="c1"># password</span>
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5004/submit/ używając metody HTTP POST, i prześlij do serwera ID sesji (jako session_id, które znajdziesz w pliku session_id.txt) oraz odszyfrowane słowo (jako decrypted_text). Serwer w odpowiedzi zwróci informacje o poprawnym lub nieprawidłowym deszyfrowaniu.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:5004/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;decrypted_text&quot;: &quot;password&quot;, &quot;session_id&quot;: &quot;0058f11c050df0c124ef4a71a35a43a9&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code>.
+- Podczas deszyfrowania symetrycznego sprawdź opcje: <code>--cipher-algo</code>, <code>--batch --yes</code>, <code>--passphrase</code></p>
+<hr />
+<h2 id="exercise-55">Exercise 5.5</h2>
+<p>Pod adresem http://127.0.0.1:5005 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5005/encrypt oraz http://127.0.0.1:5005/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex5
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5005</span>:5005<span class="w"> </span>--name<span class="w"> </span>ex5<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex5:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5005/encrypt używając metody HTTP GET. W odpowiedzi od serwera otrzymasz słowo do zaszyfrowania (jako word_to_encrypt), hasło potrzebne do szyfrowania (jako passphrase) oraz id sesji (jako session_id).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5005/encrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="p">{</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1c35d34017eb501e464e6347898a5dd9&quot;</span><span class="p">,</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">  </span><span class="nt">&quot;word_to_encrypt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asm&quot;</span><span class="p">,</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">  </span><span class="nt">&quot;passphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;creation&quot;</span><span class="p">,</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">  </span><span class="nt">&quot;algorithm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AES128&quot;</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>(c)</strong> Zaszyfruj odebrane od serwera słowo (word_to_encrypt) za pomocą algorytmu AES128 oraz odebranego od serwera hasła (passphrase). Zaszyfrowane słowo ma być również zakodowane przy pomocy kodowania base64.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;asm&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--symmetric<span class="w"> </span>--cipher-algo<span class="w"> </span>AES128<span class="w"> </span>--passphrase<span class="w"> </span><span class="s2">&quot;creation&quot;</span><span class="w"> </span>--batch<span class="w"> </span>--yes<span class="w"> </span>--armor<span class="w"> </span>-o<span class="w"> </span>encrypted.asc
+</code></pre></div>
+<p><strong>(d)</strong> Wyślij request do endpointa http://127.0.0.1:5005/submit używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz zaszyfrowany i zakodowany plik (jako plik, encrypted_file).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5005/submit<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=1c35d34017eb501e464e6347898a5dd9&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;encrypted_file=@encrypted.asc&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="p">{</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gratulacje! Poprawnie zaszyfrowałeś plik!&quot;</span><span class="p">,</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asm&quot;</span><span class="p">,</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="w">  </span><span class="nt">&quot;passphrase_used&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;creation&quot;</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby wykorzystać kodowanie base64 podczas szyfrowania, użyj opcji <code>--armor</code>
+- Aby za pomocą narzędzia cURL wysłać plik do serwera, użyj składni: <code>-F "plik=@hello.txt"</code></p>
+<hr />
+<h2 id="exercise-56">Exercise 5.6</h2>
+<p>Pod adresem http://127.0.0.1:5006 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5006/encrypt oraz http://127.0.0.1:5006/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5006</span>:5006<span class="w"> </span>--name<span class="w"> </span>ex6<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex6:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5005/encrypt używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5006/encrypt<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc), klucz prywatny GPG (private_key.asc), oraz słowo do zaszyfrowania (word.txt).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(d)</strong> Zaimportuj do swojego zbioru kluczy klucz publiczny pobrany od serwera.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>public_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>gpg: key A43D788DC5E9439A: public key &quot;Challenge User &lt;challengex6@example.com&gt;&quot; imported
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>gpg: Total number processed: 1
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>gpg:               imported: 1
+</code></pre></div></p>
+<p><strong>(e)</strong> Wykorzystując narzędzie gpg oraz pobrany klucz publiczny (z pliku public_key.asc), zaszyfruj odebrane od serwera słowo (podczas szyfrowania nie używaj hasła).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>gpg<span class="w"> </span>--list-keys
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="c1"># pub   rsa2048 2025-11-18 [SCEAR]</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="c1">#       844AEAF70484113D1A8AD3B5A43D788DC5E9439A</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="c1"># uid           [ unknown] Challenge User &lt;challengex6@example.com&gt;</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>gpg<span class="w"> </span>--encrypt<span class="w"> </span>--armor<span class="w"> </span>-r<span class="w"> </span>challengex6@example.com<span class="w"> </span>word.txt
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="c1"># y</span>
+</code></pre></div>
+<p><strong>(f)</strong> Zaszyfrowane słowo zakoduj w base64 i zapisz do pliku.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>cat<span class="w"> </span>word.txt.asc
+</code></pre></div>
+<p><strong>(g)</strong> Wyślij request do endpointa http://127.0.0.1:5006/submit używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz zaszyfrowane i zakodowane słowo (jako plik, encrypted_file).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5006/submit<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;encrypted_file=@word.txt.asc&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="p">{</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gratulacje! Poprawnie zaszyfrowałeś plik!&quot;</span><span class="p">,</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ursula&quot;</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code>.
+- Aby wykorzystać kodowanie base64 podczas szyfrowania, użyj opcji <code>--armor</code>
+- Aby za pomocą narzędzia cURL wysłać plik do serwera, użyj składni: <code>-F "plik=@hello.txt"</code></p>
+<hr />
+<h2 id="exercise-57">Exercise 5.7</h2>
+<p>Pod adresem http://127.0.0.1:5007 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5007/decrypt oraz http://127.0.0.1:5007/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex7
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5007</span>:5007<span class="w"> </span>--name<span class="w"> </span>ex7<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex7:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5007/decrypt używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5007/decrypt<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc), klucz prywatny GPG (private_key.asc), oraz słowo do odszyfrowania (encrypted_word.asc).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>Archive:  data.zip
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>  inflating: public_key.asc          
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>  inflating: private_key.asc         
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>  inflating: encrypted_word.asc      
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Odszyfruj odebrane od serwera słowo (encrypted_word.asc) za pomocą pobranego klucza prywatnego (private_key.asc).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>private_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>gpg: key 97C3798999919BED: public key &quot;Decrypt Challenge &lt;decrypt@example.com&gt;&quot; imported
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>gpg: key 97C3798999919BED: secret key imported
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>gpg: Total number processed: 1
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>gpg:               imported: 1
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>gpg:       secret keys read: 1
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>gpg:   secret keys imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>gpg<span class="w"> </span>--decrypt<span class="w"> </span>encrypted_word.asc<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="c1"># hidden</span>
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5007/submit używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz odszyfrowane słowo (jako tekst, decrypted_word).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>http://127.0.0.1:5007/submit<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=a0157ef2b25fc370da886200d19031c9&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;decrypted_word=hidden&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="p">{</span>
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;🎉 Gratulacje! Poprawnie odszyfrowałeś słowo!&quot;</span><span class="p">,</span>
+<a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hidden&quot;</span>
+<a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code></p>
+<hr />
+<h2 id="exercise-58">Exercise 5.8</h2>
+<p>Pod adresem http://127.0.0.1:5008 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5008/sign oraz http://127.0.0.1:5008/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5008</span>:5008<span class="w"> </span>--name<span class="w"> </span>ex8<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex8:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5008/sign używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5008/sign<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc), klucz prywatny GPG (private_key.asc), oraz słowo do podpisania (w pliku word.txt).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(d)</strong> Podpisz plik (word.txt) za pomocą pobranego klucza publicznego (public_key.asc), tworząc plik word.txt.gpg.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>private_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>gpg: key B7D45CF44D0E6224: public key &quot;Sign Challenge &lt;sign@example.com&gt;&quot; imported
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>gpg: key B7D45CF44D0E6224: secret key imported
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>gpg: Total number processed: 1
+<a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>gpg:               imported: 1
+<a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>gpg:       secret keys read: 1
+<a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>gpg:   secret keys imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>gpg<span class="w"> </span>--list-keys
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="c1"># pub   rsa2048 2025-11-18 [SCEAR]</span>
+<a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="c1">#       AA6C7E94A3337ADCD929AEF3B7D45CF44D0E6224</span>
+<a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a><span class="c1"># uid           [ unknown] Sign Challenge &lt;sign@example.com&gt;</span>
+<a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a>
+<a id="__codelineno-59-6" name="__codelineno-59-6" href="#__codelineno-59-6"></a>gpg<span class="w"> </span>--sign<span class="w"> </span>-u<span class="w"> </span>AA6C7E94A3337ADCD929AEF3B7D45CF44D0E6224<span class="w"> </span>word.txt
+</code></pre></div>
+<p>Verification:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.gpg
+<a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a><span class="c1"># gpg: Signature made wto, 18 lis 2025, 12:25:51 CET</span>
+<a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a><span class="c1"># gpg:                using RSA key AA6C7E94A3337ADCD929AEF3B7D45CF44D0E6224</span>
+<a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a><span class="c1"># gpg: Good signature from &quot;Sign Challenge &lt;sign@example.com&gt;&quot; [unknown]</span>
+<a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a><span class="c1"># gpg: WARNING: This key is not certified with a trusted signature!</span>
+<a id="__codelineno-60-6" name="__codelineno-60-6" href="#__codelineno-60-6"></a><span class="c1"># gpg:          There is no indication that the signature belongs to the owner.</span>
+<a id="__codelineno-60-7" name="__codelineno-60-7" href="#__codelineno-60-7"></a><span class="c1"># Primary key fingerprint: AA6C 7E94 A333 7ADC D929  AEF3 B7D4 5CF4 4D0E 6224</span>
+</code></pre></div></p>
+<p>Alternative signing methods:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="c1"># Clear sign</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>gpg<span class="w"> </span>--clear-sign<span class="w"> </span>-u<span class="w"> </span>AA6C7E94A3337ADCD929AEF3B7D45CF44D0E6224<span class="w"> </span>word.txt
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>cat<span class="w"> </span>word.txt.asc
+<a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>
+<a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a><span class="c1"># Detach sign</span>
+<a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a>gpg<span class="w"> </span>--detach-sign<span class="w"> </span>-u<span class="w"> </span>AA6C7E94A3337ADCD929AEF3B7D45CF44D0E6224<span class="w"> </span>word.txt
+<a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a>cat<span class="w"> </span>word.txt.sig
+<a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a>
+<a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.sig
+<a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a><span class="c1"># gpg: assuming signed data in &#39;word.txt&#39;</span>
+<a id="__codelineno-61-11" name="__codelineno-61-11" href="#__codelineno-61-11"></a><span class="c1"># gpg: Signature made wto, 18 lis 2025, 12:27:47 CET</span>
+<a id="__codelineno-61-12" name="__codelineno-61-12" href="#__codelineno-61-12"></a><span class="c1"># gpg:                using RSA key AA6C7E94A3337ADCD929AEF3B7D45CF44D0E6224</span>
+<a id="__codelineno-61-13" name="__codelineno-61-13" href="#__codelineno-61-13"></a><span class="c1"># gpg: Good signature from &quot;Sign Challenge &lt;sign@example.com&gt;&quot; [unknown]</span>
+<a id="__codelineno-61-14" name="__codelineno-61-14" href="#__codelineno-61-14"></a><span class="c1"># gpg: WARNING: This key is not certified with a trusted signature!</span>
+<a id="__codelineno-61-15" name="__codelineno-61-15" href="#__codelineno-61-15"></a><span class="c1"># gpg:          There is no indication that the signature belongs to the owner.</span>
+<a id="__codelineno-61-16" name="__codelineno-61-16" href="#__codelineno-61-16"></a><span class="c1"># Primary key fingerprint: AA6C 7E94 A333 7ADC D929  AEF3 B7D4 5CF4 4D0E 6224</span>
+</code></pre></div></p>
+<p>Testing signature with modified file:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="c1"># nano word.txt add dot </span>
+<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.sig
+<a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a><span class="c1"># gpg: assuming signed data in &#39;word.txt&#39;</span>
+<a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a><span class="c1"># gpg: Signature made wto, 18 lis 2025, 12:27:47 CET</span>
+<a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a><span class="c1"># gpg:                using RSA key AA6C7E94A3337ADCD929AEF3B7D45CF44D0E6224</span>
+<a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a><span class="c1"># gpg: BAD signature from &quot;Sign Challenge &lt;sign@example.com&gt;&quot; [unknown]</span>
+</code></pre></div></p>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5008/submit używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz podpisane słowo (jako plik, signed_file).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5008/submit<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;signed_file=@word.txt.asc&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="p">{</span>
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;✍️ Gratulacje! Poprawnie podpisałeś plik!&quot;</span><span class="p">,</span>
+<a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;diana&quot;</span><span class="p">,</span>
+<a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a><span class="w">  </span><span class="nt">&quot;signer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sign Challenge &lt;sign@example.com&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a><span class="w">  </span><span class="nt">&quot;signature_valid&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code>
+- Aby utworzyć podpis zintegrowany, użyj opcji <code>--sign</code>
+- Aby wskazać klucz, którego będziemy używać do podpisywania, sprawdź opcję <code>-u</code>
+- Aby za pomocą narzędzia cURL wysłać plik do serwera, użyj składni: <code>-F "plik=@hello.txt"</code></p>
+<hr />
+<h2 id="exercise-59">Exercise 5.9</h2>
+<p>Pod adresem http://127.0.0.1:5009 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5009/detach-sign oraz http://127.0.0.1:5009/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex9
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5009</span>:5009<span class="w"> </span>--name<span class="w"> </span>ex9<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex9:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5009/detach-sign używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5009/detach-sign<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc), klucz prywatny GPG (private_key.asc), oraz słowo do podpisania (w pliku word.txt).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>Archive:  data.zip
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>  inflating: word.txt                
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>  inflating: public_key.asc          
+<a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a>  inflating: private_key.asc         
+<a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Podpisz plik (word.txt) za pomocą pobranego klucza publicznego (public_key.asc), tworząc plik word.txt.sig.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>private_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>gpg: key AD0B21D7AC60C86D: public key &quot;Detach Sign Challenge &lt;detach@example.com&gt;&quot; imported
+<a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>gpg: key AD0B21D7AC60C86D: secret key imported
+<a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>gpg: Total number processed: 1
+<a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a>gpg:               imported: 1
+<a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>gpg:       secret keys read: 1
+<a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a>gpg:   secret keys imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>gpg<span class="w"> </span>--detach-sign<span class="w"> </span>-u<span class="w"> </span>A8A0D9A39A66BE28C3317F06AD0B21D7AC60C86D<span class="w"> </span>word.txt
+<a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>
+<a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.sig
+<a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a><span class="c1"># gpg: assuming signed data in &#39;word.txt&#39;</span>
+<a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a><span class="c1"># gpg: Signature made Sun 30 Nov 2025 10:03:10 PM CET</span>
+<a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a><span class="c1"># gpg:                using RSA key A8A0D9A39A66BE28C3317F06AD0B21D7AC60C86D</span>
+<a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a><span class="c1"># gpg: Good signature from &quot;Detach Sign Challenge &lt;detach@example.com&gt;&quot; [unknown]</span>
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5009/submit używając metody HTTP POST i prześlij do serwera id sesji (jako session_id), plik ze słowem (jako plik, original_file) oraz podpisane słowo (jako plik, signature_file).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5009/submit<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;original_file=@word.txt&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;signature_file=@word.txt.sig&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="p">{</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;📎 Gratulacje! Poprawnie utworzyłeś oddzielny podpis!&quot;</span><span class="p">,</span>
+<a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lara&quot;</span><span class="p">,</span>
+<a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a><span class="w">  </span><span class="nt">&quot;signer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Detach Sign Challenge &lt;detach@example.com&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a><span class="w">  </span><span class="nt">&quot;signature_valid&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="w">  </span><span class="nt">&quot;signature_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;detached&quot;</span>
+<a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code>
+- Aby utworzyć oddzielny podpis, użyj opcji <code>--detach-sign</code>
+- Aby wskazać klucz, którego będziemy używać do podpisywania, sprawdź opcję <code>-u</code>
+- Aby za pomocą narzędzia cURL wysłać plik do serwera, użyj składni: <code>-F "plik=@hello.txt"</code></p>
+<hr />
+<h2 id="exercise-510">Exercise 5.10</h2>
+<p>Pod adresem http://127.0.0.1:5010 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5010/clearsign oraz http://127.0.0.1:5010/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex10
+<a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5010</span>:5010<span class="w"> </span>--name<span class="w"> </span>ex10<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex10:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5010/clearsign używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5010/clearsign<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc), klucz prywatny GPG (private_key.asc), oraz słowo do podpisania (w pliku word.txt).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>Archive:  data.zip
+<a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>  inflating: word.txt                
+<a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a>  inflating: public_key.asc          
+<a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a>  inflating: private_key.asc         
+<a id="__codelineno-77-5" name="__codelineno-77-5" href="#__codelineno-77-5"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Podpisz plik (word.txt) za pomocą pobranego klucza publicznego (public_key.asc), tworząc plik word.txt.asc.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>private_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>gpg: key 9BE5EEFAF4C09C61: public key &quot;Clearsign Challenge &lt;clearsign@example.com&gt;&quot; imported
+<a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a>gpg: key 9BE5EEFAF4C09C61: secret key imported
+<a id="__codelineno-79-3" name="__codelineno-79-3" href="#__codelineno-79-3"></a>gpg: Total number processed: 1
+<a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>gpg:               imported: 1
+<a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>gpg:       secret keys read: 1
+<a id="__codelineno-79-6" name="__codelineno-79-6" href="#__codelineno-79-6"></a>gpg:   secret keys imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>gpg<span class="w"> </span>--clear-sign<span class="w"> </span>-u<span class="w"> </span>9BE5EEFAF4C09C61<span class="w"> </span>word.txt
+<a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>
+<a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.asc
+<a id="__codelineno-80-4" name="__codelineno-80-4" href="#__codelineno-80-4"></a><span class="c1"># gpg: Signature made Sun 30 Nov 2025 10:05:12 PM CET</span>
+<a id="__codelineno-80-5" name="__codelineno-80-5" href="#__codelineno-80-5"></a><span class="c1"># gpg:                using RSA key 9D2905941BF42CC2728F59F69BE5EEFAF4C09C61</span>
+<a id="__codelineno-80-6" name="__codelineno-80-6" href="#__codelineno-80-6"></a><span class="c1"># gpg: Good signature from &quot;Clearsign Challenge &lt;clearsign@example.com&gt;&quot; [unknown]</span>
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5010/submit używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz podpisane słowo (jako plik, clearsigned_file).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5010/submit<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;clearsigned_file=@word.txt.asc&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="p">{</span>
+<a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;📝 Gratulacje! Poprawnie utworzyłeś clear-signed plik!&quot;</span><span class="p">,</span>
+<a id="__codelineno-82-4" name="__codelineno-82-4" href="#__codelineno-82-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cristina&quot;</span><span class="p">,</span>
+<a id="__codelineno-82-5" name="__codelineno-82-5" href="#__codelineno-82-5"></a><span class="w">  </span><span class="nt">&quot;signer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Clearsign Challenge &lt;clearsign@example.com&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-82-6" name="__codelineno-82-6" href="#__codelineno-82-6"></a><span class="w">  </span><span class="nt">&quot;signature_valid&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-82-7" name="__codelineno-82-7" href="#__codelineno-82-7"></a><span class="w">  </span><span class="nt">&quot;signature_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;clearsign&quot;</span>
+<a id="__codelineno-82-8" name="__codelineno-82-8" href="#__codelineno-82-8"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code>
+- Aby utworzyć czytelny podpis, użyj opcji <code>--clearsign</code>
+- Aby wskazać klucz, którego będziemy używać do podpisywania, sprawdź opcję <code>-u</code>
+- Aby za pomocą narzędzia cURL wysłać plik do serwera, użyj składni: <code>-F "plik=@hello.txt"</code></p>
+<hr />
+<h2 id="exercise-511">Exercise 5.11</h2>
+<p>Pod adresem http://127.0.0.1:5011 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5011/sign oraz http://127.0.0.1:5011/verify.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex11
+<a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5011</span>:5011<span class="w"> </span>--name<span class="w"> </span>ex11<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex11:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5011/sign używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5011/sign<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc), oraz podpisane słowo (w pliku word.txt.gpg).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>Archive:  data.zip
+<a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>  inflating: word.txt.gpg            
+<a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a>  inflating: public_key.asc          
+<a id="__codelineno-86-4" name="__codelineno-86-4" href="#__codelineno-86-4"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Zweryfikuj podpis (plik word.txt.gpg) za pomocą pobranego klucza publicznego (public_key.asc). W przypadku, gdy weryfikacja się powiedzie, powinieneś zobaczyć adres e-mail osoby, która podpisała plik.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>public_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>gpg: key E544DB09F562E71B: public key &quot;Perkins &lt;PERKINS@mail.com&gt;&quot; imported
+<a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>gpg: Total number processed: 1
+<a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a>gpg:               imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.gpg
+<a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a><span class="c1"># gpg: Signature made Sun 30 Nov 2025 10:06:24 PM CET</span>
+<a id="__codelineno-89-3" name="__codelineno-89-3" href="#__codelineno-89-3"></a><span class="c1"># gpg:                using RSA key 887785568925A902123CE65DE544DB09F562E71B</span>
+<a id="__codelineno-89-4" name="__codelineno-89-4" href="#__codelineno-89-4"></a><span class="c1"># gpg: Good signature from &quot;Perkins &lt;PERKINS@mail.com&gt;&quot; [unknown]</span>
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5011/verify używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz adres e-mail podpisującego (jako tekst, signer_email).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5011/verify<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;signer_email=PERKINS@mail.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a><span class="p">{</span>
+<a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-91-3" name="__codelineno-91-3" href="#__codelineno-91-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;🔍 Gratulacje! Poprawnie zweryfikowałeś podpis i zidentyfikowałeś podpisującego!&quot;</span><span class="p">,</span>
+<a id="__codelineno-91-4" name="__codelineno-91-4" href="#__codelineno-91-4"></a><span class="w">  </span><span class="nt">&quot;signer_email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PERKINS@mail.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-91-5" name="__codelineno-91-5" href="#__codelineno-91-5"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LLOYD&quot;</span>
+<a id="__codelineno-91-6" name="__codelineno-91-6" href="#__codelineno-91-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code></p>
+<hr />
+<h2 id="exercise-512">Exercise 5.12</h2>
+<p>Pod adresem http://127.0.0.1:5012 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5012/detach-sign oraz http://127.0.0.1:5012/verify.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex12
+<a id="__codelineno-92-2" name="__codelineno-92-2" href="#__codelineno-92-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5012</span>:5012<span class="w"> </span>--name<span class="w"> </span>ex12<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex12:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5012/sign używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5012/detach-sign<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc), wylosowane słowo (w pliku word.txt) oraz podpisane słowo (w pliku word.txt.sig).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>Archive:  data.zip
+<a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>  inflating: word.txt                
+<a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a>  inflating: word.txt.sig            
+<a id="__codelineno-95-4" name="__codelineno-95-4" href="#__codelineno-95-4"></a>  inflating: public_key.asc          
+<a id="__codelineno-95-5" name="__codelineno-95-5" href="#__codelineno-95-5"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Zweryfikuj podpis (plik word.txt.sig) za pomocą pobranego klucza publicznego (public_key.asc). W przypadku, gdy weryfikacja się powiedzie, powinieneś zobaczyć adres e-mail osoby, która podpisała plik.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>public_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>gpg: key CABCE8785108BF40: public key &quot;House &lt;HOUSE@example.com&gt;&quot; imported
+<a id="__codelineno-97-2" name="__codelineno-97-2" href="#__codelineno-97-2"></a>gpg: Total number processed: 1
+<a id="__codelineno-97-3" name="__codelineno-97-3" href="#__codelineno-97-3"></a>gpg:               imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.sig
+<a id="__codelineno-98-2" name="__codelineno-98-2" href="#__codelineno-98-2"></a><span class="c1"># gpg: assuming signed data in &#39;word.txt&#39;</span>
+<a id="__codelineno-98-3" name="__codelineno-98-3" href="#__codelineno-98-3"></a><span class="c1"># gpg: Signature made Sun 30 Nov 2025 10:07:54 PM CET</span>
+<a id="__codelineno-98-4" name="__codelineno-98-4" href="#__codelineno-98-4"></a><span class="c1"># gpg:                using RSA key E73D4A3E90D4C8CA2BFC6791CABCE8785108BF40</span>
+<a id="__codelineno-98-5" name="__codelineno-98-5" href="#__codelineno-98-5"></a><span class="c1"># gpg: Good signature from &quot;House &lt;HOUSE@example.com&gt;&quot; [unknown]</span>
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5012/verify używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz adres e-mail podpisującego (jako tekst, signer_email).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5012/verify<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;signer_email=HOUSE@example.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a><span class="p">{</span>
+<a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-100-3" name="__codelineno-100-3" href="#__codelineno-100-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;📎 Gratulacje! Poprawnie zweryfikowałeś oddzielny podpis i zidentyfikowałeś podpisującego!&quot;</span><span class="p">,</span>
+<a id="__codelineno-100-4" name="__codelineno-100-4" href="#__codelineno-100-4"></a><span class="w">  </span><span class="nt">&quot;signer_email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HOUSE@example.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-100-5" name="__codelineno-100-5" href="#__codelineno-100-5"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ESPINOZA&quot;</span>
+<a id="__codelineno-100-6" name="__codelineno-100-6" href="#__codelineno-100-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code></p>
+<hr />
+<h2 id="exercise-513">Exercise 5.13</h2>
+<p>Pod adresem http://127.0.0.1:5013 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5013/detach-sign oraz http://127.0.0.1:5012/verify.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex13
+<a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5013</span>:5013<span class="w"> </span>--name<span class="w"> </span>ex13<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex13:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5013/clearsign używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5013/clearsign<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id), klucz publiczny GPG (public_key.asc) oraz podpisane słowo (w pliku word.txt.asc).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a>Archive:  data.zip
+<a id="__codelineno-104-2" name="__codelineno-104-2" href="#__codelineno-104-2"></a>  inflating: word.txt.asc            
+<a id="__codelineno-104-3" name="__codelineno-104-3" href="#__codelineno-104-3"></a>  inflating: public_key.asc          
+<a id="__codelineno-104-4" name="__codelineno-104-4" href="#__codelineno-104-4"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Zweryfikuj podpis (plik word.txt.asc) za pomocą pobranego klucza publicznego (public_key.asc). W przypadku, gdy weryfikacja się powiedzie, powinieneś zobaczyć adres e-mail osoby, która podpisała plik.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>public_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a>gpg: key B4F6E9DAD3BEDA3A: public key &quot;Sloan &lt;SLOAN@test.com&gt;&quot; imported
+<a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a>gpg: Total number processed: 1
+<a id="__codelineno-106-3" name="__codelineno-106-3" href="#__codelineno-106-3"></a>gpg:               imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>gpg<span class="w"> </span>--verify<span class="w"> </span>word.txt.asc
+<a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a><span class="c1"># gpg: Signature made Sun 30 Nov 2025 10:09:26 PM CET</span>
+<a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a><span class="c1"># gpg:                using RSA key 589DC7B651CFDBE7E4FD08FAB4F6E9DAD3BEDA3A</span>
+<a id="__codelineno-107-4" name="__codelineno-107-4" href="#__codelineno-107-4"></a><span class="c1"># gpg: Good signature from &quot;Sloan &lt;SLOAN@test.com&gt;&quot; [unknown]</span>
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5013/verify używając metody HTTP POST i prześlij do serwera id sesji (jako session_id) oraz adres e-mail podpisującego (jako tekst, signer_email).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5013/verify<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;signer_email=SLOAN@test.com&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a><span class="p">{</span>
+<a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-109-3" name="__codelineno-109-3" href="#__codelineno-109-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;📝 Gratulacje! Poprawnie zweryfikowałeś clear-signed plik i zidentyfikowałeś podpisującego!&quot;</span><span class="p">,</span>
+<a id="__codelineno-109-4" name="__codelineno-109-4" href="#__codelineno-109-4"></a><span class="w">  </span><span class="nt">&quot;signer_email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SLOAN@test.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-109-5" name="__codelineno-109-5" href="#__codelineno-109-5"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ESTES&quot;</span>
+<a id="__codelineno-109-6" name="__codelineno-109-6" href="#__codelineno-109-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>UWAGI:</strong>
+- Aby zapisać odpowiedź do pliku z rozszerzeniem *.zip, użyj opcji <code>-o</code></p>
+<hr />
+<h2 id="exercise-514">Exercise 5.14</h2>
+<p>Pod adresem http://127.0.0.1:5014 działa prosty serwer HTTP udostępniający 2 endpointy: http://127.0.0.1:5014/getkey oraz http://127.0.0.1:5014/submit.</p>
+<p><strong>(a)</strong> Uruchom serwer za pomocą poniższego polecenia:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>ex14
+<a id="__codelineno-110-2" name="__codelineno-110-2" href="#__codelineno-110-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">5014</span>:5014<span class="w"> </span>--name<span class="w"> </span>ex14<span class="w"> </span>docker.io/mazurkatarzyna/gpg-ex14:latest
+</code></pre></div>
+<p><strong>(b)</strong> Wyślij request do endpointa http://127.0.0.1:5014/getkey używając metody HTTP GET i zapisz odpowiedź do pliku z rozszerzeniem *.zip.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-111-1" name="__codelineno-111-1" href="#__codelineno-111-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5014/getkey<span class="w"> </span>-o<span class="w"> </span>data.zip
+</code></pre></div>
+<p><strong>(c)</strong> Rozpakuj pobrane archiwum. W odpowiedzi od serwera otrzymałeś id sesji (jako session_id) oraz klucz publiczny serwera (server_key.asc).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-112-1" name="__codelineno-112-1" href="#__codelineno-112-1"></a>unzip<span class="w"> </span>data.zip
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-113-1" name="__codelineno-113-1" href="#__codelineno-113-1"></a>Archive:  data.zip
+<a id="__codelineno-113-2" name="__codelineno-113-2" href="#__codelineno-113-2"></a>  inflating: server_key.asc          
+<a id="__codelineno-113-3" name="__codelineno-113-3" href="#__codelineno-113-3"></a>  inflating: session_id.txt
+</code></pre></div></p>
+<p><strong>(d)</strong> Podpisz klucz publiczny serwera swoim kluczem prywatnym. Wyeksportuj podpisany klucz serwera do pliku signed_key.asc.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-114-1" name="__codelineno-114-1" href="#__codelineno-114-1"></a>gpg<span class="w"> </span>--import<span class="w"> </span>server_key.asc
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-115-1" name="__codelineno-115-1" href="#__codelineno-115-1"></a>gpg: key F6E6042C2D6EA4FC: public key &quot;Alston &lt;ALSTON@example.com&gt;&quot; imported
+<a id="__codelineno-115-2" name="__codelineno-115-2" href="#__codelineno-115-2"></a>gpg: Total number processed: 1
+<a id="__codelineno-115-3" name="__codelineno-115-3" href="#__codelineno-115-3"></a>gpg:               imported: 1
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a>gpg<span class="w"> </span>--quick-sign-key<span class="w"> </span>6D7542D40DA02B692BB79878F6E6042C2D6EA4FC
+<a id="__codelineno-116-2" name="__codelineno-116-2" href="#__codelineno-116-2"></a>
+<a id="__codelineno-116-3" name="__codelineno-116-3" href="#__codelineno-116-3"></a>gpg<span class="w"> </span>--armor<span class="w"> </span>--export<span class="w"> </span>6D7542D40DA02B692BB79878F6E6042C2D6EA4FC<span class="w"> </span>&gt;<span class="w"> </span>signed_key.asc
+<a id="__codelineno-116-4" name="__codelineno-116-4" href="#__codelineno-116-4"></a>gpg<span class="w"> </span>--armor<span class="w"> </span>--export<span class="w"> </span>A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0<span class="w"> </span>&gt;<span class="w"> </span>my_pubkey.asc
+</code></pre></div>
+<p><strong>(e)</strong> Wyślij request do endpointa http://127.0.0.1:5014/submit używając metody HTTP POST i prześlij do serwera id sesji (jako session_id), swój klucz publiczny (jako plik, your_pubkey) oraz podpisany swoim kluczem prywatnym klucz publiczny serwera (jako plik, signed_key).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-117-1" name="__codelineno-117-1" href="#__codelineno-117-1"></a>curl<span class="w"> </span>-s<span class="w"> </span><span class="m">127</span>.0.0.1:5014/submit<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;session_id=</span><span class="k">$(</span>cat<span class="w"> </span>session_id.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;your_pubkey=@my_pubkey.asc&quot;</span><span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;signed_key=@signed_key.asc&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p>Output:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a><span class="p">{</span>
+<a id="__codelineno-118-2" name="__codelineno-118-2" href="#__codelineno-118-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<a id="__codelineno-118-3" name="__codelineno-118-3" href="#__codelineno-118-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;✍️ Gratulacje! Poprawnie podpisałeś klucz serwera!&quot;</span><span class="p">,</span>
+<a id="__codelineno-118-4" name="__codelineno-118-4" href="#__codelineno-118-4"></a><span class="w">  </span><span class="nt">&quot;server_email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ALSTON@example.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-118-5" name="__codelineno-118-5" href="#__codelineno-118-5"></a><span class="w">  </span><span class="nt">&quot;signer_info&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sig          9F8E7D6C5B4A3210 2025-11-30  Jan Kowalski &lt;jan.kowalski@example.com&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-118-6" name="__codelineno-118-6" href="#__codelineno-118-6"></a><span class="w">  </span><span class="nt">&quot;note&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Właśnie uczestniczyłeś w Web of Trust - sieci zaufania GPG!&quot;</span><span class="p">,</span>
+<a id="__codelineno-118-7" name="__codelineno-118-7" href="#__codelineno-118-7"></a><span class="w">  </span><span class="nt">&quot;signatures_found&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-118-8" name="__codelineno-118-8" href="#__codelineno-118-8"></a><span class="w">  </span><span class="nt">&quot;signer_email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jan.kowalski@example.com&quot;</span><span class="p">,</span>
+<a id="__codelineno-118-9" name="__codelineno-118-9" href="#__codelineno-118-9"></a><span class="w">  </span><span class="nt">&quot;signer_key_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9F8E7D6C5B4A3210&quot;</span>
+<a id="__codelineno-118-10" name="__codelineno-118-10" href="#__codelineno-118-10"></a><span class="p">}</span>
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/alezab"  target="_blank" rel="noopener">alezab</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/alezab" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

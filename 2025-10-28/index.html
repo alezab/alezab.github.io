@@ -1,0 +1,2219 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2025-10-21/">
+      
+      
+        <link rel="next" href="../2025-11-04/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Laboratorium - Szyfrowanie Asymetryczne - Linux Geeks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#laboratorium-szyfrowanie-asymetryczne" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Geeks" class="md-header__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Geeks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Laboratorium - Szyfrowanie Asymetryczne
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Geeks" class="md-nav__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linux Geeks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - cURL i jq (JSON Query)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Funkcje Skrótu (Hashing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Symetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Asymetryczne
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Asymetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spis-tresci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spis treści
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wstep-podstawy-szyfrowania-asymetrycznego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wstęp - Podstawy szyfrowania asymetrycznego
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wstęp - Podstawy szyfrowania asymetrycznego">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typy-szyfrowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy szyfrowania
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorytmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorytmy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#padding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Padding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openssl-podstawy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSSL - podstawy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-31-upload-kluczy-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.1 - Upload kluczy RSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.1 - Upload kluczy RSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-wygenerowanie-pary-kluczy-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Wygenerowanie pary kluczy RSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-kluczy-do-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie kluczy do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-32-upload-kluczy-ec-elliptic-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.2 - Upload kluczy EC (Elliptic Curve)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.2 - Upload kluczy EC (Elliptic Curve)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-wygenerowanie-pary-kluczy-ec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Wygenerowanie pary kluczy EC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-kluczy-do-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie kluczy do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-33-weryfikacja-par-kluczy-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.3 - Weryfikacja par kluczy RSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.3 - Weryfikacja par kluczy RSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-wygenerowanie-pary-kluczy-rsa-1024-bitowych" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Wygenerowanie pary kluczy RSA 1024-bitowych
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-kluczy-jako-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie kluczy jako JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-34-generowanie-klucza-publicznego-z-prywatnego-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.4 - Generowanie klucza publicznego z prywatnego RSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.4 - Generowanie klucza publicznego z prywatnego RSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-klucza-prywatnego-i-session-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie klucza prywatnego i session ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-generowanie-klucza-publicznego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Generowanie klucza publicznego
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-klucza-publicznego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie klucza publicznego
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-35-generowanie-klucza-publicznego-z-prywatnego-ec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.5 - Generowanie klucza publicznego z prywatnego EC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.5 - Generowanie klucza publicznego z prywatnego EC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-klucza-prywatnego-ec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie klucza prywatnego EC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-generowanie-klucza-publicznego_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Generowanie klucza publicznego
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-klucza-publicznego_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie klucza publicznego
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-36-szyfrowanie-rsa-z-paddingiem-oaep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.6 - Szyfrowanie RSA z paddingiem OAEP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.6 - Szyfrowanie RSA z paddingiem OAEP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-danych-z-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie danych z serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zaszyfrowanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Zaszyfrowanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-zaszyfrowanego-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie zaszyfrowanego słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-37-odszyfrowanie-rsa-z-pliku-zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.7 - Odszyfrowanie RSA z pliku ZIP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.7 - Odszyfrowanie RSA z pliku ZIP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-pliku-zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie pliku ZIP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-rozpakowanie-pliku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Rozpakowanie pliku
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-odszyfrowanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Odszyfrowanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-odszyfrowanego-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie odszyfrowanego słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-38-kompleksowe-zadanie-szyfrowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.8 - Kompleksowe zadanie szyfrowania
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.8 - Kompleksowe zadanie szyfrowania">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-wygenerowanie-pary-kluczy-rsa-1024-bitowych_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Wygenerowanie pary kluczy RSA 1024-bitowych
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-eksport-klucza-publicznego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Eksport klucza publicznego
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wybor-i-zapisanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wybór i zapisanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-zaszyfrowanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Zaszyfrowanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-kodowanie-w-base64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (f) Kodowanie w base64
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#g-wysanie-wszystkiego-do-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (g) Wysłanie wszystkiego do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-39-podpisywanie-cyfrowe-z-paddingiem-pss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.9 - Podpisywanie cyfrowe z paddingiem PSS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.9 - Podpisywanie cyfrowe z paddingiem PSS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-danych-z-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie danych z serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-podpisanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Podpisanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-podpisu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie podpisu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-310-weryfikacja-podpisu-cyfrowego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 3.10 - Weryfikacja podpisu cyfrowego
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 3.10 - Weryfikacja podpisu cyfrowego">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-danych-z-serwera_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie danych z serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-rozpakowanie-pliku_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Rozpakowanie pliku
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-lokalna-weryfikacja-podpisu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Lokalna weryfikacja podpisu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-wyniku-weryfikacji-do-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie wyniku weryfikacji do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podsumowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podsumowanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Podsumowanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poznane-algorytmy-i-koncepcje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poznane algorytmy i koncepcje
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operacje-na-kluczach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operacje na kluczach
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#szyfrowanie-i-deszyfrowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Szyfrowanie i deszyfrowanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podpisywanie-i-weryfikacja" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podpisywanie i weryfikacja
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roznice-miedzy-szyfrowaniem-symetrycznym-a-asymetrycznym" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Różnice między szyfrowaniem symetrycznym a asymetrycznym
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#najwazniejsze-wskazowki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Najważniejsze wskazówki
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#praktyczne-zastosowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Praktyczne zastosowania
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Łamanie Haseł
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPG Exercises - 2025-11-18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../powt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zadania - Bezpieczeństwo Systemów
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="laboratorium-szyfrowanie-asymetryczne">Laboratorium - Szyfrowanie Asymetryczne</h1>
+<p>Data: 28 października 2025</p>
+<h2 id="spis-tresci">Spis treści</h2>
+<ul>
+<li><a href="#wstęp---podstawy-szyfrowania-asymetrycznego">Wstęp - Podstawy szyfrowania asymetrycznego</a></li>
+<li><a href="#zadanie-31---upload-kluczy-rsa">Zadanie 3.1 - Upload kluczy RSA</a></li>
+<li><a href="#zadanie-32---upload-kluczy-ec-elliptic-curve">Zadanie 3.2 - Upload kluczy EC (Elliptic Curve)</a></li>
+<li><a href="#zadanie-33---weryfikacja-par-kluczy-rsa">Zadanie 3.3 - Weryfikacja par kluczy RSA</a></li>
+<li><a href="#zadanie-34---generowanie-klucza-publicznego-z-prywatnego-rsa">Zadanie 3.4 - Generowanie klucza publicznego z prywatnego RSA</a></li>
+<li><a href="#zadanie-35---generowanie-klucza-publicznego-z-prywatnego-ec">Zadanie 3.5 - Generowanie klucza publicznego z prywatnego EC</a></li>
+<li><a href="#zadanie-36---szyfrowanie-rsa-z-paddingiem-oaep">Zadanie 3.6 - Szyfrowanie RSA z paddingiem OAEP</a></li>
+<li><a href="#zadanie-37---odszyfrowanie-rsa-z-pliku-zip">Zadanie 3.7 - Odszyfrowanie RSA z pliku ZIP</a></li>
+<li><a href="#zadanie-38---kompleksowe-zadanie-szyfrowania">Zadanie 3.8 - Kompleksowe zadanie szyfrowania</a></li>
+<li><a href="#zadanie-39---podpisywanie-cyfrowe-z-paddingiem-pss">Zadanie 3.9 - Podpisywanie cyfrowe z paddingiem PSS</a></li>
+<li><a href="#zadanie-310---weryfikacja-podpisu-cyfrowego">Zadanie 3.10 - Weryfikacja podpisu cyfrowego</a></li>
+</ul>
+<hr />
+<h2 id="wstep-podstawy-szyfrowania-asymetrycznego">Wstęp - Podstawy szyfrowania asymetrycznego</h2>
+<h3 id="typy-szyfrowania">Typy szyfrowania</h3>
+<p><strong>Szyfrowanie asymetryczne:</strong>
+- Używa pary kluczy: publicznego i prywatnego
+- Klucz publiczny służy do szyfrowania/weryfikacji
+- Klucz prywatny służy do deszyfrowania/podpisywania
+- Wolniejsze niż szyfrowanie symetryczne, ale bezpieczniejsze do wymiany kluczy</p>
+<h3 id="algorytmy">Algorytmy</h3>
+<p><strong>RSA (Rivest-Shamir-Adleman):</strong>
+- Najpopularniejszy algorytm asymetryczny
+- Rozmiary kluczy: 1024, 2048, 4096 bitów
+- Używany do szyfrowania i podpisów cyfrowych</p>
+<p><strong>EC (Elliptic Curve):</strong>
+- Krzywe eliptyczne
+- Mniejsze klucze przy podobnym poziomie bezpieczeństwa
+- Popularne krzywe: prime256v1, secp384r1</p>
+<h3 id="padding">Padding</h3>
+<p><strong>OAEP (Optimal Asymmetric Encryption Padding):</strong>
+- Używany przy szyfrowaniu RSA
+- Zabezpiecza przed atakami na RSA</p>
+<p><strong>PSS (Probabilistic Signature Scheme):</strong>
+- Używany przy podpisach cyfrowych RSA
+- Parametry: funkcja skrótu (SHA-256), salt length</p>
+<h3 id="openssl-podstawy">OpenSSL - podstawy</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Generowanie pary kluczy RSA</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-out<span class="w"> </span>private.pem<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_bits:2048
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Eksport klucza publicznego</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public.pem
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Generowanie kluczy EC</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>EC<span class="w"> </span>-pkeyopt<span class="w"> </span>ec_paramgen_curve:prime256v1<span class="w"> </span>-out<span class="w"> </span>ec_private.pem
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Sprawdzanie rozmiaru klucza</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private.pem<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Private-Key&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-31-upload-kluczy-rsa">Zadanie 3.1 - Upload kluczy RSA</h2>
+<h3 id="polecenie">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3001</code> działa prosty serwer HTTP udostępniający dwa endpointy:
+- <code>http://127.0.0.1:3001/upload/public</code> - upload klucza publicznego
+- <code>http://127.0.0.1:3001/upload/private</code> - upload klucza prywatnego</p>
+<p><strong>Zadanie:</strong> Wygeneruj parę kluczy RSA (2048 bitów) i wyślij je na serwer.</p>
+<h3 id="rozwiazanie">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3001</span>:3001<span class="w"> </span>--name<span class="w"> </span>ex1<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex1:latest
+</code></pre></div>
+<h4 id="b-wygenerowanie-pary-kluczy-rsa">(b) Wygenerowanie pary kluczy RSA</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-out<span class="w"> </span>private_key.pem<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_bits:2048
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private_key.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public_key.pem
+</code></pre></div>
+<h4 id="c-wysanie-kluczy-do-serwera">(c) Wysłanie kluczy do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3001/upload/public<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: multipart/form-data&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@public_key.pem&quot;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3001/upload/private<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: multipart/form-data&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@private_key.pem&quot;</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-F "file=@..."</code> - wysyła plik jako multipart/form-data
+- <code>-H</code> - dodaje nagłówek HTTP</p>
+<hr />
+<h2 id="zadanie-32-upload-kluczy-ec-elliptic-curve">Zadanie 3.2 - Upload kluczy EC (Elliptic Curve)</h2>
+<h3 id="polecenie_1">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3002</code> działa prosty serwer HTTP udostępniający dwa endpointy:
+- <code>http://127.0.0.1:3002/upload/ec/public</code> - upload klucza publicznego EC
+- <code>http://127.0.0.1:3002/upload/ec/private</code> - upload klucza prywatnego EC</p>
+<p><strong>Zadanie:</strong> Wygeneruj parę kluczy EC (krzywa prime256v1) i wyślij je na serwer.</p>
+<h3 id="rozwiazanie_1">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_1">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3002</span>:3002<span class="w"> </span>--name<span class="w"> </span>ex2<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex2:latest
+</code></pre></div>
+<h4 id="b-wygenerowanie-pary-kluczy-ec">(b) Wygenerowanie pary kluczy EC</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>EC<span class="w"> </span>-pkeyopt<span class="w"> </span>ec_paramgen_curve:prime256v1<span class="w"> </span>&gt;<span class="w"> </span>ec_private.pem
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>ec_private.pem<span class="w"> </span>-pubout<span class="w"> </span>&gt;<span class="w"> </span>ec_public.pem
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>prime256v1</code> - krzywa eliptyczna 256-bitowa (NIST P-256)
+- Alternatywy: <code>secp384r1</code>, <code>secp521r1</code></p>
+<h4 id="c-wysanie-kluczy-do-serwera_1">(c) Wysłanie kluczy do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3002/upload/ec/private<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@ec_private.pem&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3002/upload/ec/public<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@ec_public.pem&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="zadanie-33-weryfikacja-par-kluczy-rsa">Zadanie 3.3 - Weryfikacja par kluczy RSA</h2>
+<h3 id="polecenie_2">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3003</code> działa prosty serwer HTTP udostępniający endpoint:
+- <code>http://127.0.0.1:3003/checkkeys</code> - weryfikacja pary kluczy</p>
+<p><strong>Zadanie:</strong> Wygeneruj parę kluczy RSA (1024 bity) i wyślij je do weryfikacji w formacie JSON.</p>
+<h3 id="rozwiazanie_2">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_2">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3003</span>:3003<span class="w"> </span>--name<span class="w"> </span>ex3<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex3:latest
+</code></pre></div>
+<h4 id="b-wygenerowanie-pary-kluczy-rsa-1024-bitowych">(b) Wygenerowanie pary kluczy RSA 1024-bitowych</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-out<span class="w"> </span>ex3_private.pem<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_bits:1024
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>ex3_private.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>ex3_public.pem
+</code></pre></div>
+<h4 id="c-wysanie-kluczy-jako-json">(c) Wysłanie kluczy jako JSON</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>jq<span class="w"> </span>-n<span class="w"> </span>--rawfile<span class="w"> </span>priv<span class="w"> </span>ex3_private.pem<span class="w"> </span>--rawfile<span class="w"> </span>pub<span class="w"> </span>ex3_public.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="s1">&#39;{private_key_pem: $priv, public_key_pem: $pub}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3003/checkkeys<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span>-d<span class="w"> </span>@-<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Keys are valid and match!&quot;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>jq -n</code> - tworzy nowy JSON
+- <code>--rawfile</code> - wczytuje zawartość pliku jako string
+- <code>-d @-</code> - czyta dane z stdin</p>
+<hr />
+<h2 id="zadanie-34-generowanie-klucza-publicznego-z-prywatnego-rsa">Zadanie 3.4 - Generowanie klucza publicznego z prywatnego RSA</h2>
+<h3 id="polecenie_3">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3004</code> działa prosty serwer HTTP udostępniający endpointy:
+- <code>http://127.0.0.1:3004/getprivkey</code> - pobieranie klucza prywatnego
+- <code>http://127.0.0.1:3004/submit</code> - wysyłanie klucza publicznego</p>
+<p><strong>Zadanie:</strong> Pobierz klucz prywatny RSA, wygeneruj z niego klucz publiczny i wyślij go wraz z session ID.</p>
+<h3 id="rozwiazanie_3">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_3">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3004</span>:3004<span class="w"> </span>--name<span class="w"> </span>ex4<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex4:latest
+</code></pre></div>
+<h4 id="b-pobranie-klucza-prywatnego-i-session-id">(b) Pobranie klucza prywatnego i session ID</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-v<span class="w"> </span>-OJ<span class="w"> </span>http://127.0.0.1:3004/getprivkey<span class="w"> </span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># Wyciąganie X-Session-ID:</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>curl<span class="w"> </span>-s<span class="w"> </span>-v<span class="w"> </span>-OJ<span class="w"> </span>http://127.0.0.1:3004/getprivkey<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;X-Session-ID&quot;</span>
+</code></pre></div>
+<p><strong>Przykładowy wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>X-Session-ID: 52fe1d2b7e736d45
+</code></pre></div></p>
+<p>Plik zostanie zapisany jako np. <code>private_key_52fe1d2b7e736d45.pem</code></p>
+<h4 id="c-generowanie-klucza-publicznego">(c) Generowanie klucza publicznego</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private_key_52fe1d2b7e736d45.pem<span class="w"> </span>-pubout<span class="w"> </span>&gt;<span class="w"> </span>public_key_52fe1d2b7e736d45.pem
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1"># Sprawdzenie rozmiaru klucza</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private_key_52fe1d2b7e736d45.pem<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Private-Key&quot;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>private_key_52fe1d2b7e736d45.pem<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Private-Key&quot;</span>
+</code></pre></div>
+<h4 id="d-wysanie-klucza-publicznego">(d) Wysłanie klucza publicznego</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3004/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;public_key_pem=@public_key_52fe1d2b7e736d45.pem&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;session_id=52fe1d2b7e736d45&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="zadanie-35-generowanie-klucza-publicznego-z-prywatnego-ec">Zadanie 3.5 - Generowanie klucza publicznego z prywatnego EC</h2>
+<h3 id="polecenie_4">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3005</code> działa prosty serwer HTTP udostępniający endpointy:
+- <code>http://127.0.0.1:3005/getprivkey</code> - pobieranie klucza prywatnego EC
+- <code>http://127.0.0.1:3005/submit</code> - wysyłanie klucza publicznego</p>
+<p><strong>Zadanie:</strong> Pobierz klucz prywatny EC, wygeneruj z niego klucz publiczny i wyślij go wraz z session ID.</p>
+<h3 id="rozwiazanie_4">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_4">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3005</span>:3005<span class="w"> </span>--name<span class="w"> </span>ex5<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex5:latest
+</code></pre></div>
+<h4 id="b-pobranie-klucza-prywatnego-ec">(b) Pobranie klucza prywatnego EC</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-v<span class="w"> </span>-OJ<span class="w"> </span>http://127.0.0.1:3005/getprivkey<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>output.txt
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>grep<span class="w"> </span><span class="s2">&quot;X-Session-ID&quot;</span><span class="w"> </span>output.txt
+</code></pre></div>
+<p><strong>Wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>X-Session-ID: 8f8a5595c5b01e5f
+</code></pre></div></p>
+<h4 id="c-generowanie-klucza-publicznego_1">(c) Generowanie klucza publicznego</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private_key_8f8a5595c5b01e5f.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public_key_8f8a5595c5b01e5f.pem
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># Sprawdzenie rozmiaru klucza</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private_key_8f8a5595c5b01e5f.pem<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Private-Key&quot;</span>
+</code></pre></div>
+<p><strong>Wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Private-Key: (256 bit)
+</code></pre></div></p>
+<h4 id="d-wysanie-klucza-publicznego_1">(d) Wysłanie klucza publicznego</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3005/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;public_key_file=@public_key_8f8a5595c5b01e5f.pem&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;session_id=8f8a5595c5b01e5f&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Keys match!&quot;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-36-szyfrowanie-rsa-z-paddingiem-oaep">Zadanie 3.6 - Szyfrowanie RSA z paddingiem OAEP</h2>
+<h3 id="polecenie_5">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3006</code> działa prosty serwer HTTP udostępniający endpointy:
+- <code>http://127.0.0.1:3006/encrypt</code> - pobieranie słowa, klucza publicznego i session ID
+- <code>http://127.0.0.1:3006/submit</code> - wysyłanie zaszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Zaszyfruj otrzymane słowo algorytmem RSA-2048 z paddingiem OAEP.</p>
+<h3 id="rozwiazanie_5">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_5">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3006</span>:3006<span class="w"> </span>--name<span class="w"> </span>ex6<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex6:latest
+</code></pre></div>
+<p>Lub zapasowy:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3006</span>:3006<span class="w"> </span>--name<span class="w"> </span>ex6<span class="w"> </span>ghcr.io/mazurkatarzynaumcs/asymmetric-enc-ex6:latest
+</code></pre></div></p>
+<h4 id="b-pobranie-danych-z-serwera">(b) Pobranie danych z serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-v<span class="w"> </span>-OJ<span class="w"> </span>http://127.0.0.1:3006/encrypt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>output.txt
+</code></pre></div>
+<p><strong>Wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>&lt; X-Session-ID: lEXTv9lbG38
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>&lt; X-Word: nano666
+</code></pre></div></p>
+<p>Zostanie zapisany plik: <code>public_key_lEXTv9lbG38.pem</code></p>
+<h4 id="c-zaszyfrowanie-sowa">(c) Zaszyfrowanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;nano666&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-encrypt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="w">  </span>-inkey<span class="w"> </span>public_key_lEXTv9lbG38.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">  </span>-pubin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">  </span>-pkeyopt<span class="w"> </span>rsa_padding_mode:oaep<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">  </span>&gt;<span class="w"> </span>data.enc
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>pkeyutl</code> - narzędzie do operacji na kluczach publicznych
+- <code>-encrypt</code> - szyfrowanie
+- <code>-pubin</code> - klucz wejściowy to klucz publiczny
+- <code>-pkeyopt rsa_padding_mode:oaep</code> - padding OAEP</p>
+<h4 id="d-wysanie-zaszyfrowanego-sowa">(d) Wysłanie zaszyfrowanego słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3006/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;encrypted_file=@data.enc&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;session_id=lEXTv9lbG38&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="p">{</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct encryption!&quot;</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-37-odszyfrowanie-rsa-z-pliku-zip">Zadanie 3.7 - Odszyfrowanie RSA z pliku ZIP</h2>
+<h3 id="polecenie_6">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3007</code> działa prosty serwer HTTP udostępniający endpointy:
+- <code>http://127.0.0.1:3007/decrypt</code> - pobieranie pliku ZIP z kluczem i zaszyfrowanym słowem
+- <code>http://127.0.0.1:3007/submit</code> - wysyłanie odszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Pobierz plik ZIP, rozpakuj, odszyfruj słowo algorytmem RSA-4096 z paddingiem OAEP.</p>
+<h3 id="rozwiazanie_6">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_6">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3007</span>:3007<span class="w"> </span>--name<span class="w"> </span>ex7<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex7:latest
+</code></pre></div>
+<h4 id="b-pobranie-pliku-zip">(b) Pobranie pliku ZIP</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-v<span class="w"> </span>-OJ<span class="w"> </span>http://127.0.0.1:3007/decrypt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>output.txt
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>grep<span class="w"> </span><span class="s2">&quot;X-Session-Id&quot;</span><span class="w"> </span>output.txt
+</code></pre></div>
+<p><strong>Wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>X-Session-Id: 7c0e6d0d82fb1e81
+</code></pre></div></p>
+<h4 id="c-rozpakowanie-pliku">(c) Rozpakowanie pliku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>unzip<span class="w"> </span>encrypted_and_key.zip
+</code></pre></div>
+<p><strong>Zawartość:</strong>
+- <code>encrypted.txt</code> - zaszyfrowane słowo zakodowane w base64
+- <code>private_key.pem</code> - klucz prywatny RSA</p>
+<h4 id="d-odszyfrowanie-sowa">(d) Odszyfrowanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Dekodowanie z base64</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>base64<span class="w"> </span>-d<span class="w"> </span>encrypted.txt<span class="w"> </span>&gt;<span class="w"> </span>encrypted.bin
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="c1"># Odszyfrowanie</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-decrypt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="w">  </span>-inkey<span class="w"> </span>private_key.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="w">  </span>-in<span class="w"> </span>encrypted.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a><span class="w">  </span>-pkeyopt<span class="w"> </span>rsa_padding_mode:oaep
+</code></pre></div>
+<p><strong>Wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>beyonce87
+</code></pre></div></p>
+<h4 id="e-wysanie-odszyfrowanego-sowa">(e) Wysłanie odszyfrowanego słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3007/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;7c0e6d0d82fb1e81&quot;, &quot;decrypted_word&quot;: &quot;beyonce87&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="p">{</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct decryption!&quot;</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-38-kompleksowe-zadanie-szyfrowania">Zadanie 3.8 - Kompleksowe zadanie szyfrowania</h2>
+<h3 id="polecenie_7">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3008</code> działa prosty serwer HTTP udostępniający endpoint:
+- <code>http://127.0.0.1:3008/decrypt</code> - weryfikacja szyfrowania</p>
+<p><strong>Zadanie:</strong> Wygeneruj własną parę kluczy RSA (1024 bity), zaszyfruj wybrane słowo i wyślij wszystko na serwer do weryfikacji.</p>
+<h3 id="rozwiazanie_7">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_7">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3008</span>:3008<span class="w"> </span>--name<span class="w"> </span>ex8<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex8:latest
+</code></pre></div>
+<h4 id="b-wygenerowanie-pary-kluczy-rsa-1024-bitowych_1">(b) Wygenerowanie pary kluczy RSA 1024-bitowych</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-out<span class="w"> </span>private_key.pem<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_bits:1024
+</code></pre></div>
+<p><strong>Uwaga:</strong> Serwer wymaga kluczy 1024-bitowych!</p>
+<h4 id="c-eksport-klucza-publicznego">(c) Eksport klucza publicznego</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private_key.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public_key.pem
+</code></pre></div>
+<h4 id="d-wybor-i-zapisanie-sowa">(d) Wybór i zapisanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;testword123&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>plaintext.txt
+</code></pre></div>
+<h4 id="e-zaszyfrowanie-sowa">(e) Zaszyfrowanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-encrypt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">  </span>-inkey<span class="w"> </span>public_key.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">  </span>-pubin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="w">  </span>-in<span class="w"> </span>plaintext.txt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="w">  </span>-pkeyopt<span class="w"> </span>rsa_padding_mode:oaep<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="w">  </span>-out<span class="w"> </span>encrypted.bin
+</code></pre></div>
+<h4 id="f-kodowanie-w-base64">(f) Kodowanie w base64</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>base64<span class="w"> </span>encrypted.bin<span class="w"> </span>&gt;<span class="w"> </span>ciphertext.txt
+</code></pre></div>
+<h4 id="g-wysanie-wszystkiego-do-serwera">(g) Wysłanie wszystkiego do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3008/decrypt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;private_key=@private_key.pem&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;public_key=@public_key.pem&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;plaintext=@plaintext.txt&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;ciphertext=@ciphertext.txt&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="p">{</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="w">  </span><span class="nt">&quot;decrypted&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;testword123&quot;</span><span class="p">,</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="w">  </span><span class="nt">&quot;keys_match&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="w">  </span><span class="nt">&quot;plaintext_match&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span>
+<a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+Serwer sprawdza:
+- Czy klucze są prawidłową parą
+- Czy odszyfrowane słowo zgadza się z plaintext
+- Czy klucze mają 1024 bity</p>
+<hr />
+<h2 id="zadanie-39-podpisywanie-cyfrowe-z-paddingiem-pss">Zadanie 3.9 - Podpisywanie cyfrowe z paddingiem PSS</h2>
+<h3 id="polecenie_8">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3009</code> działa prosty serwer HTTP udostępniający endpointy:
+- <code>http://127.0.0.1:3009/sign</code> - pobieranie słowa, klucza prywatnego i session ID
+- <code>http://127.0.0.1:3009/submit</code> - wysyłanie podpisu</p>
+<p><strong>Zadanie:</strong> Podpisz otrzymane słowo kluczem prywatnym używając algorytmu RSA z paddingiem PSS.</p>
+<h3 id="rozwiazanie_8">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_8">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3009</span>:3009<span class="w"> </span>--name<span class="w"> </span>ex9<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex9:latest
+</code></pre></div>
+<p>Lub zapasowy:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3009</span>:3009<span class="w"> </span>--name<span class="w"> </span>ex9<span class="w"> </span>ghcr.io/mazurkatarzynaumcs/asymmetric-enc-ex9:latest
+</code></pre></div></p>
+<h4 id="b-pobranie-danych-z-serwera_1">(b) Pobranie danych z serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-v<span class="w"> </span>-OJ<span class="w"> </span>http://127.0.0.1:3009/sign
+</code></pre></div>
+<p><strong>Wynik w nagłówkach:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>&lt; X-Session-Id: Bu6ZC94_SulK43N0C3yhPQ
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>&lt; X-Word: garner07
+</code></pre></div></p>
+<p>Plik: <code>private_key.pem</code></p>
+<h4 id="c-podpisanie-sowa">(c) Podpisanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;garner07&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="w">  </span>-sign<span class="w"> </span>private_key.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_padding_mode:pss<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_pss_saltlen:32<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="w">  </span>base64<span class="w"> </span>&gt;<span class="w"> </span>signature.b64
+</code></pre></div>
+<p><strong>Wyjaśnienie opcji:</strong>
+- <code>dgst -sha256</code> - funkcja skrótu SHA-256
+- <code>-sign</code> - podpisywanie
+- <code>-sigopt rsa_padding_mode:pss</code> - padding PSS
+- <code>-sigopt rsa_pss_saltlen:32</code> - długość soli = 32 bajty (długość SHA-256)
+- <code>base64</code> - kodowanie wyniku</p>
+<h4 id="d-wysanie-podpisu">(d) Wysłanie podpisu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3009/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;session_id=Bu6ZC94_SulK43N0C3yhPQ&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;signature_b64=@signature.b64&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="p">{</span>
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct signature!&quot;</span>
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-310-weryfikacja-podpisu-cyfrowego">Zadanie 3.10 - Weryfikacja podpisu cyfrowego</h2>
+<h3 id="polecenie_9">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:3010</code> działa prosty serwer HTTP udostępniający endpointy:
+- <code>http://127.0.0.1:3010/verify</code> - pobieranie klucza publicznego, podpisu i słowa
+- <code>http://127.0.0.1:3010/submit</code> - wysyłanie wyniku weryfikacji</p>
+<p><strong>Zadanie:</strong> Zweryfikuj podpis lokalnie używając algorytmu RSA-2048 z paddingiem PSS i wyślij wynik weryfikacji.</p>
+<h3 id="rozwiazanie_9">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_9">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">3010</span>:3010<span class="w"> </span>--name<span class="w"> </span>ex10<span class="w"> </span>docker.io/mazurkatarzyna/asymmetric-enc-ex10:latest
+</code></pre></div>
+<h4 id="b-pobranie-danych-z-serwera_2">(b) Pobranie danych z serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-v<span class="w"> </span>-OJ<span class="w"> </span>http://127.0.0.1:3010/verify<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>output.txt
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;X-Session-Id|X-Word&quot;</span><span class="w"> </span>output.txt
+</code></pre></div>
+<p><strong>Wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>X-Session-Id: nHJ6LiXzpPojMxqG5RTqJg
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>X-Word: melon
+</code></pre></div></p>
+<p>Plik ZIP zostanie pobrany i nazwany <code>challenge.zip</code></p>
+<h4 id="c-rozpakowanie-pliku_1">(c) Rozpakowanie pliku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>unzip<span class="w"> </span>challenge.zip
+</code></pre></div>
+<p><strong>Zawartość:</strong>
+- <code>public_key.pem</code> - klucz publiczny RSA
+- <code>signature.b64</code> - podpis w formacie base64</p>
+<h4 id="d-lokalna-weryfikacja-podpisu">(d) Lokalna weryfikacja podpisu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="c1"># Zapisanie słowa do pliku</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;melon&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>word.txt
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>
+<a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a><span class="c1"># Dekodowanie podpisu z base64</span>
+<a id="__codelineno-57-5" name="__codelineno-57-5" href="#__codelineno-57-5"></a>base64<span class="w"> </span>-d<span class="w"> </span>signature.b64<span class="w"> </span>&gt;<span class="w"> </span>signature.bin
+<a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a>
+<a id="__codelineno-57-7" name="__codelineno-57-7" href="#__codelineno-57-7"></a><span class="c1"># Weryfikacja podpisu</span>
+<a id="__codelineno-57-8" name="__codelineno-57-8" href="#__codelineno-57-8"></a>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-57-9" name="__codelineno-57-9" href="#__codelineno-57-9"></a><span class="w">  </span>-verify<span class="w"> </span>public_key.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-57-10" name="__codelineno-57-10" href="#__codelineno-57-10"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_padding_mode:pss<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-57-11" name="__codelineno-57-11" href="#__codelineno-57-11"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_pss_saltlen:32<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-57-12" name="__codelineno-57-12" href="#__codelineno-57-12"></a><span class="w">  </span>-signature<span class="w"> </span>signature.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-57-13" name="__codelineno-57-13" href="#__codelineno-57-13"></a><span class="w">  </span>word.txt
+</code></pre></div>
+<p><strong>Wynik:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>Verified OK
+</code></pre></div></p>
+<h4 id="e-wysanie-wyniku-weryfikacji-do-serwera">(e) Wysłanie wyniku weryfikacji do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:3010/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;word=melon&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;public_key_pem=@public_key.pem&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;signature_b64=@signature.b64&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;user_verified=true&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-59-6" name="__codelineno-59-6" href="#__codelineno-59-6"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;session_id=nHJ6LiXzpPojMxqG5RTqJg&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="p">{</span>
+<a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct! Your verification matches the actual signature.&quot;</span>
+<a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>user_verified=true</code> - informujemy serwer, że lokalnie weryfikacja się powiodła
+- Serwer sprawdza, czy nasza lokalna weryfikacja jest zgodna z rzeczywistym podpisem</p>
+<hr />
+<h2 id="podsumowanie">Podsumowanie</h2>
+<h3 id="poznane-algorytmy-i-koncepcje">Poznane algorytmy i koncepcje</h3>
+<table>
+<thead>
+<tr>
+<th>Temat</th>
+<th>Szczegóły</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RSA</strong></td>
+<td>Algorytm asymetryczny, klucze 1024-4096 bitów</td>
+</tr>
+<tr>
+<td><strong>EC (Elliptic Curve)</strong></td>
+<td>Krzywe eliptyczne, mniejsze klucze, prime256v1</td>
+</tr>
+<tr>
+<td><strong>OAEP Padding</strong></td>
+<td>Padding dla szyfrowania RSA</td>
+</tr>
+<tr>
+<td><strong>PSS Padding</strong></td>
+<td>Padding dla podpisów cyfrowych RSA</td>
+</tr>
+<tr>
+<td><strong>Podpisy cyfrowe</strong></td>
+<td>Weryfikacja autentyczności i integralności</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operacje-na-kluczach">Operacje na kluczach</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="c1"># Generowanie kluczy RSA</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>RSA<span class="w"> </span>-out<span class="w"> </span>private.pem<span class="w"> </span>-pkeyopt<span class="w"> </span>rsa_keygen_bits:2048
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>public.pem
+<a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>
+<a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a><span class="c1"># Generowanie kluczy EC</span>
+<a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a>openssl<span class="w"> </span>genpkey<span class="w"> </span>-algorithm<span class="w"> </span>EC<span class="w"> </span>-pkeyopt<span class="w"> </span>ec_paramgen_curve:prime256v1<span class="w"> </span>-out<span class="w"> </span>ec_private.pem
+<a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>ec_private.pem<span class="w"> </span>-pubout<span class="w"> </span>-out<span class="w"> </span>ec_public.pem
+<a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a>
+<a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a><span class="c1"># Sprawdzanie rozmiaru klucza</span>
+<a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a>openssl<span class="w"> </span>pkey<span class="w"> </span>-in<span class="w"> </span>private.pem<span class="w"> </span>-text<span class="w"> </span>-noout<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;Private-Key&quot;</span>
+</code></pre></div>
+<h3 id="szyfrowanie-i-deszyfrowanie">Szyfrowanie i deszyfrowanie</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="c1"># Szyfrowanie RSA z OAEP</span>
+<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-encrypt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a><span class="w">  </span>-inkey<span class="w"> </span>public.pem<span class="w"> </span>-pubin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a><span class="w">  </span>-pkeyopt<span class="w"> </span>rsa_padding_mode:oaep<span class="w"> </span>&gt;<span class="w"> </span>encrypted.bin
+<a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>
+<a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a><span class="c1"># Deszyfrowanie RSA z OAEP</span>
+<a id="__codelineno-62-7" name="__codelineno-62-7" href="#__codelineno-62-7"></a>openssl<span class="w"> </span>pkeyutl<span class="w"> </span>-decrypt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-8" name="__codelineno-62-8" href="#__codelineno-62-8"></a><span class="w">  </span>-inkey<span class="w"> </span>private.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-9" name="__codelineno-62-9" href="#__codelineno-62-9"></a><span class="w">  </span>-in<span class="w"> </span>encrypted.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-10" name="__codelineno-62-10" href="#__codelineno-62-10"></a><span class="w">  </span>-pkeyopt<span class="w"> </span>rsa_padding_mode:oaep
+</code></pre></div>
+<h3 id="podpisywanie-i-weryfikacja">Podpisywanie i weryfikacja</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="c1"># Podpisywanie z PSS</span>
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="w">  </span>-sign<span class="w"> </span>private.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_padding_mode:pss<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-5" name="__codelineno-63-5" href="#__codelineno-63-5"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_pss_saltlen:32<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>&gt;<span class="w"> </span>signature.b64
+<a id="__codelineno-63-6" name="__codelineno-63-6" href="#__codelineno-63-6"></a>
+<a id="__codelineno-63-7" name="__codelineno-63-7" href="#__codelineno-63-7"></a><span class="c1"># Weryfikacja podpisu</span>
+<a id="__codelineno-63-8" name="__codelineno-63-8" href="#__codelineno-63-8"></a>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-9" name="__codelineno-63-9" href="#__codelineno-63-9"></a><span class="w">  </span>-verify<span class="w"> </span>public.pem<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-10" name="__codelineno-63-10" href="#__codelineno-63-10"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_padding_mode:pss<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-11" name="__codelineno-63-11" href="#__codelineno-63-11"></a><span class="w">  </span>-sigopt<span class="w"> </span>rsa_pss_saltlen:32<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-12" name="__codelineno-63-12" href="#__codelineno-63-12"></a><span class="w">  </span>-signature<span class="w"> </span>signature.bin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-13" name="__codelineno-63-13" href="#__codelineno-63-13"></a><span class="w">  </span>file.txt
+</code></pre></div>
+<h3 id="roznice-miedzy-szyfrowaniem-symetrycznym-a-asymetrycznym">Różnice między szyfrowaniem symetrycznym a asymetrycznym</h3>
+<table>
+<thead>
+<tr>
+<th>Cecha</th>
+<th>Symetryczne</th>
+<th>Asymetryczne</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Klucze</strong></td>
+<td>Jeden klucz</td>
+<td>Para kluczy (publiczny + prywatny)</td>
+</tr>
+<tr>
+<td><strong>Szybkość</strong></td>
+<td>Bardzo szybkie</td>
+<td>Wolniejsze</td>
+</tr>
+<tr>
+<td><strong>Rozmiar klucza</strong></td>
+<td>128-256 bitów</td>
+<td>1024-4096 bitów (RSA)</td>
+</tr>
+<tr>
+<td><strong>Zastosowanie</strong></td>
+<td>Szyfrowanie dużych danych</td>
+<td>Wymiana kluczy, podpisy cyfrowe</td>
+</tr>
+<tr>
+<td><strong>Przykłady</strong></td>
+<td>AES, 3DES, CAMELLIA</td>
+<td>RSA, EC, DSA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="najwazniejsze-wskazowki">Najważniejsze wskazówki</h3>
+<ol>
+<li><strong>Klucz publiczny</strong> - można udostępniać publicznie, służy do szyfrowania i weryfikacji</li>
+<li><strong>Klucz prywatny</strong> - musi być chroniony, służy do deszyfrowania i podpisywania</li>
+<li><strong>Padding OAEP</strong> - zawsze używaj przy szyfrowaniu RSA</li>
+<li><strong>Padding PSS</strong> - zawsze używaj przy podpisach cyfrowych RSA</li>
+<li><strong>Salt length</strong> - dla SHA-256 powinien wynosić 32 bajty</li>
+<li><strong>Rozmiar klucza</strong> - minimalne bezpieczne to 2048 bitów dla RSA</li>
+<li><strong>Base64</strong> - używaj do przesyłania danych binarnych przez HTTP</li>
+</ol>
+<h3 id="praktyczne-zastosowania">Praktyczne zastosowania</h3>
+<ul>
+<li><strong>Szyfrowanie komunikacji</strong> - SSL/TLS (HTTPS)</li>
+<li><strong>Podpisy cyfrowe</strong> - weryfikacja autentyczności dokumentów</li>
+<li><strong>Wymiana kluczy</strong> - bezpieczne przesyłanie kluczy symetrycznych</li>
+<li><strong>Autoryzacja</strong> - klucze SSH, certyfikaty SSL</li>
+<li><strong>Blockchain</strong> - kryptowaluty używają kryptografii asymetrycznej</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/alezab"  target="_blank" rel="noopener">alezab</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/alezab" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

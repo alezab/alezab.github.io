@@ -1,0 +1,3284 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2025-10-28/">
+      
+      
+        <link rel="next" href="../2025-11-18/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Laboratorium - Łamanie Haseł - Linux Geeks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#laboratorium-amanie-hase" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Geeks" class="md-header__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Geeks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Laboratorium - Łamanie Haseł
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Geeks" class="md-nav__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linux Geeks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - cURL i jq (JSON Query)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Funkcje Skrótu (Hashing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Symetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Asymetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Łamanie Haseł
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Łamanie Haseł
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spis-tresci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spis treści
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wstep-podstawy-amania-hase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wstęp - Podstawy łamania haseł
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wstęp - Podstawy łamania haseł">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rodzaje-atakow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rodzaje ataków
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#narzedzia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Narzędzia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typy-hashy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy hashy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hashcat-podstawowe-maski" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hashcat - podstawowe maski
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crunch-wzorce-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crunch - wzorce (templates)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#przykadowe-komendy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Przykładowe komendy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-41-przykad-md5-z-dictionary-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.1 - Przykład MD5 z dictionary attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.1 - Przykład MD5 z dictionary attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu-hashcat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu hashcat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-42-sha-1-dictionary-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.2 - SHA-1 dictionary attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.2 - SHA-1 dictionary attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-43-sha-256-dictionary-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.3 - SHA-256 dictionary attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.3 - SHA-256 dictionary attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-i-zamanie-hashu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie i złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-wyniku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-44-sha-512-dictionary-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.4 - SHA-512 dictionary attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.4 - SHA-512 dictionary attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-i-zamanie-hashu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie i złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wysanie-wyniku_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-45-bcrypt-dictionary-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.5 - bcrypt dictionary attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.5 - bcrypt dictionary attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-46-scrypt-dictionary-attack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.6 - scrypt dictionary attack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.6 - scrypt dictionary attack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-47-md5-z-crunch-3-cyfry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.7 - MD5 z crunch (3 cyfry)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.7 - MD5 z crunch (3 cyfry)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-generowanie-sownika" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Generowanie słownika
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-zamanie-hashu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-wyniku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-48-md5-z-crunch-4-wielkie-litery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.8 - MD5 z crunch (4 wielkie litery)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.8 - MD5 z crunch (4 wielkie litery)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-generowanie-sownika_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Generowanie słownika
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-zamanie-hashu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-wyniku_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-49-md5-z-crunch-pass-4-cyfry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.9 - MD5 z crunch (pass + 4 cyfry)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.9 - MD5 z crunch (pass + 4 cyfry)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-generowanie-sownika_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Generowanie słownika
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-zamanie-hashu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-wyniku_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-410-permutacje-sow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.10 - Permutacje słów
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.10 - Permutacje słów">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-generowanie-sownika-permutacji" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Generowanie słownika permutacji
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-zamanie-hashu_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-wyniku_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-411-wzorzec-5-znakow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.11 - Wzorzec 5 znaków
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.11 - Wzorzec 5 znaków">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-generowanie-sownika_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Generowanie słownika
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-zamanie-hashu_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-wyniku_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-412-brute-force-4-mae-litery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.12 - Brute-force 4 małe litery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.12 - Brute-force 4 małe litery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu-brute-force" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu brute-force
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-413-brute-force-wielka-3-cyfry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.13 - Brute-force wielka + 3 cyfry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.13 - Brute-force wielka + 3 cyfry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-414-custom-character-sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.14 - Custom character sets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.14 - Custom character sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-415-adres-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 4.15 - Adres MAC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 4.15 - Adres MAC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-hashu_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zamanie-hashu_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Złamanie hashu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-wyniku_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie wyniku
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podsumowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podsumowanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Podsumowanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ukonczone-zadania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ukończone zadania
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hashcat-tryby-ataku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hashcat - tryby ataku
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hashcat-maski-charset-built-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hashcat - maski (charset built-in)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crunch-wzorce-templates_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crunch - wzorce (templates)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typy-hashy-porownanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy hashy - porównanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#najlepsze-praktyki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Najlepsze praktyki
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#przydatne-komendy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Przydatne komendy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workspace-i-narzedzia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace i narzędzia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roznice-miedzy-hashcat-a-john" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Różnice między hashcat a john
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#czas-amania-przykady" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Czas łamania - przykłady
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPG Exercises - 2025-11-18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../powt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zadania - Bezpieczeństwo Systemów
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="laboratorium-amanie-hase">Laboratorium - Łamanie Haseł</h1>
+<p>Data: 4 listopada 2025</p>
+<h2 id="spis-tresci">Spis treści</h2>
+<ul>
+<li><a href="#wstęp---podstawy-łamania-haseł">Wstęp - Podstawy łamania haseł</a></li>
+<li><a href="#zadanie-41---przykład-md5-z-dictionary-attack">Zadanie 4.1 - Przykład MD5 z dictionary attack</a></li>
+<li><a href="#zadanie-42---sha-1-dictionary-attack">Zadanie 4.2 - SHA-1 dictionary attack</a></li>
+<li><a href="#zadanie-43---sha-256-dictionary-attack">Zadanie 4.3 - SHA-256 dictionary attack</a></li>
+<li><a href="#zadanie-44---sha-512-dictionary-attack">Zadanie 4.4 - SHA-512 dictionary attack</a></li>
+<li><a href="#zadanie-45---bcrypt-dictionary-attack">Zadanie 4.5 - bcrypt dictionary attack</a></li>
+<li><a href="#zadanie-46---scrypt-dictionary-attack">Zadanie 4.6 - scrypt dictionary attack</a></li>
+<li><a href="#zadanie-47---md5-z-crunch-3-cyfry">Zadanie 4.7 - MD5 z crunch (3 cyfry)</a></li>
+<li><a href="#zadanie-48---md5-z-crunch-4-wielkie-litery">Zadanie 4.8 - MD5 z crunch (4 wielkie litery)</a></li>
+<li><a href="#zadanie-49---md5-z-crunch-pass--4-cyfry">Zadanie 4.9 - MD5 z crunch (pass + 4 cyfry)</a></li>
+<li><a href="#zadanie-410---permutacje-słów">Zadanie 4.10 - Permutacje słów</a></li>
+<li><a href="#zadanie-411---wzorzec-5-znaków">Zadanie 4.11 - Wzorzec 5 znaków</a></li>
+<li><a href="#zadanie-412---brute-force-4-małe-litery">Zadanie 4.12 - Brute-force 4 małe litery</a></li>
+<li><a href="#zadanie-413---brute-force-wielka--3-cyfry">Zadanie 4.13 - Brute-force wielka + 3 cyfry</a></li>
+<li><a href="#zadanie-414---custom-character-sets">Zadanie 4.14 - Custom character sets</a></li>
+<li><a href="#zadanie-415---adres-mac">Zadanie 4.15 - Adres MAC</a></li>
+</ul>
+<hr />
+<h2 id="wstep-podstawy-amania-hase">Wstęp - Podstawy łamania haseł</h2>
+<h3 id="rodzaje-atakow">Rodzaje ataków</h3>
+<p><strong>Dictionary Attack (Atak słownikowy):</strong>
+- Używa gotowych list słów (wordlists)
+- Szybki, ale ograniczony do słów w słowniku
+- Najczęściej używany jako pierwszy krok</p>
+<p><strong>Brute-force (Atak brutalnej siły):</strong>
+- Sprawdza wszystkie możliwe kombinacje
+- Używa masek do określenia wzorca hasła
+- Wolniejszy, ale gwarantuje sukces dla małych przestrzeni kluczy</p>
+<p><strong>Hybrid Attack (Atak hybrydowy):</strong>
+- Łączy słownik z regułami lub maskami
+- Np. słowo + cyfry na końcu</p>
+<h3 id="narzedzia">Narzędzia</h3>
+<p><strong>Hashcat:</strong>
+- Najpopularniejsze narzędzie do łamania haseł
+- Wspiera GPU i CPU
+- Obsługuje setki typów hashy
+- Tryby: dictionary (-a 0), brute-force (-a 3), hybrid (-a 6, -a 7)</p>
+<p><strong>John the Ripper:</strong>
+- Alternatywa dla hashcat
+- Dobry do prostych zadań
+- Mniej formatów niż hashcat</p>
+<p><strong>Crunch:</strong>
+- Generator wordlist
+- Tworzy wszystkie kombinacje dla podanych parametrów
+- Używa wzorców (templates)</p>
+<h3 id="typy-hashy">Typy hashy</h3>
+<table>
+<thead>
+<tr>
+<th>Hash</th>
+<th>Mode (hashcat)</th>
+<th>Długość</th>
+<th>Format</th>
+<th>Przykład zastosowania</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MD5</strong></td>
+<td>0</td>
+<td>32 hex</td>
+<td><code>5d41402abc4b2a76b9719d911017c592</code></td>
+<td>Stare systemy, kontrola integralności</td>
+</tr>
+<tr>
+<td><strong>SHA-1</strong></td>
+<td>100</td>
+<td>40 hex</td>
+<td><code>aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d</code></td>
+<td>Git commits, certyfikaty (przestarzałe)</td>
+</tr>
+<tr>
+<td><strong>SHA-256</strong></td>
+<td>1400</td>
+<td>64 hex</td>
+<td><code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code></td>
+<td>Bitcoin, SSL/TLS</td>
+</tr>
+<tr>
+<td><strong>SHA-512</strong></td>
+<td>1700</td>
+<td>128 hex</td>
+<td>bardzo długi</td>
+<td>Serwery Linux/Unix (shadow)</td>
+</tr>
+<tr>
+<td><strong>bcrypt</strong></td>
+<td>3200</td>
+<td>zmienna</td>
+<td><code>$2b$12$...</code></td>
+<td>Hasła aplikacji webowych</td>
+</tr>
+<tr>
+<td><strong>scrypt</strong></td>
+<td>8900</td>
+<td>zmienna</td>
+<td><code>SCRYPT:1024:1:1:...</code></td>
+<td>Kryptowaluty, hasła</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hashcat-podstawowe-maski">Hashcat - podstawowe maski</h3>
+<table>
+<thead>
+<tr>
+<th>Maska</th>
+<th>Znaczenie</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>?l</code></td>
+<td>lowercase (a-z)</td>
+<td><code>?l?l?l</code> = abc, xyz</td>
+</tr>
+<tr>
+<td><code>?u</code></td>
+<td>uppercase (A-Z)</td>
+<td><code>?u?u</code> = AB, XY</td>
+</tr>
+<tr>
+<td><code>?d</code></td>
+<td>digit (0-9)</td>
+<td><code>?d?d?d</code> = 123, 999</td>
+</tr>
+<tr>
+<td><code>?s</code></td>
+<td>special characters</td>
+<td><code>?s</code> = !, @, #, $</td>
+</tr>
+<tr>
+<td><code>?a</code></td>
+<td>all printable</td>
+<td>wszystkie znaki</td>
+</tr>
+<tr>
+<td><code>?h</code></td>
+<td>hex (0-9a-f)</td>
+<td>używane dla adresów MAC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="crunch-wzorce-templates">Crunch - wzorce (templates)</h3>
+<table>
+<thead>
+<tr>
+<th>Wzorzec</th>
+<th>Znaczenie</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@</code></td>
+<td>lowercase (a-z)</td>
+<td><code>@@</code> = aa, ab, zz</td>
+</tr>
+<tr>
+<td><code>,</code></td>
+<td>uppercase (A-Z)</td>
+<td><code>,,</code> = AA, AB, ZZ</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>digit (0-9)</td>
+<td><code>%%%</code> = 000, 123, 999</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>special characters</td>
+<td><code>^^</code> = !!, @#</td>
+</tr>
+</tbody>
+</table>
+<h3 id="przykadowe-komendy">Przykładowe komendy</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Hashcat - dictionary attack</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash.txt<span class="w"> </span>wordlist.txt<span class="w"> </span>--force
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Hashcat - brute-force z maską</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash.txt<span class="w"> </span><span class="s1">&#39;?l?l?l?l&#39;</span><span class="w"> </span>--force
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Hashcat - custom character sets</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash.txt<span class="w"> </span>-1<span class="w"> </span>abc<span class="w"> </span>-2<span class="w"> </span><span class="m">468</span><span class="w"> </span><span class="s1">&#39;?1?2?2&#39;</span><span class="w"> </span>--force
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Crunch - generowanie słownika</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>crunch<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">0123456789</span><span class="w"> </span>-o<span class="w"> </span>digits.txt
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># Crunch - z wzorcem</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>crunch<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">8</span><span class="w"> </span>-t<span class="w"> </span>pass%%%%<span class="w"> </span>-o<span class="w"> </span>passwords.txt
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="c1"># Crunch - permutacje</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>crunch<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">20</span><span class="w"> </span>-p<span class="w"> </span>admin<span class="w"> </span>password<span class="w"> </span><span class="m">123</span><span class="w"> </span>-o<span class="w"> </span>permutations.txt
+</code></pre></div>
+<hr />
+<h2 id="zadanie-41-przykad-md5-z-dictionary-attack">Zadanie 4.1 - Przykład MD5 z dictionary attack</h2>
+<h3 id="polecenie">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4001</code> działa prosty serwer HTTP udostępniający dwa endpointy:
+- <code>http://127.0.0.1:4001/hash</code> - pobieranie hashu MD5
+- <code>http://127.0.0.1:4001/submit</code> - wysyłanie złamanego hasła</p>
+<p><strong>Zadanie:</strong> Złam hash MD5 używając dostępnego słownika i wyślij wynik na serwer.</p>
+<h3 id="rozwiazanie">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4001</span>:4001<span class="w"> </span>--name<span class="w"> </span>ex1<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex1:latest
+</code></pre></div>
+<p>Lub zapasowy:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4001</span>:4001<span class="w"> </span>--name<span class="w"> </span>ex1<span class="w"> </span>ghcr.io/mazurkatarzynaumcs/pass-cracking-ex1:latest
+</code></pre></div></p>
+<h4 id="b-pobranie-hashu">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4001/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19005ef9d4e2abbf7b029b61f094a286&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Spróbuj złamać ten hash!&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4001/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash.txt
+</code></pre></div>
+<h4 id="c-zamanie-hashu-hashcat">(c) Złamanie hashu hashcat</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash.txt<span class="w"> </span>slowniki/ex41/wordlist.txt<span class="w"> </span>--force
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash.txt<span class="w"> </span>--show
+</code></pre></div>
+<p><strong>Hasło:</strong> <code>kidney81</code></p>
+<h4 id="d-wysanie-wyniku">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4001/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;kidney81&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-a 0</code> - tryb dictionary attack
+- <code>-m 0</code> - typ hashu MD5
+- <code>--force</code> - wymusza działanie na CPU (bez GPU)</p>
+<hr />
+<h2 id="zadanie-42-sha-1-dictionary-attack">Zadanie 4.2 - SHA-1 dictionary attack</h2>
+<h3 id="polecenie_1">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4002</code> działa prosty serwer HTTP udostępniający dwa endpointy:
+- <code>http://127.0.0.1:4002/hash</code> - pobieranie hashu SHA-1
+- <code>http://127.0.0.1:4002/submit</code> - wysyłanie złamanego hasła</p>
+<p><strong>Zadanie:</strong> Złam hash SHA-1 używając dostępnego słownika.</p>
+<h3 id="rozwiazanie_1">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_1">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4002</span>:4002<span class="w"> </span>--name<span class="w"> </span>ex2<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex2:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_1">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4002/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash42.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>9d270ca213048cc46f762591f54b6a0d59390996</code></p>
+<h4 id="c-zamanie-hashu">(c) Złamanie hashu</h4>
+<p><strong>Hashcat:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash42.txt<span class="w"> </span>slowniki/ex42/wordlist.txt<span class="w"> </span>--force
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash42.txt<span class="w"> </span>slowniki/ex42/wordlist.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper (alternatywnie):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>slowniki/ex42/wordlist.txt<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash42.txt
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash42.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>ronald</code></p>
+<h4 id="d-wysanie-wyniku_1">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4002/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;ronald&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gratulacje! Poprawnie złamano hash!&quot;</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-43-sha-256-dictionary-attack">Zadanie 4.3 - SHA-256 dictionary attack</h2>
+<h3 id="polecenie_2">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4003</code> działa prosty serwer HTTP udostępniający hash SHA-256 do złamania.</p>
+<h3 id="rozwiazanie_2">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_2">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4003</span>:4003<span class="w"> </span>--name<span class="w"> </span>ex3<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex3:latest
+</code></pre></div>
+<h4 id="b-pobranie-i-zamanie-hashu">(b) Pobranie i złamanie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4003/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash43.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>8440c28681cf77c9c08e4a6570ee06451445dd3495abbed3add55c2e49e33f99</code></p>
+<p><strong>Hashcat:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">1400</span><span class="w"> </span>hash43.txt<span class="w"> </span>slowniki/ex43/wordlist.txt<span class="w"> </span>--force
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">1400</span><span class="w"> </span>hash43.txt<span class="w"> </span>slowniki/ex43/wordlist.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>slowniki/ex43/wordlist.txt<span class="w"> </span>--format<span class="o">=</span>raw-sha256<span class="w"> </span>hash43.txt
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-sha256<span class="w"> </span>hash43.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>juantech</code></p>
+<h4 id="c-wysanie-wyniku">(c) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4003/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;juantech&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="zadanie-44-sha-512-dictionary-attack">Zadanie 4.4 - SHA-512 dictionary attack</h2>
+<h3 id="polecenie_3">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4004</code> działa prosty serwer HTTP udostępniający hash SHA-512 do złamania.</p>
+<h3 id="rozwiazanie_3">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_3">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4004</span>:4004<span class="w"> </span>--name<span class="w"> </span>ex4<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex4:latest
+</code></pre></div>
+<h4 id="b-pobranie-i-zamanie-hashu_1">(b) Pobranie i złamanie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4004/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash44.txt
+</code></pre></div>
+<p><strong>Hashcat:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">1700</span><span class="w"> </span>hash44.txt<span class="w"> </span>slowniki/ex44/wordlist.txt<span class="w"> </span>--force
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">1700</span><span class="w"> </span>hash44.txt<span class="w"> </span>slowniki/ex44/wordlist.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>slowniki/ex44/wordlist.txt<span class="w"> </span>--format<span class="o">=</span>raw-sha512<span class="w"> </span>hash44.txt
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-sha512<span class="w"> </span>hash44.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>user</code></p>
+<h4 id="c-wysanie-wyniku_1">(c) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4004/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;user&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="zadanie-45-bcrypt-dictionary-attack">Zadanie 4.5 - bcrypt dictionary attack</h2>
+<h3 id="polecenie_4">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4005</code> działa prosty serwer HTTP udostępniający hash bcrypt do złamania.</p>
+<p><strong>Uwaga:</strong> bcrypt jest wolny algorytm - łamanie może potrwać dłużej!</p>
+<h3 id="rozwiazanie_4">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_4">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4005</span>:4005<span class="w"> </span>--name<span class="w"> </span>ex5<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex5:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_2">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4005/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash45.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>$2b$12$MPNRqsRHB6AtiSw2IToP.OY/TASME.QR/WvPKAseDObixxYFkMJ6q</code></p>
+<h4 id="c-zamanie-hashu_1">(c) Złamanie hashu</h4>
+<p><strong>Hashcat:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">3200</span><span class="w"> </span>hash45.txt<span class="w"> </span>slowniki/ex45/wordlist.txt<span class="w"> </span>--force
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">3200</span><span class="w"> </span>hash45.txt<span class="w"> </span>slowniki/ex45/wordlist.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>slowniki/ex45/wordlist.txt<span class="w"> </span>--format<span class="o">=</span>bcrypt<span class="w"> </span>hash45.txt
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>bcrypt<span class="w"> </span>hash45.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>112502</code></p>
+<h4 id="d-wysanie-wyniku_2">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4005/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;112502&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- bcrypt jest specjalnie zaprojektowany aby być wolnym
+- Używany w aplikacjach webowych (np. Django, Rails)
+- Format: <code>$2b$[cost]$[salt+hash]</code></p>
+<hr />
+<h2 id="zadanie-46-scrypt-dictionary-attack">Zadanie 4.6 - scrypt dictionary attack</h2>
+<h3 id="polecenie_5">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4006</code> działa prosty serwer HTTP udostępniający hash scrypt do złamania.</p>
+<h3 id="rozwiazanie_5">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_5">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4006</span>:4006<span class="w"> </span>--name<span class="w"> </span>ex6<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex6:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_3">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4006/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash46.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>SCRYPT:1024:1:1:9ykG9pP0G1kYLvnPAGbEYQ==:SRZa0KJpwmhV/0zHKjt4iwYbcXXDdfgn444eVJ+fcgc=</code></p>
+<h4 id="c-zamanie-hashu_2">(c) Złamanie hashu</h4>
+<p><strong>Hashcat (wymaga --self-test-disable):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">8900</span><span class="w"> </span>hash46.txt<span class="w"> </span>slowniki/ex46/wordlist.txt<span class="w"> </span>--force<span class="w"> </span>--self-test-disable
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">8900</span><span class="w"> </span>hash46.txt<span class="w"> </span>slowniki/ex46/wordlist.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>slowniki/ex46/wordlist.txt<span class="w"> </span>--format<span class="o">=</span>scrypt<span class="w"> </span>hash46.txt
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>scrypt<span class="w"> </span>hash46.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>asdfgh</code></p>
+<h4 id="d-wysanie-wyniku_3">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4006/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;asdfgh&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- scrypt jest jeszcze wolniejszy niż bcrypt
+- Używany w kryptowalutach (Litecoin)
+- Wymaga dużo pamięci RAM</p>
+<hr />
+<h2 id="zadanie-47-md5-z-crunch-3-cyfry">Zadanie 4.7 - MD5 z crunch (3 cyfry)</h2>
+<h3 id="polecenie_6">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4007</code> działa prosty serwer HTTP udostępniający hash MD5 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło składa się z 3 cyfr (0-9), wygeneruj słownik używając crunch i złam hash.</p>
+<h3 id="rozwiazanie_6">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_6">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4007</span>:4007<span class="w"> </span>--name<span class="w"> </span>ex7<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex7:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_4">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4007/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash47.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>24896ee4c6526356cc127852413ea3b4</code></p>
+<h4 id="c-generowanie-sownika">(c) Generowanie słownika</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Metoda 1: crunch do pliku</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>crunch<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">0123456789</span><span class="w"> </span>-o<span class="w"> </span>dict47.txt
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="c1"># Słownik zawiera: 000, 001, ..., 998, 999 (1000 wpisów)</span>
+</code></pre></div>
+<h4 id="d-zamanie-hashu">(d) Złamanie hashu</h4>
+<p><strong>Hashcat ze słownikiem:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash47.txt<span class="w"> </span>dict47.txt<span class="w"> </span>--force
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash47.txt<span class="w"> </span>dict47.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>Lub hashcat z maską (bez słownika):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash47.txt<span class="w"> </span><span class="s1">&#39;?d?d?d&#39;</span><span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>dict47.txt<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash47.txt
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash47.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>506</code></p>
+<h4 id="e-wysanie-wyniku">(e) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4007/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;506&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>crunch 3 3</code> - min i max długość = 3
+- <code>0123456789</code> - zestaw znaków (cyfry)
+- <code>-o dict47.txt</code> - zapisz do pliku</p>
+<hr />
+<h2 id="zadanie-48-md5-z-crunch-4-wielkie-litery">Zadanie 4.8 - MD5 z crunch (4 wielkie litery)</h2>
+<h3 id="polecenie_7">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4008</code> działa prosty serwer HTTP udostępniający hash MD5 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło składa się z 4 wielkich liter (A-Z), wygeneruj słownik i złam hash.</p>
+<h3 id="rozwiazanie_7">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_7">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4008</span>:4008<span class="w"> </span>--name<span class="w"> </span>ex8<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex8:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_5">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4008/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash48.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>f28a39156f2588861c817ae2734b0fb3</code></p>
+<h4 id="c-generowanie-sownika_1">(c) Generowanie słownika</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>crunch<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>ABCDEFGHIJKLMNOPQRSTUVWXYZ<span class="w"> </span>-o<span class="w"> </span>dict48.txt
+</code></pre></div>
+<p><strong>Słownik zawiera:</strong> AAAA, AAAB, ..., ZZZZ (~456,976 wpisów)</p>
+<h4 id="d-zamanie-hashu_1">(d) Złamanie hashu</h4>
+<p><strong>Hashcat ze słownikiem:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash48.txt<span class="w"> </span>dict48.txt<span class="w"> </span>--force
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash48.txt<span class="w"> </span>dict48.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>Lub hashcat z maską:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash48.txt<span class="w"> </span><span class="s1">&#39;?u?u?u?u&#39;</span><span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>dict48.txt<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash48.txt
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash48.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>TFKN</code></p>
+<h4 id="e-wysanie-wyniku_1">(e) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4008/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;TFKN&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="zadanie-49-md5-z-crunch-pass-4-cyfry">Zadanie 4.9 - MD5 z crunch (pass + 4 cyfry)</h2>
+<h3 id="polecenie_8">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4009</code> działa prosty serwer HTTP udostępniający hash MD5 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło to słowo "pass" z sufiksem z 4 cyfr (np. pass0000, pass1234), wygeneruj słownik i złam hash.</p>
+<h3 id="rozwiazanie_8">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_8">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4009</span>:4009<span class="w"> </span>--name<span class="w"> </span>ex9<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex9:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_6">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4009/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash49.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>228cc33f0153287add65b6041e56a0c0</code></p>
+<h4 id="c-generowanie-sownika_2">(c) Generowanie słownika</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1"># W crunch: % = cyfra (0-9)</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>crunch<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="m">8</span><span class="w"> </span>-t<span class="w"> </span>pass%%%%<span class="w"> </span>-o<span class="w"> </span>dict49.txt
+</code></pre></div>
+<p><strong>Słownik zawiera:</strong> pass0000, pass0001, ..., pass9999 (10,000 wpisów)</p>
+<h4 id="d-zamanie-hashu_2">(d) Złamanie hashu</h4>
+<p><strong>Hashcat ze słownikiem:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash49.txt<span class="w"> </span>dict49.txt<span class="w"> </span>--force
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash49.txt<span class="w"> </span>dict49.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>Lub hashcat z maską:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash49.txt<span class="w"> </span><span class="s1">&#39;pass?d?d?d?d&#39;</span><span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>dict49.txt<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash49.txt
+<a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash49.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>pass####</code> (przykład: pass1234)</p>
+<p><strong>UWAGA:</strong> Ten serwer może mieć błąd - jeśli nie działa, zrestartuj Docker.</p>
+<h4 id="e-wysanie-wyniku_2">(e) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4009/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;pass1234&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie wzorców crunch:</strong>
+- <code>%</code> - cyfra (0-9)
+- <code>@</code> - mała litera (a-z)
+- <code>,</code> - wielka litera (A-Z)
+- <code>^</code> - znak specjalny</p>
+<hr />
+<h2 id="zadanie-410-permutacje-sow">Zadanie 4.10 - Permutacje słów</h2>
+<h3 id="polecenie_9">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4010</code> działa prosty serwer HTTP udostępniający hash MD5 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło to permutacje słów: admin, password, 123, wygeneruj słownik i złam hash.</p>
+<h3 id="rozwiazanie_9">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_9">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4010</span>:4010<span class="w"> </span>--name<span class="w"> </span>ex10<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex10:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_7">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4010/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash410.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>eeffe703e9206c22ffa09e74edaee793</code></p>
+<h4 id="c-generowanie-sownika-permutacji">(c) Generowanie słownika permutacji</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="c1"># Flaga -p generuje wszystkie permutacje podanych słów</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>crunch<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">20</span><span class="w"> </span>-p<span class="w"> </span>admin<span class="w"> </span>password<span class="w"> </span><span class="m">123</span><span class="w"> </span>&gt;<span class="w"> </span>dict410.txt
+</code></pre></div>
+<p><strong>Słownik zawiera 6 permutacji:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>123adminpassword
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>123passwordadmin
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>admin123password
+<a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>adminpassword123
+<a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>password123admin
+<a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>passwordadmin123
+</code></pre></div></p>
+<h4 id="d-zamanie-hashu_3">(d) Złamanie hashu</h4>
+<p><strong>Hashcat:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash410.txt<span class="w"> </span>dict410.txt<span class="w"> </span>--force
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash410.txt<span class="w"> </span>dict410.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>dict410.txt<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash410.txt
+<a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash410.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>admin123password</code></p>
+<h4 id="e-wysanie-wyniku_3">(e) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4010/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;admin123password&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-p</code> - generuje permutacje (wszystkie możliwe kolejności)
+- Dla 3 elementów: 3! = 6 permutacji
+- <code>crunch 1 20</code> - min=1, max=20 (aby pomieścić najdłuższą permutację)</p>
+<hr />
+<h2 id="zadanie-411-wzorzec-5-znakow">Zadanie 4.11 - Wzorzec 5 znaków</h2>
+<h3 id="polecenie_10">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4011</code> działa prosty serwer HTTP udostępniający hash MD5 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło ma wzorzec:
+- Znak 1: wielka litera (A-Z)
+- Znak 2: mała litera (a-z)
+- Znak 3: cyfra (0-9)
+- Znaki 4-5: znaki specjalne (!, @, #, $, %, ^, &amp;, *, itd.)</p>
+<p>Wygeneruj słownik i złam hash.</p>
+<h3 id="rozwiazanie_10">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_10">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4011</span>:4011<span class="w"> </span>--name<span class="w"> </span>ex11<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex11:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_8">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4011/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash411.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>68793f841751bef32d2e000242e782f9</code></p>
+<h4 id="c-generowanie-sownika_3">(c) Generowanie słownika</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="c1"># W crunch:</span>
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="c1"># , = wielka litera (A-Z)</span>
+<a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="c1"># @ = mała litera (a-z)</span>
+<a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a><span class="c1"># % = cyfra (0-9)</span>
+<a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a><span class="c1"># ^ = znaki specjalne</span>
+<a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>crunch<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">5</span><span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;,@%^^&#39;</span><span class="w"> </span>-o<span class="w"> </span>dict411.txt
+</code></pre></div>
+<p><strong>Słownik zawiera ~7.3 miliona kombinacji</strong></p>
+<h4 id="d-zamanie-hashu_4">(d) Złamanie hashu</h4>
+<p><strong>Hashcat ze słownikiem:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash411.txt<span class="w"> </span>dict411.txt<span class="w"> </span>--force
+<a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash411.txt<span class="w"> </span>dict411.txt<span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>Lub hashcat z maską:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="c1"># ?u = wielka litera, ?l = mała litera, ?d = cyfra, ?s = znaki specjalne</span>
+<a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>hash411.txt<span class="w"> </span><span class="s1">&#39;?u?l?d?s?s&#39;</span><span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>dict411.txt<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash411.txt
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-md5<span class="w"> </span>hash411.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>Xe3*!</code></p>
+<h4 id="e-wysanie-wyniku_4">(e) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4011/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;Xe3*!&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<hr />
+<h2 id="zadanie-412-brute-force-4-mae-litery">Zadanie 4.12 - Brute-force 4 małe litery</h2>
+<h3 id="polecenie_11">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4012</code> działa prosty serwer HTTP udostępniający hash SHA-1 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło składa się z 4 małych liter (a-z), złam hash używając brute-force (bez słownika).</p>
+<h3 id="rozwiazanie_11">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_11">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4012</span>:4012<span class="w"> </span>--name<span class="w"> </span>ex12<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex12:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_9">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4012/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash412.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>2223b2b645cd955097e7c922dc4100a845f602d2</code></p>
+<h4 id="c-zamanie-hashu-brute-force">(c) Złamanie hashu brute-force</h4>
+<p><strong>Hashcat z maską:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="c1"># ?l = mała litera (a-z)</span>
+<a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash412.txt<span class="w"> </span><span class="s1">&#39;?l?l?l?l&#39;</span><span class="w"> </span>--force
+<a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash412.txt<span class="w"> </span><span class="s1">&#39;?l?l?l?l&#39;</span><span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>john<span class="w"> </span>--mask<span class="o">=</span><span class="s1">&#39;?l?l?l?l&#39;</span><span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash412.txt
+<a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash412.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>dstt</code></p>
+<h4 id="d-wysanie-wyniku_4">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4012/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;dstt&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-a 3</code> - tryb brute-force (mask attack)
+- <code>-m 100</code> - SHA-1
+- <code>?l?l?l?l</code> - 4 małe litery
+- Przestrzeń kluczy: 26^4 = 456,976 kombinacji</p>
+<hr />
+<h2 id="zadanie-413-brute-force-wielka-3-cyfry">Zadanie 4.13 - Brute-force wielka + 3 cyfry</h2>
+<h3 id="polecenie_12">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4013</code> działa prosty serwer HTTP udostępniający hash SHA-1 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło składa się z 1 wielkiej litery + 3 cyfr (np. A123, Z999), złam hash używając brute-force.</p>
+<h3 id="rozwiazanie_12">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_12">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4013</span>:4013<span class="w"> </span>--name<span class="w"> </span>ex13<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex13:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_10">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4013/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash413.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>62a222f55419948764ebc96ec2c26d42824bcd41</code></p>
+<h4 id="c-zamanie-hashu_3">(c) Złamanie hashu</h4>
+<p><strong>Hashcat:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="c1"># ?u = wielka litera (A-Z), ?d = cyfra (0-9)</span>
+<a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash413.txt<span class="w"> </span><span class="s1">&#39;?u?d?d?d&#39;</span><span class="w"> </span>--force
+<a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash413.txt<span class="w"> </span><span class="s1">&#39;?u?d?d?d&#39;</span><span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>John the Ripper:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>john<span class="w"> </span>--mask<span class="o">=</span><span class="s1">&#39;?u?d?d?d&#39;</span><span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash413.txt
+<a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash413.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>R538</code></p>
+<h4 id="d-wysanie-wyniku_5">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4013/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;R538&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- Przestrzeń kluczy: 26 × 10^3 = 26,000 kombinacji
+- Bardzo szybkie do złamania</p>
+<hr />
+<h2 id="zadanie-414-custom-character-sets">Zadanie 4.14 - Custom character sets</h2>
+<h3 id="polecenie_13">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4014</code> działa prosty serwer HTTP udostępniający hash SHA-1 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło ma wzorzec:
+- Znak 1: litera z {a, b, c}
+- Znak 2: cyfra z {4, 6, 8}
+- Znak 3: znak specjalny z {*, %, :}</p>
+<p>Złam hash używając custom character sets.</p>
+<h3 id="rozwiazanie_13">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_13">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4014</span>:4014<span class="w"> </span>--name<span class="w"> </span>ex14<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex14:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_11">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4014/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash414.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>0b26fa991a9d529f604215255e970a2c2fc971a6</code></p>
+<h4 id="c-zamanie-hashu_4">(c) Złamanie hashu</h4>
+<p><strong>Hashcat z custom character sets:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a><span class="c1"># -1 abc = zestaw 1: a, b, c</span>
+<a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a><span class="c1"># -2 468 = zestaw 2: 4, 6, 8</span>
+<a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a><span class="c1"># -3 *%: = zestaw 3: *, %, :</span>
+<a id="__codelineno-81-4" name="__codelineno-81-4" href="#__codelineno-81-4"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash414.txt<span class="w"> </span>-1<span class="w"> </span>abc<span class="w"> </span>-2<span class="w"> </span><span class="m">468</span><span class="w"> </span>-3<span class="w"> </span><span class="s1">&#39;*%:&#39;</span><span class="w"> </span><span class="s1">&#39;?1?2?3&#39;</span><span class="w"> </span>--force
+<a id="__codelineno-81-5" name="__codelineno-81-5" href="#__codelineno-81-5"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash414.txt<span class="w"> </span>-1<span class="w"> </span>abc<span class="w"> </span>-2<span class="w"> </span><span class="m">468</span><span class="w"> </span>-3<span class="w"> </span><span class="s1">&#39;*%:&#39;</span><span class="w"> </span><span class="s1">&#39;?1?2?3&#39;</span><span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>Lub crunch + john:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>crunch<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">3</span><span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;@%^&#39;</span><span class="w"> </span>-1<span class="w"> </span>abc<span class="w"> </span>-2<span class="w"> </span><span class="m">468</span><span class="w"> </span>-3<span class="w"> </span><span class="s1">&#39;*%:&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>dict414.txt
+<a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>dict414.txt<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash414.txt
+<a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash414.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>a4:</code></p>
+<h4 id="d-wysanie-wyniku_6">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4014/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;a4:&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-1</code>, <code>-2</code>, <code>-3</code> - definiują custom character sets
+- <code>?1</code>, <code>?2</code>, <code>?3</code> - odnoszą się do zestawów w masce
+- Przestrzeń kluczy: 3 × 3 × 3 = 27 kombinacji</p>
+<hr />
+<h2 id="zadanie-415-adres-mac">Zadanie 4.15 - Adres MAC</h2>
+<h3 id="polecenie_14">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:4015</code> działa prosty serwer HTTP udostępniający hash SHA-1 do złamania.</p>
+<p><strong>Zadanie:</strong> Wiedząc, że hasło to adres MAC w formacie:
+- Prefix: <code>00:14:22:ff:ff:</code> (stały)
+- Suffix: XX (2 znaki hex: 0-9, a-f)</p>
+<p>Złam hash używając brute-force.</p>
+<h3 id="rozwiazanie_14">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_14">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">4015</span>:4015<span class="w"> </span>--name<span class="w"> </span>ex15<span class="w"> </span>docker.io/mazurkatarzyna/pass-cracking-ex15:latest
+</code></pre></div>
+<h4 id="b-pobranie-hashu_12">(b) Pobranie hashu</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:4015/hash<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span>.hash<span class="w"> </span>&gt;<span class="w"> </span>hash415.txt
+</code></pre></div>
+<p><strong>Hash:</strong> <code>5540dfe65be6a76560e2b19b3771b38aa44dcd8f</code></p>
+<h4 id="c-zamanie-hashu_5">(c) Złamanie hashu</h4>
+<p><strong>Hashcat z custom hex charset:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="c1"># -1 0123456789abcdef = charset hex</span>
+<a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash415.txt<span class="w"> </span>-1<span class="w"> </span>0123456789abcdef<span class="w"> </span><span class="s1">&#39;00:14:22:ff:ff:?1?1&#39;</span><span class="w"> </span>--force
+<a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash415.txt<span class="w"> </span>-1<span class="w"> </span>0123456789abcdef<span class="w"> </span><span class="s1">&#39;00:14:22:ff:ff:?1?1&#39;</span><span class="w"> </span>--show
+</code></pre></div></p>
+<p><strong>Lub z hashcat hex charset ?h:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a><span class="c1"># ?h = hex (0-9a-f)</span>
+<a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>hashcat<span class="w"> </span>-a<span class="w"> </span><span class="m">3</span><span class="w"> </span>-m<span class="w"> </span><span class="m">100</span><span class="w"> </span>hash415.txt<span class="w"> </span><span class="s1">&#39;00:14:22:ff:ff:?h?h&#39;</span><span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>Lub crunch + john:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>crunch<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">17</span><span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;00:14:22:ff:ff:@@&#39;</span><span class="w"> </span>-1<span class="w"> </span>0123456789abcdef<span class="w"> </span>&gt;<span class="w"> </span>dict415.txt
+<a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>dict415.txt<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash415.txt
+<a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a>john<span class="w"> </span>--show<span class="w"> </span>--format<span class="o">=</span>raw-sha1<span class="w"> </span>hash415.txt
+</code></pre></div></p>
+<p><strong>Hasło:</strong> <code>00:14:22:ff:ff:d0</code></p>
+<h4 id="d-wysanie-wyniku_7">(d) Wysłanie wyniku</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:4015/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-89-3" name="__codelineno-89-3" href="#__codelineno-89-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;word&quot;: &quot;00:14:22:ff:ff:d0&quot;}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- OUI (Organizationally Unique Identifier): <code>00:14:22</code> - Dell
+- Przestrzeń kluczy: 16^2 = 256 kombinacji (00-ff)
+- <code>?h</code> w hashcat = hex digit (0-9a-f)</p>
+<hr />
+<h2 id="podsumowanie">Podsumowanie</h2>
+<h3 id="ukonczone-zadania">Ukończone zadania</h3>
+<table>
+<thead>
+<tr>
+<th>Zadanie</th>
+<th>Typ hashu</th>
+<th>Metoda</th>
+<th>Hasło</th>
+<th>Czas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.2</td>
+<td>SHA-1</td>
+<td>Dictionary</td>
+<td>ronald</td>
+<td>Szybko</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>SHA-256</td>
+<td>Dictionary</td>
+<td>juantech</td>
+<td>Szybko</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>SHA-512</td>
+<td>Dictionary</td>
+<td>user</td>
+<td>Szybko</td>
+</tr>
+<tr>
+<td>4.5</td>
+<td>bcrypt</td>
+<td>Dictionary</td>
+<td>112502</td>
+<td>Wolno</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>scrypt</td>
+<td>Dictionary</td>
+<td>asdfgh</td>
+<td>Bardzo wolno</td>
+</tr>
+<tr>
+<td>4.7</td>
+<td>MD5</td>
+<td>Crunch (3 cyfry)</td>
+<td>506</td>
+<td>Szybko</td>
+</tr>
+<tr>
+<td>4.8</td>
+<td>MD5</td>
+<td>Crunch (4 wielkie)</td>
+<td>TFKN</td>
+<td>Szybko</td>
+</tr>
+<tr>
+<td>4.9</td>
+<td>MD5</td>
+<td>Crunch (pass+4 cyfry)</td>
+<td>pass####</td>
+<td>Błąd serwera</td>
+</tr>
+<tr>
+<td>4.10</td>
+<td>MD5</td>
+<td>Permutacje</td>
+<td>admin123password</td>
+<td>Szybko</td>
+</tr>
+<tr>
+<td>4.11</td>
+<td>MD5</td>
+<td>Wzorzec 5 znaków</td>
+<td>Xe3*!</td>
+<td>Średnio</td>
+</tr>
+<tr>
+<td>4.12</td>
+<td>SHA-1</td>
+<td>Brute-force (4 małe)</td>
+<td>dstt</td>
+<td>Szybko</td>
+</tr>
+<tr>
+<td>4.13</td>
+<td>SHA-1</td>
+<td>Brute-force (wielka+3)</td>
+<td>R538</td>
+<td>Bardzo szybko</td>
+</tr>
+<tr>
+<td>4.14</td>
+<td>SHA-1</td>
+<td>Custom sets</td>
+<td>a4:</td>
+<td>Bardzo szybko</td>
+</tr>
+<tr>
+<td>4.15</td>
+<td>SHA-1</td>
+<td>MAC address</td>
+<td>00:14:22:ff:ff:d0</td>
+<td>Bardzo szybko</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hashcat-tryby-ataku">Hashcat - tryby ataku</h3>
+<table>
+<thead>
+<tr>
+<th>Tryb</th>
+<th>Nazwa</th>
+<th>Użycie</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a 0</code></td>
+<td>Dictionary</td>
+<td>Gotowy słownik</td>
+<td><code>hashcat -a 0 -m 0 hash.txt wordlist.txt</code></td>
+</tr>
+<tr>
+<td><code>-a 3</code></td>
+<td>Brute-force</td>
+<td>Maski</td>
+<td><code>hashcat -a 3 -m 0 hash.txt '?l?l?l?l'</code></td>
+</tr>
+<tr>
+<td><code>-a 6</code></td>
+<td>Hybrid (dict+mask)</td>
+<td>Słownik + cyfry</td>
+<td><code>hashcat -a 6 -m 0 hash.txt dict.txt '?d?d'</code></td>
+</tr>
+<tr>
+<td><code>-a 7</code></td>
+<td>Hybrid (mask+dict)</td>
+<td>Cyfry + słownik</td>
+<td><code>hashcat -a 7 -m 0 hash.txt '?d?d' dict.txt</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="hashcat-maski-charset-built-in">Hashcat - maski (charset built-in)</h3>
+<table>
+<thead>
+<tr>
+<th>Maska</th>
+<th>Opis</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>?l</code></td>
+<td>Lowercase (a-z)</td>
+<td><code>?l?l?l</code> = abc</td>
+</tr>
+<tr>
+<td><code>?u</code></td>
+<td>Uppercase (A-Z)</td>
+<td><code>?u?u</code> = AB</td>
+</tr>
+<tr>
+<td><code>?d</code></td>
+<td>Digit (0-9)</td>
+<td><code>?d?d?d</code> = 123</td>
+</tr>
+<tr>
+<td><code>?s</code></td>
+<td>Special</td>
+<td><code>?s?s</code> = !@</td>
+</tr>
+<tr>
+<td><code>?a</code></td>
+<td>All printable</td>
+<td><code>?a?a?a</code> = A2!</td>
+</tr>
+<tr>
+<td><code>?h</code></td>
+<td>Hex (0-9a-f)</td>
+<td><code>?h?h</code> = a3</td>
+</tr>
+<tr>
+<td><code>?b</code></td>
+<td>Binary (0x00-0xff)</td>
+<td>wszystkie bajty</td>
+</tr>
+</tbody>
+</table>
+<h3 id="crunch-wzorce-templates_1">Crunch - wzorce (templates)</h3>
+<table>
+<thead>
+<tr>
+<th>Wzorzec</th>
+<th>Opis</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@</code></td>
+<td>Lowercase (a-z)</td>
+<td><code>@@@</code> = abc</td>
+</tr>
+<tr>
+<td><code>,</code></td>
+<td>Uppercase (A-Z)</td>
+<td><code>,,,</code> = ABC</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>Digit (0-9)</td>
+<td><code>%%%</code> = 123</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Special</td>
+<td><code>^^</code> = !@</td>
+</tr>
+</tbody>
+</table>
+<h3 id="typy-hashy-porownanie">Typy hashy - porównanie</h3>
+<table>
+<thead>
+<tr>
+<th>Hash</th>
+<th>Bezpieczeństwo</th>
+<th>Szybkość łamania</th>
+<th>Zastosowanie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MD5</strong></td>
+<td>❌ Słabe</td>
+<td>⚡ Bardzo szybkie</td>
+<td>Przestarzałe</td>
+</tr>
+<tr>
+<td><strong>SHA-1</strong></td>
+<td>❌ Słabe</td>
+<td>⚡ Bardzo szybkie</td>
+<td>Git (nie do haseł)</td>
+</tr>
+<tr>
+<td><strong>SHA-256</strong></td>
+<td>✅ Dobre*</td>
+<td>⚡ Szybkie</td>
+<td>Bitcoin, SSL</td>
+</tr>
+<tr>
+<td><strong>SHA-512</strong></td>
+<td>✅ Dobre*</td>
+<td>⚡ Szybkie</td>
+<td>Linux/Unix</td>
+</tr>
+<tr>
+<td><strong>bcrypt</strong></td>
+<td>✅✅ Bardzo dobre</td>
+<td>🐌 Wolne</td>
+<td>Web apps</td>
+</tr>
+<tr>
+<td><strong>scrypt</strong></td>
+<td>✅✅✅ Najlepsze</td>
+<td>🐌🐌 Bardzo wolne</td>
+<td>Kryptowaluty</td>
+</tr>
+</tbody>
+</table>
+<p>*SHA-2 jest bezpieczny, ale szybki - dla haseł lepiej użyć bcrypt/scrypt</p>
+<h3 id="najlepsze-praktyki">Najlepsze praktyki</h3>
+<p><strong>Generowanie słowników:</strong>
+1. Używaj crunch dla małych przestrzeni kluczy (&lt; 10 milionów)
+2. Dla większych - używaj masek w hashcat
+3. Permutacje (<code>-p</code>) dla znanych słów</p>
+<p><strong>Łamanie haseł:</strong>
+1. Zacznij od dictionary attack (najszybszy)
+2. Jeśli nie działa, spróbuj brute-force z maską
+3. Dla wolnych hashy (bcrypt/scrypt) używaj małych słowników</p>
+<p><strong>Bezpieczeństwo:</strong>
+- Minimum 12 znaków dla haseł
+- Mieszaj wielkie, małe, cyfry, znaki specjalne
+- Używaj bcrypt/scrypt zamiast MD5/SHA-1
+- Nigdy nie używaj prostych wzorców</p>
+<h3 id="przydatne-komendy">Przydatne komendy</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a><span class="c1"># Sprawdzenie długości hashu</span>
+<a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;hash&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-c
+<a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a>
+<a id="__codelineno-90-4" name="__codelineno-90-4" href="#__codelineno-90-4"></a><span class="c1"># Generowanie własnego hashu MD5</span>
+<a id="__codelineno-90-5" name="__codelineno-90-5" href="#__codelineno-90-5"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>md5sum
+<a id="__codelineno-90-6" name="__codelineno-90-6" href="#__codelineno-90-6"></a>
+<a id="__codelineno-90-7" name="__codelineno-90-7" href="#__codelineno-90-7"></a><span class="c1"># Generowanie SHA-256</span>
+<a id="__codelineno-90-8" name="__codelineno-90-8" href="#__codelineno-90-8"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sha256sum
+<a id="__codelineno-90-9" name="__codelineno-90-9" href="#__codelineno-90-9"></a>
+<a id="__codelineno-90-10" name="__codelineno-90-10" href="#__codelineno-90-10"></a><span class="c1"># Sprawdzenie typu hashu (hashid)</span>
+<a id="__codelineno-90-11" name="__codelineno-90-11" href="#__codelineno-90-11"></a>hashid<span class="w"> </span><span class="s1">&#39;hash_string&#39;</span>
+<a id="__codelineno-90-12" name="__codelineno-90-12" href="#__codelineno-90-12"></a>
+<a id="__codelineno-90-13" name="__codelineno-90-13" href="#__codelineno-90-13"></a><span class="c1"># Benchmark hashcat</span>
+<a id="__codelineno-90-14" name="__codelineno-90-14" href="#__codelineno-90-14"></a>hashcat<span class="w"> </span>-b
+<a id="__codelineno-90-15" name="__codelineno-90-15" href="#__codelineno-90-15"></a>
+<a id="__codelineno-90-16" name="__codelineno-90-16" href="#__codelineno-90-16"></a><span class="c1"># Lista dostępnych typów hashy</span>
+<a id="__codelineno-90-17" name="__codelineno-90-17" href="#__codelineno-90-17"></a>hashcat<span class="w"> </span>--example-hashes<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;md5&quot;</span>
+</code></pre></div>
+<h3 id="workspace-i-narzedzia">Workspace i narzędzia</h3>
+<p><strong>Zainstalowane:</strong>
+- Hashcat 7.1.2
+- John the Ripper
+- Crunch
+- OpenSSL
+- jq</p>
+<p><strong>Struktura folderów:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>2025-11-04/
+<a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a>├── 04-11-25.txt          # Oryginalne notatki
+<a id="__codelineno-91-3" name="__codelineno-91-3" href="#__codelineno-91-3"></a>├── 2025-11-04.md         # Ten plik Markdown
+<a id="__codelineno-91-4" name="__codelineno-91-4" href="#__codelineno-91-4"></a>├── hash4*.txt            # Pobrane hashe
+<a id="__codelineno-91-5" name="__codelineno-91-5" href="#__codelineno-91-5"></a>├── dict4*.txt            # Wygenerowane słowniki
+<a id="__codelineno-91-6" name="__codelineno-91-6" href="#__codelineno-91-6"></a>└── slowniki/             # Gotowe wordlisty
+<a id="__codelineno-91-7" name="__codelineno-91-7" href="#__codelineno-91-7"></a>    ├── ex41/
+<a id="__codelineno-91-8" name="__codelineno-91-8" href="#__codelineno-91-8"></a>    ├── ex42/
+<a id="__codelineno-91-9" name="__codelineno-91-9" href="#__codelineno-91-9"></a>    └── ...
+</code></pre></div></p>
+<h3 id="roznice-miedzy-hashcat-a-john">Różnice między hashcat a john</h3>
+<table>
+<thead>
+<tr>
+<th>Cecha</th>
+<th>Hashcat</th>
+<th>John the Ripper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Szybkość</strong></td>
+<td>Bardzo szybki (GPU)</td>
+<td>Wolniejszy (CPU)</td>
+</tr>
+<tr>
+<td><strong>Formaty</strong></td>
+<td>300+ typów</td>
+<td>Mniej formatów</td>
+</tr>
+<tr>
+<td><strong>Maski</strong></td>
+<td>Zaawansowane</td>
+<td>Podstawowe</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>Linia komend</td>
+<td>Linia komend</td>
+</tr>
+<tr>
+<td><strong>GPU</strong></td>
+<td>Tak</td>
+<td>Nie (OpenCL w wersji Jumbo)</td>
+</tr>
+<tr>
+<td><strong>Prostota</strong></td>
+<td>Średnia</td>
+<td>Prosta</td>
+</tr>
+</tbody>
+</table>
+<h3 id="czas-amania-przykady">Czas łamania - przykłady</h3>
+<p><strong>MD5 (CPU, 12 rdzeni):</strong>
+- 4 małe litery: &lt; 1 sekunda
+- 8 małych liter: ~2 godziny
+- 12 małych liter: ~500 lat</p>
+<p><strong>bcrypt (cost=12):</strong>
+- Słownik 1000 słów: ~10 sekund
+- Słownik 1 milion: ~3 godziny
+- Brute-force 6 znaków: ~10 lat</p>
+<p><strong>Wnioski:</strong>
+- MD5/SHA-1 NIE nadają się do haseł
+- Używaj bcrypt z cost &gt;= 10
+- Długość hasła &gt; algorytm hashu</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/alezab"  target="_blank" rel="noopener">alezab</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/alezab" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

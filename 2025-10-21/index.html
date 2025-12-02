@@ -1,0 +1,2323 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2025-10-14/">
+      
+      
+        <link rel="next" href="../2025-10-28/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Laboratorium - Szyfrowanie Symetryczne - Linux Geeks</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#laboratorium-szyfrowanie-symetryczne" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Linux Geeks" class="md-header__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Linux Geeks
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Laboratorium - Szyfrowanie Symetryczne
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Linux Geeks" class="md-nav__button md-logo" aria-label="Linux Geeks" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Linux Geeks
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - cURL i jq (JSON Query)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Funkcje Skrótu (Hashing)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Symetryczne
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Symetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#spis-tresci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spis treści
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wstep-podstawy-szyfrowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wstęp - Podstawy szyfrowania
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wstęp - Podstawy szyfrowania">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typy-szyfrowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy szyfrowania
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorytm-aes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorytm AES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kodowanie-base64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kodowanie Base64
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openssl-podstawy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSSL - podstawy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pbkdf2-password-based-key-derivation-function-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PBKDF2 (Password-Based Key Derivation Function 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-21-szyfrowanie-aes-256-ecb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.1 - Szyfrowanie AES-256-ECB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.1 - Szyfrowanie AES-256-ECB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-sowa-i-klucza" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie słowa i klucza
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zaszyfrowanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Zaszyfrowanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-22-deszyfrowanie-aes-256-ecb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.2 - Deszyfrowanie AES-256-ECB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.2 - Deszyfrowanie AES-256-ECB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-zaszyfrowanego-sowa-i-klucza" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie zaszyfrowanego słowa i klucza
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-deszyfrowanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Deszyfrowanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-23-szyfrowanie-camellia-128-ecb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.3 - Szyfrowanie CAMELLIA-128-ECB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.3 - Szyfrowanie CAMELLIA-128-ECB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-sowa-i-klucza_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie słowa i klucza
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-zaszyfrowanie-algorytmem-camellia-128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Zaszyfrowanie algorytmem CAMELLIA-128
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-24-deszyfrowanie-camellia-128-ecb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.4 - Deszyfrowanie CAMELLIA-128-ECB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.4 - Deszyfrowanie CAMELLIA-128-ECB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-zaszyfrowanego-sowa-i-klucza_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie zaszyfrowanego słowa i klucza
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-deszyfrowanie-sowa_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Deszyfrowanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-25-szyfrowanie-aria-192-ecb-z-wasnym-kluczem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.5 - Szyfrowanie ARIA-192-ECB z własnym kluczem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.5 - Szyfrowanie ARIA-192-ECB z własnym kluczem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-sowa-do-zaszyfrowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie słowa do zaszyfrowania
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wygenerowanie-klucza-192-bitowego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wygenerowanie klucza 192-bitowego
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-zaszyfrowanie-sowa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Zaszyfrowanie słowa
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-wysanie-odpowiedzi-do-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-26-szyfrowanie-aes-128-cbc-z-kluczem-i-iv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.6 - Szyfrowanie AES-128-CBC z kluczem i IV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.6 - Szyfrowanie AES-128-CBC z kluczem i IV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-sowa-do-zaszyfrowania_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie słowa do zaszyfrowania
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-wygenerowanie-klucza-128-bitowego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Wygenerowanie klucza 128-bitowego
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wygenerowanie-wektora-inicjalizujacego-iv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wygenerowanie wektora inicjalizującego (IV)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e-zaszyfrowanie-sowa-algorytmem-aes-128-cbc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (e) Zaszyfrowanie słowa algorytmem AES-128-CBC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f-wysanie-odpowiedzi-do-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (f) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-27-deszyfrowanie-aes-256-cbc-z-pbkdf2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.7 - Deszyfrowanie AES-256-CBC z PBKDF2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.7 - Deszyfrowanie AES-256-CBC z PBKDF2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-zaszyfrowanego-sowa-hasa-i-iv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie zaszyfrowanego słowa, hasła i IV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-deszyfrowanie-z-uzyciem-pbkdf2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Deszyfrowanie z użyciem PBKDF2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-28-deszyfrowanie-3des-z-pbkdf2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.8 - Deszyfrowanie 3DES z PBKDF2
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.8 - Deszyfrowanie 3DES z PBKDF2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-zaszyfrowanego-sowa-hasa-i-iv_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie zaszyfrowanego słowa, hasła i IV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-deszyfrowanie-algorytmem-3des" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Deszyfrowanie algorytmem 3DES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-29-deszyfrowanie-aes-256-ecb-z-pbkdf2-i-iteracjami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.9 - Deszyfrowanie AES-256-ECB z PBKDF2 i iteracjami
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.9 - Deszyfrowanie AES-256-ECB z PBKDF2 i iteracjami">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-zaszyfrowanego-sowa-i-hasa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie zaszyfrowanego słowa i hasła
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-deszyfrowanie-z-okreslona-liczba-iteracji" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Deszyfrowanie z określoną liczbą iteracji
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-210-identyfikacja-algorytmu-szyfrowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.10 - Identyfikacja algorytmu szyfrowania
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.10 - Identyfikacja algorytmu szyfrowania">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-zaszyfrowanego-sowa-i-kluczy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie zaszyfrowanego słowa i kluczy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-testowanie-roznych-algorytmow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Testowanie różnych algorytmów
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zadanie-211-szyfrowanie-obrazka-aria-128-ctr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zadanie 2.11 - Szyfrowanie obrazka ARIA-128-CTR
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zadanie 2.11 - Szyfrowanie obrazka ARIA-128-CTR">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polecenie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polecenie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rozwiazanie_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rozwiązanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rozwiązanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-uruchomienie-serwera_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (a) Uruchomienie serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-pobranie-danych-z-serwera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (b) Pobranie danych z serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-dekodowanie-obrazka-z-base64-i-szyfrowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (c) Dekodowanie obrazka z base64 i szyfrowanie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-wysanie-odpowiedzi-do-serwera_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (d) Wysłanie odpowiedzi do serwera
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podsumowanie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podsumowanie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Podsumowanie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#poznane-algorytmy-szyfrowania" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poznane algorytmy szyfrowania
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tryby-pracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tryby pracy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wazne-komendy-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ważne komendy OpenSSL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uwagi-koncowe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uwagi końcowe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-10-28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Szyfrowanie Asymetryczne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorium - Łamanie Haseł
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-11-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPG Exercises - 2025-11-18
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../powt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zadania - Bezpieczeństwo Systemów
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="laboratorium-szyfrowanie-symetryczne">Laboratorium - Szyfrowanie Symetryczne</h1>
+<p>Data: 21 października 2025</p>
+<h2 id="spis-tresci">Spis treści</h2>
+<ul>
+<li><a href="#wstęp---podstawy-szyfrowania">Wstęp - Podstawy szyfrowania</a></li>
+<li><a href="#zadanie-21---szyfrowanie-aes-256-ecb">Zadanie 2.1 - Szyfrowanie AES-256-ECB</a></li>
+<li><a href="#zadanie-22---deszyfrowanie-aes-256-ecb">Zadanie 2.2 - Deszyfrowanie AES-256-ECB</a></li>
+<li><a href="#zadanie-23---szyfrowanie-camellia-128-ecb">Zadanie 2.3 - Szyfrowanie CAMELLIA-128-ECB</a></li>
+<li><a href="#zadanie-24---deszyfrowanie-camellia-128-ecb">Zadanie 2.4 - Deszyfrowanie CAMELLIA-128-ECB</a></li>
+<li><a href="#zadanie-25---szyfrowanie-aria-192-ecb-z-własnym-kluczem">Zadanie 2.5 - Szyfrowanie ARIA-192-ECB z własnym kluczem</a></li>
+<li><a href="#zadanie-26---szyfrowanie-aes-128-cbc-z-kluczem-i-iv">Zadanie 2.6 - Szyfrowanie AES-128-CBC z kluczem i IV</a></li>
+<li><a href="#zadanie-27---deszyfrowanie-aes-256-cbc-z-pbkdf2">Zadanie 2.7 - Deszyfrowanie AES-256-CBC z PBKDF2</a></li>
+<li><a href="#zadanie-28---deszyfrowanie-3des-z-pbkdf2">Zadanie 2.8 - Deszyfrowanie 3DES z PBKDF2</a></li>
+<li><a href="#zadanie-29---deszyfrowanie-aes-256-ecb-z-pbkdf2-i-iteracjami">Zadanie 2.9 - Deszyfrowanie AES-256-ECB z PBKDF2 i iteracjami</a></li>
+<li><a href="#zadanie-210---identyfikacja-algorytmu-szyfrowania">Zadanie 2.10 - Identyfikacja algorytmu szyfrowania</a></li>
+<li><a href="#zadanie-211---szyfrowanie-obrazka-aria-128-ctr">Zadanie 2.11 - Szyfrowanie obrazka ARIA-128-CTR</a></li>
+</ul>
+<hr />
+<h2 id="wstep-podstawy-szyfrowania">Wstęp - Podstawy szyfrowania</h2>
+<h3 id="typy-szyfrowania">Typy szyfrowania</h3>
+<p><strong>Szyfrowanie symetryczne:</strong>
+- Używa tego samego klucza do szyfrowania (E) i deszyfrowania (D)
+- Klucz ma ustalony rozmiar: 128-256 bitów
+- Szybsze niż szyfrowanie asymetryczne</p>
+<h3 id="algorytm-aes">Algorytm AES</h3>
+<p><strong>Tryby pracy AES:</strong>
+- <strong>ECB</strong> (Electronic Codebook) - wymaga tylko klucza
+- <strong>CBC</strong> (Cipher Block Chaining) - wymaga klucza + IV (Initialization Vector)</p>
+<h3 id="kodowanie-base64">Kodowanie Base64</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># echo dodaje znak nowej linii</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;marek&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># bWFyZWsK</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># echo -n NIE dodaje znaku nowej linii  </span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;marek&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># bWFyZWs=</span>
+</code></pre></div>
+<p><strong>Ważne:</strong> 6 znaków + <code>=</code> to dopełnienie (padding) w Base64</p>
+<h3 id="openssl-podstawy">OpenSSL - podstawy</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Lista algorytmów szyfrowania</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>openssl<span class="w"> </span>enc<span class="w"> </span>-list
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Generowanie losowego klucza (24 bajty = 192 bity)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">24</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># 74c49dcb50dbaf64a910a2d2e6c562fef51dd25464453d49</span>
+</code></pre></div>
+<h3 id="pbkdf2-password-based-key-derivation-function-2">PBKDF2 (Password-Based Key Derivation Function 2)</h3>
+<ul>
+<li>Funkcja wyprowadzania klucza z hasła</li>
+<li>Parametr <code>-iter</code> określa liczbę iteracji</li>
+<li>Parametr <code>-nosalt</code> wyłącza użycie soli</li>
+</ul>
+<hr />
+<h2 id="zadanie-21-szyfrowanie-aes-256-ecb">Zadanie 2.1 - Szyfrowanie AES-256-ECB</h2>
+<h3 id="polecenie">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2001</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2001/encrypt</code> - pobieranie słowa i klucza
+- <code>http://127.0.0.1:2001/submit</code> - wysyłanie zaszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Zaszyfruj otrzymane słowo algorytmem AES-256 w trybie ECB i wyślij wynik w formacie base64.</p>
+<h3 id="rozwiazanie">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2001</span>:2001<span class="w"> </span>--name<span class="w"> </span>ex1<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex1:latest
+</code></pre></div>
+<h4 id="b-pobranie-sowa-i-klucza">(b) Pobranie słowa i klucza</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2001/encrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;key_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f46765e959030fefffe7ed7886d245d8818d995902b4cbf0f8c2d2c235b9eb98&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0110b93de5d06d1a&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;peyton21&quot;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-zaszyfrowanie-sowa">(c) Zaszyfrowanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Kodowanie do base64</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;peyton21&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># cGV5dG9uMjE=</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Szyfrowanie algorytmem AES-256-ECB</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;peyton21&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>enc<span class="w"> </span>-e<span class="w"> </span>-aes-256-ecb<span class="w"> </span>-a<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span>-K<span class="w"> </span>f46765e959030fefffe7ed7886d245d8818d995902b4cbf0f8c2d2c235b9eb98
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># FBRgujapf2Z7FfUxjtgRAQ==</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie opcji:</strong>
+- <code>-e</code> - szyfrowanie (encrypt)
+- <code>-aes-256-ecb</code> - algorytm AES-256 w trybie ECB
+- <code>-a</code> - kodowanie wyjścia do base64
+- <code>-K</code> - klucz w formacie hex (wielkie K!)</p>
+<h4 id="d-wysanie-odpowiedzi-do-serwera">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2001/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;0110b93de5d06d1a&quot;, &quot;encrypted_b64&quot;: &quot;FBRgujapf2Z7FfUxjtgRAQ==&quot;}&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct encryption!&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-22-deszyfrowanie-aes-256-ecb">Zadanie 2.2 - Deszyfrowanie AES-256-ECB</h2>
+<h3 id="polecenie_1">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2002</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2002/decrypt</code> - pobieranie zaszyfrowanego słowa i klucza
+- <code>http://127.0.0.1:2002/submit</code> - wysyłanie odszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Odszyfruj otrzymane słowo algorytmem AES-256 w trybie ECB i wyślij wynik.</p>
+<h3 id="rozwiazanie_1">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_1">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2002</span>:2002<span class="w"> </span>--name<span class="w"> </span>ex2<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex2:latest
+</code></pre></div>
+<h4 id="b-pobranie-zaszyfrowanego-sowa-i-klucza">(b) Pobranie zaszyfrowanego słowa i klucza</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2002/decrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;encrypted_b64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tZEacrf+sI7DvmKbQzNGqQ==&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;key_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9a0eb251a31415a1a882c6a8c0fe0ca6ec6765317b0c5d2701e3888120682d09&quot;</span><span class="p">,</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;931bf9de55925aa1&quot;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-deszyfrowanie-sowa">(c) Deszyfrowanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Odkodowanie z base64 i odszyfrowanie</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;tZEacrf+sI7DvmKbQzNGqQ==&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-ecb<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span>-K<span class="w"> </span>9a0eb251a31415a1a882c6a8c0fe0ca6ec6765317b0c5d2701e3888120682d09
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># 2111990</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie opcji:</strong>
+- <code>-d</code> - deszyfrowanie (decrypt)
+- <code>base64 -d</code> - dekodowanie z base64</p>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_1">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2002/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;931bf9de55925aa1&quot;, &quot;decrypted_word&quot;: &quot;2111990&quot;}&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct decryption!&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-23-szyfrowanie-camellia-128-ecb">Zadanie 2.3 - Szyfrowanie CAMELLIA-128-ECB</h2>
+<h3 id="polecenie_2">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2003</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2003/encrypt</code> - pobieranie słowa i klucza
+- <code>http://127.0.0.1:2003/submit</code> - wysyłanie zaszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Zaszyfruj otrzymane słowo algorytmem CAMELLIA-128 w trybie ECB.</p>
+<h3 id="rozwiazanie_2">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_2">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2003</span>:2003<span class="w"> </span>--name<span class="w"> </span>ex3<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex3:latest
+</code></pre></div>
+<h4 id="b-pobranie-sowa-i-klucza_1">(b) Pobranie słowa i klucza</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2003/encrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;key_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5f131a6c48839aa407e2e7ae017a5ca7&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1ca6436f38171ccc&quot;</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bluelagoon&quot;</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-zaszyfrowanie-algorytmem-camellia-128">(c) Zaszyfrowanie algorytmem CAMELLIA-128</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;bluelagoon&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>enc<span class="w"> </span>-e<span class="w"> </span>-camellia-128-ecb<span class="w"> </span>-a<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span>-K<span class="w"> </span>5f131a6c48839aa407e2e7ae017a5ca7
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># kyWtUMnczO1EPbQmFEIosQ==</span>
+</code></pre></div>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_2">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2003/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;1ca6436f38171ccc&quot;, &quot;encrypted_b64&quot;: &quot;kyWtUMnczO1EPbQmFEIosQ==&quot;}&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct encryption!&quot;</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-24-deszyfrowanie-camellia-128-ecb">Zadanie 2.4 - Deszyfrowanie CAMELLIA-128-ECB</h2>
+<h3 id="polecenie_3">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2004</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2004/decrypt</code> - pobieranie zaszyfrowanego słowa i klucza
+- <code>http://127.0.0.1:2004/submit</code> - wysyłanie odszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Odszyfruj otrzymane słowo algorytmem CAMELLIA-128 w trybie ECB.</p>
+<h3 id="rozwiazanie_3">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_3">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2004</span>:2004<span class="w"> </span>--name<span class="w"> </span>ex4<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex4:latest
+</code></pre></div>
+<h4 id="b-pobranie-zaszyfrowanego-sowa-i-klucza_1">(b) Pobranie zaszyfrowanego słowa i klucza</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2004/decrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">&quot;encrypted_b64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hYvg0v9U5dMi7pvI+2EEXQ==&quot;</span><span class="p">,</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="nt">&quot;key_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8ff401f2095c144c5d86fe398a4761f6&quot;</span><span class="p">,</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1594b22616f8dd01&quot;</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-deszyfrowanie-sowa_1">(c) Deszyfrowanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;hYvg0v9U5dMi7pvI+2EEXQ==&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-camellia-128-ecb<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span>-K<span class="w"> </span>8ff401f2095c144c5d86fe398a4761f6
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># 619925</span>
+</code></pre></div>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_3">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2004/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;1594b22616f8dd01&quot;, &quot;decrypted_word&quot;: &quot;619925&quot;}&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="p">{</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct decryption!&quot;</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-25-szyfrowanie-aria-192-ecb-z-wasnym-kluczem">Zadanie 2.5 - Szyfrowanie ARIA-192-ECB z własnym kluczem</h2>
+<h3 id="polecenie_4">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2005</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2005/encrypt</code> - pobieranie słowa do zaszyfrowania
+- <code>http://127.0.0.1:2005/submit</code> - wysyłanie zaszyfrowanego słowa wraz z kluczem</p>
+<p><strong>Zadanie:</strong> Wygeneruj własny klucz 192-bitowy, zaszyfruj otrzymane słowo algorytmem ARIA-192 w trybie ECB i wyślij wynik wraz z kluczem.</p>
+<h3 id="rozwiazanie_4">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_4">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2005</span>:2005<span class="w"> </span>--name<span class="w"> </span>ex5<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex5:latest
+</code></pre></div>
+<h4 id="b-pobranie-sowa-do-zaszyfrowania">(b) Pobranie słowa do zaszyfrowania</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2005/encrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="p">{</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4d7ecc517e36decf&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;posthardcore&quot;</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-wygenerowanie-klucza-192-bitowego">(c) Wygenerowanie klucza 192-bitowego</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># 192 bity = 24 bajty = 48 znaków hex</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">24</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="c1"># ae9c2b710854c7fa68d69b326012a11b56b1c81e4758c03b</span>
+</code></pre></div>
+<h4 id="d-zaszyfrowanie-sowa">(d) Zaszyfrowanie słowa</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;posthardcore&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>enc<span class="w"> </span>-e<span class="w"> </span>-aria-192-ecb<span class="w"> </span>-a<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span>-K<span class="w"> </span>ae9c2b710854c7fa68d69b326012a11b56b1c81e4758c03b
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="c1"># brQ7sXIxXfltYwXyufaIDg==</span>
+</code></pre></div>
+<h4 id="e-wysanie-odpowiedzi-do-serwera">(e) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2005/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="s1">    &quot;session_id&quot;: &quot;4d7ecc517e36decf&quot;,</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="s1">    &quot;encrypted_b64&quot;: &quot;brQ7sXIxXfltYwXyufaIDg==&quot;,</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="s1">    &quot;key_hex&quot;: &quot;ae9c2b710854c7fa68d69b326012a11b56b1c81e4758c03b&quot;</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="s1">  }&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="p">{</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct encryption!&quot;</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-26-szyfrowanie-aes-128-cbc-z-kluczem-i-iv">Zadanie 2.6 - Szyfrowanie AES-128-CBC z kluczem i IV</h2>
+<h3 id="polecenie_5">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2006</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2006/encrypt</code> - pobieranie słowa do zaszyfrowania
+- <code>http://127.0.0.1:2006/submit</code> - wysyłanie zaszyfrowanego słowa wraz z kluczem i IV</p>
+<p><strong>Zadanie:</strong> Wygeneruj własny klucz 128-bitowy i IV (Initialization Vector) 128-bitowy, zaszyfruj otrzymane słowo algorytmem AES-128 w trybie CBC.</p>
+<h3 id="rozwiazanie_5">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_5">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2006</span>:2006<span class="w"> </span>--name<span class="w"> </span>ex6<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex6:latest
+</code></pre></div>
+<h4 id="b-pobranie-sowa-do-zaszyfrowania_1">(b) Pobranie słowa do zaszyfrowania</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2006/encrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="p">{</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f31c2a06b9c18736&quot;</span><span class="p">,</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="w">  </span><span class="nt">&quot;word&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gboy03&quot;</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-wygenerowanie-klucza-128-bitowego">(c) Wygenerowanie klucza 128-bitowego</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># 128 bitów = 16 bajtów = 32 znaki hex</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">16</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="c1"># a7380441512f607f4a7997a8fa9c3ce8</span>
+</code></pre></div>
+<h4 id="d-wygenerowanie-wektora-inicjalizujacego-iv">(d) Wygenerowanie wektora inicjalizującego (IV)</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># IV również musi mieć 128 bitów</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">16</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="c1"># e4095539a20b5a14e8d60fa1eb198a30</span>
+</code></pre></div>
+<h4 id="e-zaszyfrowanie-sowa-algorytmem-aes-128-cbc">(e) Zaszyfrowanie słowa algorytmem AES-128-CBC</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;gboy03&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>enc<span class="w"> </span>-e<span class="w"> </span>-aes-128-cbc<span class="w"> </span>-a<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">  </span>-K<span class="w"> </span>a7380441512f607f4a7997a8fa9c3ce8<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">  </span>-iv<span class="w"> </span>e4095539a20b5a14e8d60fa1eb198a30
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="c1"># Mm5Gm68uHBTOzFCAcL87qg==</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-iv</code> - wektor inicjalizujący (initialization vector)
+- Opcja <code>-a</code> automatycznie koduje wynik do base64</p>
+<h4 id="f-wysanie-odpowiedzi-do-serwera">(f) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2006/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="s1">    &quot;session_id&quot;: &quot;f31c2a06b9c18736&quot;,</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="s1">    &quot;encrypted_b64&quot;: &quot;Mm5Gm68uHBTOzFCAcL87qg==&quot;,</span>
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="s1">    &quot;key_hex&quot;: &quot;a7380441512f607f4a7997a8fa9c3ce8&quot;,</span>
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="s1">    &quot;iv_hex&quot;: &quot;e4095539a20b5a14e8d60fa1eb198a30&quot;</span>
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="s1">  }&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="p">{</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct encryption!&quot;</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-27-deszyfrowanie-aes-256-cbc-z-pbkdf2">Zadanie 2.7 - Deszyfrowanie AES-256-CBC z PBKDF2</h2>
+<h3 id="polecenie_6">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2007</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2007/decrypt</code> - pobieranie zaszyfrowanego słowa, hasła i IV
+- <code>http://127.0.0.1:2007/submit</code> - wysyłanie odszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Odszyfruj otrzymane słowo algorytmem AES-256-CBC, gdzie klucz jest wygenerowany z hasła przy użyciu funkcji PBKDF2.</p>
+<h3 id="rozwiazanie_6">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_6">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2007</span>:2007<span class="w"> </span>--name<span class="w"> </span>ex7<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex7:latest
+</code></pre></div>
+<h4 id="b-pobranie-zaszyfrowanego-sowa-hasa-i-iv">(b) Pobranie zaszyfrowanego słowa, hasła i IV</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2007/decrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="p">{</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="w">  </span><span class="nt">&quot;encrypted_b64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KtkoczPXO7yY8w4bLJqSkvDUgFBZHTlXv/V02hFm/m4=&quot;</span><span class="p">,</span>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="w">  </span><span class="nt">&quot;iv_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;848962a1f03b9d2fc850b25621916697&quot;</span><span class="p">,</span>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jada411&quot;</span><span class="p">,</span>
+<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9407502f4a3b3236&quot;</span>
+<a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-deszyfrowanie-z-uzyciem-pbkdf2">(c) Deszyfrowanie z użyciem PBKDF2</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;KtkoczPXO7yY8w4bLJqSkvDUgFBZHTlXv/V02hFm/m4=&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cbc<span class="w"> </span>-pbkdf2<span class="w"> </span>-nosalt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="w">  </span>-pass<span class="w"> </span>pass:jada411<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="w">  </span>-iv<span class="w"> </span>848962a1f03b9d2fc850b25621916697
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="c1"># tashale</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie opcji:</strong>
+- <code>-pbkdf2</code> - użycie funkcji PBKDF2 do wyprowadzenia klucza z hasła
+- <code>-nosalt</code> - bez użycia soli (serwer nie użył soli podczas szyfrowania)
+- <code>-pass pass:jada411</code> - hasło do wygenerowania klucza</p>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_4">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2007/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;9407502f4a3b3236&quot;, &quot;decrypted_word&quot;: &quot;tashale&quot;}&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="p">{</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct decryption!&quot;</span>
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-28-deszyfrowanie-3des-z-pbkdf2">Zadanie 2.8 - Deszyfrowanie 3DES z PBKDF2</h2>
+<h3 id="polecenie_7">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2008</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2008/decrypt</code> - pobieranie zaszyfrowanego słowa, hasła i IV
+- <code>http://127.0.0.1:2008/submit</code> - wysyłanie odszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Odszyfruj otrzymane słowo algorytmem 3DES (Triple DES), gdzie klucz jest wygenerowany z hasła przy użyciu funkcji PBKDF2.</p>
+<h3 id="rozwiazanie_7">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_7">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2008</span>:2008<span class="w"> </span>--name<span class="w"> </span>ex8<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex8:latest
+</code></pre></div>
+<h4 id="b-pobranie-zaszyfrowanego-sowa-hasa-i-iv_1">(b) Pobranie zaszyfrowanego słowa, hasła i IV</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2008/decrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="p">{</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="w">  </span><span class="nt">&quot;encrypted_b64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6eobLY1Z5CaBqYbJlXOp7jH0X/V3ag4v&quot;</span><span class="p">,</span>
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="w">  </span><span class="nt">&quot;iv_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3fb1053dbbe64ab1&quot;</span><span class="p">,</span>
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;liltammy&quot;</span><span class="p">,</span>
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;818d77da3a56e766&quot;</span>
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-deszyfrowanie-algorytmem-3des">(c) Deszyfrowanie algorytmem 3DES</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;6eobLY1Z5CaBqYbJlXOp7jH0X/V3ag4v&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-des-ede3-cbc<span class="w"> </span>-pbkdf2<span class="w"> </span>-nosalt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">  </span>-pass<span class="w"> </span>pass:liltammy<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">  </span>-iv<span class="w"> </span>3fb1053dbbe64ab1
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="c1"># tehuti</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-des-ede3-cbc</code> - algorytm Triple DES w trybie CBC
+- Pozostałe opcje jak w zadaniu 2.7</p>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_5">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2008/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;818d77da3a56e766&quot;, &quot;decrypted_word&quot;: &quot;tehuti&quot;}&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="p">{</span>
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct decryption!&quot;</span>
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-29-deszyfrowanie-aes-256-ecb-z-pbkdf2-i-iteracjami">Zadanie 2.9 - Deszyfrowanie AES-256-ECB z PBKDF2 i iteracjami</h2>
+<h3 id="polecenie_8">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2009</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2009/decrypt</code> - pobieranie zaszyfrowanego słowa i hasła
+- <code>http://127.0.0.1:2009/submit</code> - wysyłanie odszyfrowanego słowa</p>
+<p><strong>Zadanie:</strong> Odszyfruj otrzymane słowo algorytmem AES-256-ECB, gdzie klucz jest wygenerowany z hasła przy użyciu funkcji PBKDF2 z liczbą iteracji równą 356.</p>
+<h3 id="rozwiazanie_8">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_8">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2009</span>:2009<span class="w"> </span>--name<span class="w"> </span>ex9<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex9:latest
+</code></pre></div>
+<h4 id="b-pobranie-zaszyfrowanego-sowa-i-hasa">(b) Pobranie zaszyfrowanego słowa i hasła</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2009/decrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="p">{</span>
+<a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="w">  </span><span class="nt">&quot;encrypted_b64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;akR4MPXY37jCadahU+8PDd60YwSFi1EVj1/xlLuadVE=&quot;</span><span class="p">,</span>
+<a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mousette&quot;</span><span class="p">,</span>
+<a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5d8ef91059b1fd21&quot;</span>
+<a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-deszyfrowanie-z-okreslona-liczba-iteracji">(c) Deszyfrowanie z określoną liczbą iteracji</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;akR4MPXY37jCadahU+8PDd60YwSFi1EVj1/xlLuadVE=&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-ecb<span class="w"> </span>-pbkdf2<span class="w"> </span>-iter<span class="w"> </span><span class="m">356</span><span class="w"> </span>-nosalt<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="w">  </span>-pass<span class="w"> </span>pass:mousette
+<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a><span class="c1"># wolves300</span>
+</code></pre></div>
+<p><strong>Wyjaśnienie opcji:</strong>
+- <code>-iter 356</code> - liczba iteracji PBKDF2 (domyślnie jest to 10000)</p>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_6">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2009/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;session_id&quot;: &quot;5d8ef91059b1fd21&quot;, &quot;decrypted_word&quot;: &quot;wolves300&quot;}&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="p">{</span>
+<a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct decryption!&quot;</span>
+<a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-210-identyfikacja-algorytmu-szyfrowania">Zadanie 2.10 - Identyfikacja algorytmu szyfrowania</h2>
+<h3 id="polecenie_9">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2010</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2010/decrypt</code> - pobieranie zaszyfrowanego słowa, klucza i IV (jeśli potrzebny)
+- <code>http://127.0.0.1:2010/submit</code> - wysyłanie odszyfrowanego słowa i nazwy algorytmu</p>
+<p><strong>Zadanie:</strong> Odgadnij, jaki algorytm został użyty do zaszyfrowania słowa, a następnie odszyfruj je i wyślij wraz z nazwą algorytmu.</p>
+<h3 id="rozwiazanie_9">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_9">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2010</span>:2010<span class="w"> </span>--name<span class="w"> </span>ex10<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex10:latest
+</code></pre></div>
+<h4 id="b-pobranie-zaszyfrowanego-sowa-i-kluczy">(b) Pobranie zaszyfrowanego słowa i kluczy</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2010/decrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="p">{</span>
+<a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="w">  </span><span class="nt">&quot;encrypted_b64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oqw1Pw0a97GikC+WgBWPSg==&quot;</span><span class="p">,</span>
+<a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="w">  </span><span class="nt">&quot;iv_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d97ea1490bb93d3a213b2c83a168c120&quot;</span><span class="p">,</span>
+<a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a><span class="w">  </span><span class="nt">&quot;key_hex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dffd6c3f2259c76bb480afd1a3d8d39b40341612b7bd8d9995c285272d9ad467&quot;</span><span class="p">,</span>
+<a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;f979b0cba9f6bb09&quot;</span>
+<a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-testowanie-roznych-algorytmow">(c) Testowanie różnych algorytmów</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="c1"># Test 1: AES-256-CBC</span>
+<a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Oqw1Pw0a97GikC+WgBWPSg==&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cbc<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a><span class="w">  </span>-K<span class="w"> </span>dffd6c3f2259c76bb480afd1a3d8d39b40341612b7bd8d9995c285272d9ad467<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a><span class="w">  </span>-iv<span class="w"> </span>d97ea1490bb93d3a213b2c83a168c120
+<a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a><span class="c1"># bad decrypt - błąd!</span>
+<a id="__codelineno-62-7" name="__codelineno-62-7" href="#__codelineno-62-7"></a>
+<a id="__codelineno-62-8" name="__codelineno-62-8" href="#__codelineno-62-8"></a><span class="c1"># Test 2: AES-256-CFB</span>
+<a id="__codelineno-62-9" name="__codelineno-62-9" href="#__codelineno-62-9"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Oqw1Pw0a97GikC+WgBWPSg==&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-10" name="__codelineno-62-10" href="#__codelineno-62-10"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cfb<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-11" name="__codelineno-62-11" href="#__codelineno-62-11"></a><span class="w">  </span>-K<span class="w"> </span>dffd6c3f2259c76bb480afd1a3d8d39b40341612b7bd8d9995c285272d9ad467<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-12" name="__codelineno-62-12" href="#__codelineno-62-12"></a><span class="w">  </span>-iv<span class="w"> </span>d97ea1490bb93d3a213b2c83a168c120
+<a id="__codelineno-62-13" name="__codelineno-62-13" href="#__codelineno-62-13"></a><span class="c1"># Daje wynik, ale niepoprawny</span>
+<a id="__codelineno-62-14" name="__codelineno-62-14" href="#__codelineno-62-14"></a>
+<a id="__codelineno-62-15" name="__codelineno-62-15" href="#__codelineno-62-15"></a><span class="c1"># Test 3: AES-256-CTR ✓</span>
+<a id="__codelineno-62-16" name="__codelineno-62-16" href="#__codelineno-62-16"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Oqw1Pw0a97GikC+WgBWPSg==&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-17" name="__codelineno-62-17" href="#__codelineno-62-17"></a><span class="w">  </span>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-ctr<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-18" name="__codelineno-62-18" href="#__codelineno-62-18"></a><span class="w">  </span>-K<span class="w"> </span>dffd6c3f2259c76bb480afd1a3d8d39b40341612b7bd8d9995c285272d9ad467<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-62-19" name="__codelineno-62-19" href="#__codelineno-62-19"></a><span class="w">  </span>-iv<span class="w"> </span>d97ea1490bb93d3a213b2c83a168c120
+<a id="__codelineno-62-20" name="__codelineno-62-20" href="#__codelineno-62-20"></a><span class="c1"># volusia - POPRAWNY ALGORYTM!</span>
+</code></pre></div>
+<p><strong>Strategia testowania:</strong>
+1. Sprawdź rozmiar klucza (256 bitów = 32 bajty = 64 znaki hex) → AES-256
+2. Sprawdź obecność IV → tryb wymaga IV (nie ECB)
+3. Testuj różne tryby: CBC, CFB, CTR, OFB itp.</p>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_7">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2010/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a><span class="s1">    &quot;session_id&quot;: &quot;f979b0cba9f6bb09&quot;,</span>
+<a id="__codelineno-63-5" name="__codelineno-63-5" href="#__codelineno-63-5"></a><span class="s1">    &quot;decrypted_word&quot;: &quot;volusia&quot;,</span>
+<a id="__codelineno-63-6" name="__codelineno-63-6" href="#__codelineno-63-6"></a><span class="s1">    &quot;algorithm&quot;: &quot;aes-256-ctr&quot;</span>
+<a id="__codelineno-63-7" name="__codelineno-63-7" href="#__codelineno-63-7"></a><span class="s1">  }&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="p">{</span>
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Correct decryption and algorithm!&quot;</span>
+<a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="zadanie-211-szyfrowanie-obrazka-aria-128-ctr">Zadanie 2.11 - Szyfrowanie obrazka ARIA-128-CTR</h2>
+<h3 id="polecenie_10">Polecenie</h3>
+<p>Pod adresem <code>http://127.0.0.1:2011</code> działa prosty serwer HTTP udostępniający 2 endpointy:
+- <code>http://127.0.0.1:2011/encrypt</code> - pobieranie obrazka do zaszyfrowania, klucza i IV
+- <code>http://127.0.0.1:2011/submit</code> - wysyłanie zaszyfrowanego obrazka</p>
+<p><strong>Zadanie:</strong> Zaszyfruj otrzymany obrazek algorytmem ARIA-128-CTR (bez paddingu) i wyślij wynik.</p>
+<h3 id="rozwiazanie_10">Rozwiązanie</h3>
+<h4 id="a-uruchomienie-serwera_10">(a) Uruchomienie serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">2011</span>:2011<span class="w"> </span>--name<span class="w"> </span>ex11<span class="w"> </span>docker.io/mazurkatarzyna/symmetric-enc-ex11:latest
+</code></pre></div>
+<h4 id="b-pobranie-danych-z-serwera">(b) Pobranie danych z serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://127.0.0.1:2011/encrypt<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="p">{</span>
+<a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a><span class="w">  </span><span class="nt">&quot;algorithm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ARIA-128-CTR&quot;</span><span class="p">,</span>
+<a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a><span class="w">  </span><span class="nt">&quot;image_data_base64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAIx0lEQVR4Xu...&quot;</span><span class="p">,</span>
+<a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a><span class="w">  </span><span class="nt">&quot;iv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;733ccdb7bcbd45fc4b350b03c27b4816&quot;</span><span class="p">,</span>
+<a id="__codelineno-67-5" name="__codelineno-67-5" href="#__codelineno-67-5"></a><span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eab8872a6aeb4f127aa5bfe7502e8e75&quot;</span><span class="p">,</span>
+<a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a><span class="w">  </span><span class="nt">&quot;key_size_bits&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span>
+<a id="__codelineno-67-7" name="__codelineno-67-7" href="#__codelineno-67-7"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a221fb5d-e092-4388-9182-ac46e009c7bd&quot;</span>
+<a id="__codelineno-67-8" name="__codelineno-67-8" href="#__codelineno-67-8"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="c-dekodowanie-obrazka-z-base64-i-szyfrowanie">(c) Dekodowanie obrazka z base64 i szyfrowanie</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a><span class="c1"># Krok 1: Dekodowanie obrazka z base64</span>
+<a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAIx0lEQVR4Xu...&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a><span class="w">  </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span>/tmp/image.png
+<a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a>
+<a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a><span class="c1"># Krok 2: Szyfrowanie obrazka algorytmem ARIA-128-CTR</span>
+<a id="__codelineno-68-6" name="__codelineno-68-6" href="#__codelineno-68-6"></a>openssl<span class="w"> </span>enc<span class="w"> </span>-e<span class="w"> </span>-aria-128-ctr<span class="w"> </span>-in<span class="w"> </span>/tmp/image.png<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-7" name="__codelineno-68-7" href="#__codelineno-68-7"></a><span class="w">  </span>-K<span class="w"> </span>eab8872a6aeb4f127aa5bfe7502e8e75<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-8" name="__codelineno-68-8" href="#__codelineno-68-8"></a><span class="w">  </span>-iv<span class="w"> </span>733ccdb7bcbd45fc4b350b03c27b4816<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-68-9" name="__codelineno-68-9" href="#__codelineno-68-9"></a><span class="w">  </span>base64<span class="w"> </span>-w<span class="w"> </span><span class="m">0</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/encrypted_image.b64
+</code></pre></div>
+<p><strong>Wyjaśnienie:</strong>
+- <code>-in /tmp/image.png</code> - plik wejściowy
+- <code>base64 -w 0</code> - kodowanie do base64 bez zawijania linii
+- Tryb CTR nie wymaga paddingu</p>
+<h4 id="d-wysanie-odpowiedzi-do-serwera_8">(d) Wysłanie odpowiedzi do serwera</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="nv">ENCRYPTED_DATA</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/tmp/encrypted_image.b64<span class="k">)</span>
+<a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://127.0.0.1:2011/submit<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a><span class="w">  </span>-d<span class="w"> </span><span class="s2">&quot;{\&quot;session_id\&quot;: \&quot;a221fb5d-e092-4388-9182-ac46e009c7bd\&quot;, \&quot;encrypted_data\&quot;: \&quot;</span><span class="nv">$ENCRYPTED_DATA</span><span class="s2">\&quot;}&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="p">{</span>
+<a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a><span class="w">  </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a><span class="w">    </span><span class="nt">&quot;algorithm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ARIA-128-CTR&quot;</span><span class="p">,</span>
+<a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a><span class="w">    </span><span class="nt">&quot;encrypted_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2304</span><span class="p">,</span>
+<a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a><span class="w">    </span><span class="nt">&quot;image_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;studio_microphone.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a><span class="w">    </span><span class="nt">&quot;key_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;128 bits&quot;</span>
+<a id="__codelineno-70-7" name="__codelineno-70-7" href="#__codelineno-70-7"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-70-8" name="__codelineno-70-8" href="#__codelineno-70-8"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;✅ Gratulacje! Prawidłowo zaszyfrowałeś obrazek \&quot;studio_microphone.png\&quot; używając ARIA-128-CTR!&quot;</span><span class="p">,</span>
+<a id="__codelineno-70-9" name="__codelineno-70-9" href="#__codelineno-70-9"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-70-10" name="__codelineno-70-10" href="#__codelineno-70-10"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="podsumowanie">Podsumowanie</h2>
+<h3 id="poznane-algorytmy-szyfrowania">Poznane algorytmy szyfrowania</h3>
+<table>
+<thead>
+<tr>
+<th>Algorytm</th>
+<th>Rozmiar klucza</th>
+<th>Tryby</th>
+<th>Uwagi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AES</strong></td>
+<td>128, 192, 256 bit</td>
+<td>ECB, CBC, CTR, CFB</td>
+<td>Najbardziej popularny</td>
+</tr>
+<tr>
+<td><strong>CAMELLIA</strong></td>
+<td>128, 192, 256 bit</td>
+<td>ECB, CBC, CTR, CFB</td>
+<td>Alternatywa dla AES</td>
+</tr>
+<tr>
+<td><strong>ARIA</strong></td>
+<td>128, 192, 256 bit</td>
+<td>ECB, CBC, CTR, CFB</td>
+<td>Koreański standard</td>
+</tr>
+<tr>
+<td><strong>3DES</strong></td>
+<td>168 bit (efektywnie 112)</td>
+<td>CBC, ECB</td>
+<td>Przestarzały, używany dla kompatybilności</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tryby-pracy">Tryby pracy</h3>
+<ul>
+<li><strong>ECB</strong> (Electronic Codebook) - tylko klucz, nie bezpieczny dla dłuższych danych</li>
+<li><strong>CBC</strong> (Cipher Block Chaining) - klucz + IV, bezpieczniejszy</li>
+<li><strong>CTR</strong> (Counter) - klucz + IV, może szyfrować równolegle</li>
+<li><strong>CFB</strong> (Cipher Feedback) - klucz + IV, szyfrowanie strumienia</li>
+</ul>
+<h3 id="wazne-komendy-openssl">Ważne komendy OpenSSL</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="c1"># Szyfrowanie</span>
+<a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>openssl<span class="w"> </span>enc<span class="w"> </span>-e<span class="w"> </span>-&lt;algorytm&gt;<span class="w"> </span>-K<span class="w"> </span>&lt;klucz_hex&gt;<span class="w"> </span>-iv<span class="w"> </span>&lt;iv_hex&gt;<span class="w"> </span>-a
+<a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>
+<a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a><span class="c1"># Deszyfrowanie</span>
+<a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-&lt;algorytm&gt;<span class="w"> </span>-K<span class="w"> </span>&lt;klucz_hex&gt;<span class="w"> </span>-iv<span class="w"> </span>&lt;iv_hex&gt;
+<a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a>
+<a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a><span class="c1"># Z użyciem PBKDF2</span>
+<a id="__codelineno-71-8" name="__codelineno-71-8" href="#__codelineno-71-8"></a>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-&lt;algorytm&gt;<span class="w"> </span>-pbkdf2<span class="w"> </span>-pass<span class="w"> </span>pass:&lt;hasło&gt;<span class="w"> </span>-iv<span class="w"> </span>&lt;iv_hex&gt;
+<a id="__codelineno-71-9" name="__codelineno-71-9" href="#__codelineno-71-9"></a>
+<a id="__codelineno-71-10" name="__codelineno-71-10" href="#__codelineno-71-10"></a><span class="c1"># Generowanie losowego klucza</span>
+<a id="__codelineno-71-11" name="__codelineno-71-11" href="#__codelineno-71-11"></a>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span>&lt;liczba_bajtów&gt;
+</code></pre></div>
+<h3 id="uwagi-koncowe">Uwagi końcowe</h3>
+<ul>
+<li>Zawsze używaj <code>echo -n</code> przy szyfrowaniu tekstów</li>
+<li>Pamiętaj o kolejności: dekodowanie base64 → deszyfrowanie</li>
+<li>Przy szyfrowaniu: szyfrowanie → kodowanie base64</li>
+<li>IV (Initialization Vector) musi być losowy dla każdej operacji</li>
+<li>PBKDF2 służy do bezpiecznego wyprowadzania klucza z hasła</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2024 <a href="https://github.com/alezab"  target="_blank" rel="noopener">alezab</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/alezab" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
